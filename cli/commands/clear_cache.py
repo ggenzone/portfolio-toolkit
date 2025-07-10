@@ -2,9 +2,10 @@ import os
 import glob
 
 def run(args):
-    files = glob.glob('temp/*.pkl')
+    cache_dir = "/tmp/portfolio_tools_cache"
+    files = glob.glob(f'{cache_dir}/*.pkl')
     if not files:
-        print("No cache files found in temp/.")
+        print(f"No cache files found in {cache_dir}/.")
         return
     for file in files:
         try:

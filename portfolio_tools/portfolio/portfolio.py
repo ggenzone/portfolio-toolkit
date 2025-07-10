@@ -1,7 +1,7 @@
 from datetime import datetime
-from portfolio.parser import load_json
-from portfolio.preprocesador import preprocess_data
-from portfolio.plot import plot_composition, plot_evolution, plot_evolution_stacked, plot_evolution_vs_cost, plot_evolution_ticker
+from portfolio_tools.portfolio.parser import load_json
+from portfolio_tools.portfolio.preprocesador import preprocess_data
+from portfolio_tools.portfolio.plot import plot_composition, plot_evolution, plot_evolution_stacked, plot_evolution_vs_cost, plot_evolution_ticker
 
 class Portfolio:
     """
@@ -95,5 +95,5 @@ class Portfolio:
         plot_evolution_ticker(self.df_portfolio, ticker)
 
     def print_current_positions(self):
-        from portfolio.printer import print_current_positions
+        from portfolio_tools.portfolio.printer import print_current_positions
         print_current_positions(self.df_portfolio)

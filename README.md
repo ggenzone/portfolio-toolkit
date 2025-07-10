@@ -1,12 +1,87 @@
-# Finanzas Library Documentation
+# Portfolio-tools Library Documentation
 
 This library provides tools for financial analysis, portfolio management, and market data visualization.
 
 ## Installation
 
+Install from the project root (local development):
+
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
+Or in editable mode (recommended for development):
+```bash
+pip install -e .
+```
+
+To uninstall:
+```bash
+pip uninstall portfolio-tools
+```
+
+## Command Line Interface (CLI)
+
+After installation, you can use the CLI tool:
+
+```bash
+portfolio-tools --help
+```
+
+### Example CLI Usage
+
+```bash
+portfolio-tools -v
+```
+Shows the CLI version.
+
+```bash
+portfolio-tools composition -f portfolio.json
+```
+Plots the composition of the portfolio defined in the file `portfolio.json`.
+
+```bash
+portfolio-tools correlation -t AAPL,MSFT,GOOGL
+```
+Calculates the correlation between all pairs of the specified tickers.
+
+```bash
+portfolio-tools plot -t AAPL,MSFT,GOOGL
+```
+Plots the price evolution of the specified assets, showing their historical prices in a single chart.
+
+```bash
+portfolio-tools print-positions -f portfolio.json
+```
+Prints a table of current portfolio positions from the file `portfolio.json`.
+
+```bash
+portfolio-tools clear-cache
+```
+Deletes all cache files in the `temp/` directory (files ending with `.pkl`).
+
+```bash
+portfolio-tools ticker-info -t AAPL
+```
+Shows detailed information for a ticker in a formatted table.
+
+### Available commands
+
+- `composition`: Plots the portfolio composition.
+  - `-f`, `--file`: Path to the portfolio file in JSON format (required).
+- `correlation`: Calculates the correlation between all pairs of a list of tickers.
+  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required).
+- `plot`: Plots the price evolution of a list of assets.
+  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required).
+- `print-positions`: Prints a table of current portfolio positions.
+  - `-f`, `--file`: Path to the portfolio file in JSON format (required).
+- `clear-cache`: Deletes all cache files in the `temp/` directory.
+- `-v`, `--version`: Shows the CLI version.
+- `ticker-info`: Shows detailed information for a ticker in a formatted table.
+  - `-t`, `--ticker`: Ticker symbol (e.g. AAPL) (required).
+
+---
+
+# Library Usage
 
 ## Main Modules
 
@@ -17,8 +92,8 @@ The `Portfolio` class allows you to manage and analyze an investment portfolio.
 #### Initialization
 
 ```python
-from portfolio.portfolio import Portfolio
-from data_provider.yf_data_provider import YFDataProvider
+from portfolio_tools.portfolio.portfolio import Portfolio
+from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
 
 # Create the data provider
 data_provider = YFDataProvider()
@@ -32,7 +107,7 @@ portfolio = Portfolio(json_filepath="portfolio_example.json", data_provider=data
 ```python
 # Pie chart of current portfolio composition
 df = portfolio.df_portfolio
-from portfolio.plot import plot_composition, plot_evolution_ticker, plot_evolution_vs_cost, plot_evolution_stacked
+from portfolio_tools.portfolio.plot import plot_composition, plot_evolution_ticker, plot_evolution_vs_cost, plot_evolution_stacked
 plot_composition(df)
 
 # Evolution of a specific ticker
@@ -53,7 +128,7 @@ The `YFDataProvider` module provides access to historical market data using Yaho
 #### Initialization and Basic Usage
 
 ```python
-from data_provider.yf_data_provider import YFDataProvider
+from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
 
 # Create instance
 data_provider = YFDataProvider()
@@ -73,8 +148,8 @@ data = data_provider.get_raw_data('AAPL', period="5y")
 #### Return and Correlation Analysis
 
 ```python
-from math.log_returns import calculate_log_returns
-from math.correlation import calculate_correlation
+from portfolio_tools.utils.log_returns import calculate_log_returns
+from portfolio_tools.utils.correlation import calculate_correlation
 
 # Calculate log returns
 returns_aapl = calculate_log_returns(data_provider.get_price_series('AAPL'))
@@ -166,9 +241,9 @@ Visualization functions use `matplotlib` and are designed to provide different v
 ### Correlation Analysis Between Assets
 
 ```python
-from data_provider.yf_data_provider import YFDataProvider
-from math.log_returns import calculate_log_returns
-from math.correlation import calculate_correlation
+from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+from portfolio_tools.utils.log_returns import calculate_log_returns
+from portfolio_tools.utils.correlation import calculate_correlation
 
 data_provider = YFDataProvider()
 tickers = ['AAPL', 'MSFT', 'GOOGL']
@@ -188,62 +263,11 @@ dates, values = portfolio.calculate_value()
 print(f"Current portfolio value: ${values[-1]:,.2f}")
 
 # Analyze composition by sector
-from portfolio.plot import plot_composition
+from portfolio_tools.portfolio.plot import plot_composition
 plot_composition(portfolio.df_portfolio, group_by="sector")
 ```
 
-## CLI
-
-The project includes a command-line interface (`cli.py`) to facilitate common tasks without programming.
-
-### Usage Example
-
-```bash
-python cli.py -v
-```
-Shows the CLI version.
-
-```bash
-python cli.py composition -f portfolio.json
-```
-Plots the composition of the portfolio defined in the file `portfolio.json`.
-
-```bash
-python cli.py correlation -t AAPL,MSFT,GOOGL
-```
-Calculates the correlation between all pairs of the specified tickers.
-
-```bash
-python cli.py plot -t AAPL,MSFT,GOOGL
-```
-Plots the price evolution of the specified assets, showing their historical prices in a single chart.
-
-```bash
-python cli.py print-positions -f portfolio.json
-```
-Prints a table of current portfolio positions from the file `portfolio.json`.
-
-```bash
-python cli.py clear-cache
-```
-Deletes all cache files in the `temp/` directory (files ending with `.pkl`).
-
-### Available commands
-
-- `composition`: Plots the portfolio composition.
-  - `-f`, `--file`: Path to the portfolio file in JSON format (required).
-- `correlation`: Calculates the correlation between all pairs of a list of tickers.
-  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required).
-- `plot`: Plots the price evolution of a list of assets.
-  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required).
-- `print-positions`: Prints a table of current portfolio positions.
-  - `-f`, `--file`: Path to the portfolio file in JSON format (required).
-- `clear-cache`: Deletes all cache files in the `temp/` directory.
-- `-v`, `--version`: Shows the CLI version.
-- `ticker-info`: Shows detailed information for a ticker in a formatted table.
-  - `-t`, `--ticker`: Ticker symbol (e.g. AAPL) (required).
-
-You can extend the CLI by adding more commands in the `cli.py` file and the `commands/` folder.
+---
 
 ## To Do
 
