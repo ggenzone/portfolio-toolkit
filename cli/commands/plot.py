@@ -1,5 +1,5 @@
-from data_provider.yf_data_provider import YFDataProvider
-from plot.plot_assets import plot_assets
+from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+from portfolio_tools.plot.plot_assets import plot_assets
 
 def run(args):
     data_provider = YFDataProvider()

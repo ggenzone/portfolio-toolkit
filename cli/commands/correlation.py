@@ -1,6 +1,6 @@
-from data_provider.yf_data_provider import YFDataProvider
-from utils.correlation import calculate_correlation
-from utils.log_returns import calculate_log_returns
+from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+from portfolio_tools.utils.correlation import calculate_correlation
+from portfolio_tools.utils.log_returns import calculate_log_returns
 
 def run(args):
     data_provider = YFDataProvider()

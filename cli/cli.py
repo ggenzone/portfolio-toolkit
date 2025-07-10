@@ -1,10 +1,10 @@
 import argparse
-from commands.composition import run as run_composition
-from commands.correlation import run as run_correlation
-from commands.plot import run as run_plot
-from commands.print_positions import run as run_print_positions
-from commands.clear_cache import run as run_clear_cache
-from commands.ticker_info import run as run_ticker_info
+from cli.commands.composition import run as run_composition
+from cli.commands.correlation import run as run_correlation
+from cli.commands.plot import run as run_plot
+from cli.commands.print_positions import run as run_print_positions
+from cli.commands.clear_cache import run as run_clear_cache
+from cli.commands.ticker_info import run as run_ticker_info
 
 
 def main():

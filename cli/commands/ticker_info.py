@@ -1,4 +1,4 @@
-from data_provider.yf_data_provider import YFDataProvider
+from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
 from tabulate import tabulate
 
 def run(args):

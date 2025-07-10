@@ -57,7 +57,7 @@ class YFDataProvider(DataProvider):
         """
         self.cache = {}
 
-    def __load_ticker(self, ticker, periodo="5y"):
+    def __load_ticker(self, ticker, periodo="5y", auto_adjust=True):
         """
         Private method to load ticker data into the cache. If the file exists, it loads it;
         otherwise, it downloads the data and saves it to a file.
@@ -65,14 +65,14 @@ class YFDataProvider(DataProvider):
         Args:
             ticker (str): The ticker symbol.
             periodo (str): The time period for historical data (default "5y").
+            auto_adjust (bool): Whether to automatically adjust prices for splits/dividends (default True).
 
         Returns:
             pd.DataFrame: The historical data for the ticker.
         """
-        archivo_existente = f"temp/{datetime.now().strftime('%Y%m%d')}-{ticker}_historical_data.pkl"
-
-        # Ensure temp directory exists
-        os.makedirs("temp", exist_ok=True)
+        cache_dir = "/tmp/portfolio_tools_cache"
+        os.makedirs(cache_dir, exist_ok=True)
+        archivo_existente = f"{cache_dir}/{datetime.now().strftime('%Y%m%d')}-{ticker}_historical_data.pkl"
 
         if ticker in self.cache:
             # print(f"Using cached data for {ticker}")
@@ -83,7 +83,7 @@ class YFDataProvider(DataProvider):
             datos = pd.read_pickle(archivo_existente)
         else:
             # print(f"Downloading data for {ticker}")
-            datos = yf.download(ticker, period=periodo)
+            datos = yf.download(ticker, period=periodo, auto_adjust=auto_adjust, progress=False)
             datos.to_pickle(archivo_existente)
             # print(f"Data saved as binary in '{archivo_existente}'")
 
