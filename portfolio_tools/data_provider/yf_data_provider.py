@@ -56,10 +56,11 @@ class YFDataProvider(DataProvider):
 
     def __init__(self):
         """
-        Initializes the YFDataProvider class with in-memory caches for ticker data and info.
+        Initializes the YFDataProvider class with in-memory caches for ticker data, info, and currencies.
         """
         self.cache = {}
         self.info_cache = {}
+        self.currency_cache = {}
 
     def __load_ticker(self, ticker, periodo="5y", auto_adjust=True):
         """
@@ -109,7 +110,9 @@ class YFDataProvider(DataProvider):
         """
         cache_dir = "/tmp/portfolio_tools_cache"
         os.makedirs(cache_dir, exist_ok=True)
-        archivo_existente = f"{cache_dir}/{datetime.now().strftime('%Y%m%d')}-{ticker}_info.pkl"
+        archivo_existente = (
+            f"{cache_dir}/{datetime.now().strftime('%Y%m%d')}-{ticker}_info.pkl"
+        )
 
         if ticker in self.info_cache:
             # print(f"Using cached info for {ticker}")
@@ -127,6 +130,112 @@ class YFDataProvider(DataProvider):
 
         self.info_cache[ticker] = info
         return info
+
+    def __load_ticker_currency(self, ticker):
+        """
+        Private method to load and cache ticker currency to avoid repeated calculations.
+
+        Args:
+            ticker (str): The ticker symbol.
+
+        Returns:
+            str: The currency code (e.g., 'USD', 'EUR', 'CAD').
+        """
+        if ticker in self.currency_cache:
+            return self.currency_cache[ticker]
+
+        # Special cases for known tickers
+        currency_map = {
+            # European stocks
+            "ASML": "EUR",
+            "SAP": "EUR",
+            "ADYEN": "EUR",
+            # Canadian stocks
+            "SHOP": "CAD",
+            "CNQ": "CAD",
+            "TRI": "CAD",
+            # UK stocks
+            "SHEL": "GBP",
+            "AZN": "GBP",
+            "ULVR": "GBP",
+            # Currency pairs
+            "EURUSD=X": "USD",
+            "GBPUSD=X": "USD",
+            "USDCAD=X": "USD",
+            "USDARS=X": "USD",
+            # Commodities (typically USD)
+            "GC=F": "USD",  # Gold
+            "CL=F": "USD",  # Oil
+            "BZ=F": "USD",  # Brent
+        }
+
+        # Check if ticker is in our special map
+        if ticker in currency_map:
+            currency = currency_map[ticker]
+        else:
+            try:
+                info = self.get_ticker_info(ticker)
+                # Try different possible currency fields in the info
+                currency = (
+                    info.get("currency")
+                    or info.get("financialCurrency")
+                    or info.get("tradeCurrency")
+                )
+
+                if currency:
+                    currency = currency.upper()
+                else:
+                    # Default to USD if no currency information is found
+                    currency = "USD"
+            except Exception:
+                # If there's any error getting info, default to USD
+                currency = "USD"
+
+        # Cache the result
+        self.currency_cache[ticker] = currency
+        return currency
+
+    def __get_currency_pair_ticker(self, from_currency, to_currency):
+        """
+        Private method to get the Yahoo Finance ticker for a currency pair.
+
+        Args:
+            from_currency (str): Source currency code (e.g., 'USD').
+            to_currency (str): Target currency code (e.g., 'EUR').
+
+        Returns:
+            str: Yahoo Finance currency pair ticker (e.g., 'USDEUR=X').
+        """
+        if from_currency == to_currency:
+            return None
+
+        # Common currency pairs in Yahoo Finance format
+        currency_pairs = {
+            ("USD", "EUR"): "USDEUR=X",
+            ("EUR", "USD"): "EURUSD=X",
+            ("USD", "CAD"): "USDCAD=X",
+            ("CAD", "USD"): "CADUSD=X",
+            ("USD", "GBP"): "USDGBP=X",
+            ("GBP", "USD"): "GBPUSD=X",
+            ("EUR", "CAD"): "EURCAD=X",
+            ("CAD", "EUR"): "CADEUR=X",
+            ("EUR", "GBP"): "EURGBP=X",
+            ("GBP", "EUR"): "GBPEUR=X",
+            ("CAD", "GBP"): "CADGBP=X",
+            ("GBP", "CAD"): "GBPCAD=X",
+        }
+
+        pair = (from_currency, to_currency)
+        if pair in currency_pairs:
+            return currency_pairs[pair]
+
+        # If not found, try the reverse pair
+        reverse_pair = (to_currency, from_currency)
+        if reverse_pair in currency_pairs:
+            return currency_pairs[reverse_pair]
+
+        # If still not found, construct the ticker (may not work for all pairs)
+        return f"{from_currency}{to_currency}=X"
 
     def get_price(self, ticker, fecha):
         """
@@ -195,6 +304,68 @@ class YFDataProvider(DataProvider):
         """
         return self.__load_ticker_info(ticker)
 
+    def get_price_series_converted(self, ticker, target_currency, columna="Close"):
+        """
+        Gets the price series of an asset converted to a target currency.
+
+        Args:
+            ticker (str): The ticker symbol.
+            target_currency (str): Target currency code (e.g., 'EUR', 'USD', 'CAD').
+            columna (str): The price column to get (default "Close").
+
+        Returns:
+            pd.Series: Price series of the asset converted to target currency.
+        """
+        # Get original price series
+        original_prices = self.get_price_series(ticker, columna)
+
+        # Get the ticker's original currency
+        original_currency = self.__load_ticker_currency(ticker)
+
+        # If currencies are the same, return original prices
+        if original_currency == target_currency:
+            return original_prices
+
+        # Get currency pair ticker
+        currency_pair_ticker = self.__get_currency_pair_ticker(
+            original_currency, target_currency
+        )
+
+        if currency_pair_ticker is None:
+            raise ValueError(
+                f"Cannot convert from {original_currency} to {target_currency}: same currency"
+            )
+
+        # Get exchange rate series
+        try:
+            exchange_rates = self.get_price_series(currency_pair_ticker, "Close")
+        except Exception as e:
+            raise ValueError(
+                f"Cannot get exchange rates for {original_currency} to {target_currency}: {e}"
+            )
+
+        # Check if we need to invert the rates
+        pair_to_from = self.__get_currency_pair_ticker(
+            target_currency, original_currency
+        )
+
+        if currency_pair_ticker == pair_to_from:
+            # We got the inverse pair, so we need to invert the rates
+            exchange_rates = 1 / exchange_rates
+
+        # Align the series by date (inner join to only keep common dates)
+        aligned_prices, aligned_rates = original_prices.align(
+            exchange_rates, join="inner"
+        )
+
+        # Convert prices
+        converted_prices = aligned_prices * aligned_rates
+
+        # Set name to indicate conversion
+        converted_prices.name = f"{ticker}_{columna}_{target_currency}"
+
+        return converted_prices
+
     def get_ticker_currency(self, ticker):
         """
         Gets the currency of a ticker from its info.
@@ -205,16 +376,4 @@ class YFDataProvider(DataProvider):
         Returns:
             str: The currency code (e.g., 'USD', 'EUR', 'CAD') or 'USD' as default.
         """
-        try:
-            info = self.get_ticker_info(ticker)
-            # Try different possible currency fields in the info
-            currency = info.get('currency') or info.get('financialCurrency') or info.get('tradeCurrency')
-            
-            if currency:
-                return currency.upper()
-            else:
-                # Default to USD if no currency information is found
-                return 'USD'
-        except Exception:
-            # If there's any error getting info, default to USD
-            return 'USD'
+        return self.__load_ticker_currency(ticker)

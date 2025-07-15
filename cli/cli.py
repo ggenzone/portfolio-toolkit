@@ -45,6 +45,12 @@ def main():
     ticker_info_parser = subparsers.add_parser("ticker-info", help="Show detailed ticker information")
     ticker_info_parser.add_argument("ticker", help="Ticker symbol (e.g., AAPL, SHOP)")
 
+    # Convert currency command
+    convert_parser = subparsers.add_parser("convert-currency", help="Convert ticker prices to different currency")
+    convert_parser.add_argument("ticker", help="Ticker symbol (e.g., AAPL, SHOP)")
+    convert_parser.add_argument("currency", help="Target currency (e.g., EUR, USD, CAD)")
+    convert_parser.add_argument("--days", type=int, default=5, help="Number of recent days to show (default: 5)")
+
     args = parser.parse_args()
 
     if args.command == 'composition':
@@ -63,6 +69,9 @@ def main():
         run_clear_cache(args)
     elif args.command == "ticker-info":
         from cli.commands.ticker_info import run
+        run(args)
+    elif args.command == "convert-currency":
+        from cli.commands.convert_currency import run
         run(args)
     else:
         parser.print_help()
