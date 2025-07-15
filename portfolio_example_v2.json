@@ -1,0 +1,123 @@
+{
+  "name": "My Example Portfolio",
+  "currency": "EUR",
+  "transactions": [
+    {
+      "ticker": null,
+      "date": "2025-06-10",
+      "type": "deposit",
+      "quantity": 3000.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 3000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 3000.00,
+      "fees_base": 0.00,
+      "total_base": 3000.00
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-12",
+      "type": "buy",
+      "quantity": 10,
+      "price": 100,
+      "currency": "USD",
+      "total": 1000.00,
+      "exchange_rate": 1.056,
+      "subtotal_base": 946.97,
+      "fees_base": 0.50,
+      "total_base": 947.47
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-13",
+      "type": "buy",
+      "quantity": 2,
+      "price": 200,
+      "currency": "USD",
+      "total": 400.00,
+      "exchange_rate": 1.0629,
+      "subtotal_base": 376.36,
+      "fees_base": 0.50,
+      "total_base": 376.86
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-16",
+      "type": "sell",
+      "quantity": 5,
+      "price": 100,
+      "currency": "USD",
+      "total": 500.00,
+      "exchange_rate": 1.0580,
+      "subtotal_base": 472.81,
+      "fees_base": 0.50,
+      "total_base": 472.31
+    },
+    {
+      "ticker": "SHOP",
+      "date": "2025-06-18",
+      "type": "buy",
+      "quantity": 3,
+      "price": 75.50,
+      "currency": "CAD",
+      "total": 226.50,
+      "exchange_rate": 1.425,
+      "subtotal_base": 159.00,
+      "fees_base": 1.00,
+      "total_base": 160.00
+    },
+    {
+      "ticker": "SHOP",
+      "date": "2025-06-19",
+      "type": "buy",
+      "quantity": 5,
+      "price": 80.00,
+      "currency": "CAD",
+      "total": 400.00,
+      "exchange_rate": 1.430,
+      "subtotal_base": 279.72,
+      "fees_base": 1.50,
+      "total_base": 281.22
+    },
+    {
+      "ticker": "SHOP",
+      "date": "2025-06-22",
+      "type": "sell",
+      "quantity": 4,
+      "price": 85.00,
+      "currency": "CAD",
+      "total": 340.00,
+      "exchange_rate": 1.420,
+      "subtotal_base": 239.44,
+      "fees_base": 1.20,
+      "total_base": 238.24
+    },
+    {
+      "ticker": null,
+      "date": "2025-06-20",
+      "type": "deposit",
+      "quantity": 1500.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 1500.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1500.00,
+      "fees_base": 0.00,
+      "total_base": 1500.00
+    },
+    {
+      "ticker": null,
+      "date": "2025-06-25",
+      "type": "withdrawal",
+      "quantity": 800.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 800.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 800.00,
+      "fees_base": 5.00,
+      "total_base": 805.00
+    }
+  ]
+}

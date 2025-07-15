@@ -1,0 +1,58 @@
+{
+  "name": "FIFO Test Portfolio",
+  "currency": "EUR",
+  "transactions": [
+    {
+      "ticker": null,
+      "date": "2025-06-10",
+      "type": "deposit",
+      "quantity": 3000.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 3000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 3000.00,
+      "fees_base": 0.00,
+      "total_base": 3000.00
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-12",
+      "type": "buy",
+      "quantity": 10,
+      "price": 100,
+      "currency": "USD",
+      "total": 1000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1000.00,
+      "fees_base": 0.50,
+      "total_base": 1000.50
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-13",
+      "type": "buy",
+      "quantity": 5,
+      "price": 200,
+      "currency": "USD",
+      "total": 1000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1000.00,
+      "fees_base": 0.50,
+      "total_base": 1000.50
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-14",
+      "type": "sell",
+      "quantity": 8,
+      "price": 150,
+      "currency": "USD",
+      "total": 1200.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1200.00,
+      "fees_base": 0.50,
+      "total_base": 1199.50
+    }
+  ]
+}

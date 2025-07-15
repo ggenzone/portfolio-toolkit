@@ -53,7 +53,14 @@ logs/
 temp/
 *.pkl
 *.csv
-*.json
 *.ods
+
+# Documentation build files
+docs/_build/
+docs/api/
+docs/.doctrees/
+
+# Sphinx generated files
+.buildinfo
 
 porfolio.json

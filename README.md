@@ -1,6 +1,69 @@
 # Portfolio-tools Library Documentation
 
-This library provides tools for financial analysis, portfolio management, and market data visualization.
+![Documentation](https://img.shields.io/badge/docs-sphinx-brightgreen.svg)
+![Tests](https://github.com/ggenzone/portfolio-tools/workflows/Tests%20and%20Quality%20Checks/badge.svg)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)
+
+This library provides tools for financial analysis, portfolio management, and market data visualization with comprehensive multi-currency support and FIFO cost calculation.
+
+## 📚 Documentation
+
+**[📖 Full Documentation](https://ggenzone.github.io/portfolio-tools/)** - Complete API reference, user guides, and examples
+
+### Quick Documentation Links
+
+- **[Getting Started](https://ggenzone.github.io/portfolio-tools/examples/basic_usage.html)** - Basic usage examples
+- **[Multi-Currency Support](https://ggenzone.github.io/portfolio-tools/examples/multi_currency.html)** - Working with multiple currencies
+- **[Portfolio JSON Format](https://ggenzone.github.io/portfolio-tools/user_guide/portfolio_format.html)** - Complete format specification
+- **[API Reference](https://ggenzone.github.io/portfolio-tools/api/modules.html)** - Full API documentation
+
+### Building Documentation Locally
+
+```bash
+# Install documentation dependencies
+pip install sphinx sphinx-rtd-theme
+
+# Build documentation
+./manage_docs.sh build
+
+# Serve documentation locally
+./manage_docs.sh serve
+
+# Auto-rebuild on changes
+./manage_docs.sh watch
+```
+
+## Code Quality
+
+This project maintains high code quality standards using:
+
+- **Black** - Code formatting
+- **isort** - Import sorting  
+- **flake8** - Linting
+- **pytest** - Testing
+
+### Quick Quality Checks
+
+```bash
+# Run all quality checks
+./check_quality.sh
+
+# Auto-format code
+./format_code.sh
+
+# Individual tools
+black portfolio_tools/      # Format code
+isort portfolio_tools/      # Sort imports
+flake8 portfolio_tools/     # Lint code
+pytest tests/              # Run tests
+```
+
+### Configuration
+
+Code quality tools are configured in `pyproject.toml` and `setup.cfg`:
+- Line length: 88 characters
+- Black and isort profiles: compatible
+- flake8 ignores: E203, E501, W503
 
 ## Installation
 
@@ -63,6 +126,12 @@ Deletes all cache files in the `temp/` directory (files ending with `.pkl`).
 portfolio-tools ticker-info -t AAPL
 ```
 Shows detailed information for a ticker in a formatted table.
+
+### Local CLI Usage
+
+```bash
+python -m cli.cli -v
+```
 
 ### Available commands
 
@@ -195,31 +264,124 @@ This allows code to be agnostic to the data provider type and makes it easy to a
 
 ## Portfolio JSON Structure
 
-The JSON file to load a portfolio must have the following structure:
+The JSON file to load a portfolio must have the following structure (Portfolio V2 format):
 
 ```json
-[
-  {
-    "ticker": "AAPL",
-    "transactions": [
-      {
-        "date": "2023-03-15",
-        "type": "buy",
-        "quantity": 100,
-        "price": 150.25,
-        "currency": "USD",
-        "total": 15025.00,
-        "exchange_rate": 1.0876,
-        "subtotal_eur": 13814.82,
-        "fees_eur": 34.54,
-        "total_eur": 13849.36
-      }
-    ],
-    "sector": "Technology",
-    "country": "USA"
-  }
-]
+{
+  "name": "My Portfolio",
+  "currency": "EUR",
+  "transactions": [
+    {
+      "ticker": null,
+      "date": "2025-06-10",
+      "type": "deposit",
+      "quantity": 1000.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 1000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1000.00,
+      "fees_base": 0.00,
+      "total_base": 1000.00
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-12",
+      "type": "buy",
+      "quantity": 10,
+      "price": 100.00,
+      "currency": "USD",
+      "total": 1000.00,
+      "exchange_rate": 1.056,
+      "subtotal_base": 947.00,
+      "fees_base": 0.50,
+      "total_base": 947.50
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-13",
+      "type": "sell",
+      "quantity": 5,
+      "price": 110.00,
+      "currency": "USD",
+      "total": 550.00,
+      "exchange_rate": 1.058,
+      "subtotal_base": 519.85,
+      "fees_base": 0.50,
+      "total_base": 519.35
+    },
+    {
+      "ticker": null,
+      "date": "2025-06-20",
+      "type": "withdrawal",
+      "quantity": 200.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 200.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 200.00,
+      "fees_base": 5.00,
+      "total_base": 205.00
+    }
+  ]
+}
 ```
+
+### Portfolio Structure Fields
+
+- **`name`**: Portfolio name (string)
+- **`currency`**: Base currency for the portfolio (e.g., "EUR", "USD", "CAD")
+- **`transactions`**: Array of all transactions (deposits, withdrawals, buys, sells)
+
+### Transaction Fields
+
+Each transaction must include:
+
+- **`ticker`**: Stock ticker symbol (e.g., "AAPL") or `null` for cash transactions
+- **`date`**: Transaction date in "YYYY-MM-DD" format
+- **`type`**: Transaction type: "buy", "sell", "deposit", "withdrawal"
+- **`quantity`**: Number of shares (for stocks) or amount (for cash)
+- **`price`**: Price per share (for stocks) or 1.00 (for cash)
+- **`currency`**: Transaction currency (e.g., "USD", "EUR", "CAD")
+- **`total`**: Total amount in transaction currency
+- **`exchange_rate`**: Exchange rate from transaction currency to base currency
+- **`subtotal_base`**: Subtotal in base currency (before fees)
+- **`fees_base`**: Fees in base currency
+- **`total_base`**: Total amount in base currency (including fees)
+
+### Transaction Types
+
+1. **Cash Transactions** (`ticker: null`):
+   - `deposit`: Adding money to the portfolio
+   - `withdrawal`: Removing money from the portfolio
+
+2. **Stock Transactions** (`ticker: "SYMBOL"`):
+   - `buy`: Purchasing shares
+   - `sell`: Selling shares
+
+### Multi-Currency Support
+
+The system supports multiple currencies with automatic conversion:
+- **Transaction currency**: The currency in which the transaction occurred
+- **Base currency**: The portfolio's base currency for reporting
+- **Exchange rate**: Used to convert transaction amounts to base currency
+- **Automatic cash tracking**: The system automatically creates synthetic cash transactions for stock purchases/sales
+
+### Migration from V1 Format
+
+If you have portfolios in the old V1 format, use the migration script:
+
+```bash
+python migrate_v1_to_v2.py old_portfolio.json new_portfolio.json --add-cash
+```
+
+### Example Portfolios
+
+See `tests/examples/` for various portfolio examples:
+- `basic_portfolio.json`: Simple portfolio with basic transactions
+- `multi_currency_portfolio.json`: Portfolio with USD, CAD, and EUR transactions
+- `fifo_test_portfolio.json`: Complex FIFO cost calculation example
+- `cash_only_portfolio.json`: Portfolio with only cash transactions
 
 ## Data Provider Functionality
 
@@ -269,12 +431,54 @@ plot_composition(portfolio.df_portfolio, group_by="sector")
 
 ---
 
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests and checks
+./run_tests.sh
+
+# Run specific test suites
+./run_tests.sh unit         # Unit tests only
+./run_tests.sh coverage     # Tests with coverage report
+./run_tests.sh examples     # Validate example portfolios
+./run_tests.sh cli          # Test CLI commands
+./run_tests.sh lint         # Code quality checks
+```
+
+### Manual Testing
+
+```bash
+# Run unit tests directly
+python -m pytest tests/ -v
+
+# Validate example portfolios
+python tests/validate_examples.py
+
+# Test CLI commands
+python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
+```
+
+## Documentation
+
+```bash
+# Local development
+./manage_docs.sh build      # Build documentation
+./manage_docs.sh serve      # Serve locally
+./manage_docs.sh watch      # Auto-rebuild on changes
+
+# Deploy
+./manage_docs.sh deploy     # Deploy to GitHub Pages
+```
+
 ## To Do
 
+- [x] Add unit and integration tests for all modules
+- [x] Document all public methods with usage examples
+- [x] Support multi-currency portfolios and automatic currency conversion
 - [ ] Add support for more data providers (e.g., Alpha Vantage, IEX Cloud)
 - [ ] Allow loading portfolios from Excel and ODS files natively
-- [ ] Improve error handling and input data validation
-- [ ] Add unit and integration tests for all modules
 - [ ] Implement portfolio performance metrics (Sharpe, Sortino, drawdown, etc.)
 - [ ] Add interactive visualizations (e.g., with Plotly or Dash)
 - [ ] Support multi-currency portfolios and automatic currency conversion

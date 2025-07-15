@@ -3,6 +3,8 @@ from cli.commands.composition import run as run_composition
 from cli.commands.correlation import run as run_correlation
 from cli.commands.plot import run as run_plot
 from cli.commands.print_positions import run as run_print_positions
+from cli.commands.export_transactions import run as run_export_transactions
+from cli.commands.dump_data_frame import run as run_dump_data_frame
 from cli.commands.clear_cache import run as run_clear_cache
 from cli.commands.ticker_info import run as run_ticker_info
 
@@ -28,6 +30,15 @@ def main():
     # Subcommand: print-positions
     parser_print_positions = subparsers.add_parser('print-positions', help='Print current portfolio positions as a table')
     parser_print_positions.add_argument('-f', '--file', required=True, help='Portfolio file in JSON format')
+    parser_print_positions.add_argument('-d', '--date', help='Target date in YYYY-MM-DD format (optional)')
+
+    # Subcommand: export-transactions
+    parser_export_transactions = subparsers.add_parser('export-transactions', help='Export all portfolio transactions in CSV format')
+    parser_export_transactions.add_argument('-f', '--file', required=True, help='Portfolio file in JSON format')
+
+    # Subcommand: dump-data-frame
+    parser_dump_data_frame = subparsers.add_parser('dump-data-frame', help='Dump portfolio DataFrame for debugging purposes')
+    parser_dump_data_frame.add_argument('-f', '--file', required=True, help='Portfolio file in JSON format')
 
     # Subcommand: clear-cache
     parser_clear_cache = subparsers.add_parser('clear-cache', help='Delete all cache files in temp/*.pkl')
@@ -48,6 +59,10 @@ def main():
         run_plot(args)
     elif args.command == 'print-positions':
         run_print_positions(args)
+    elif args.command == 'export-transactions':
+        run_export_transactions(args)
+    elif args.command == 'dump-data-frame':
+        run_dump_data_frame(args)
     elif args.command == 'clear-cache':
         run_clear_cache(args)
     elif args.command == 'ticker-info':

@@ -1,0 +1,45 @@
+{
+  "name": "Multi Currency Portfolio Test",
+  "currency": "EUR",
+  "transactions": [
+    {
+      "ticker": null,
+      "date": "2025-06-10",
+      "type": "deposit",
+      "quantity": 2000.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 2000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 2000.00,
+      "fees_base": 0.00,
+      "total_base": 2000.00
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-12",
+      "type": "buy",
+      "quantity": 10,
+      "price": 100,
+      "currency": "USD",
+      "total": 1000.00,
+      "exchange_rate": 1.056,
+      "subtotal_base": 947.00,
+      "fees_base": 0.50,
+      "total_base": 947.50
+    },
+    {
+      "ticker": "SHOP",
+      "date": "2025-06-13",
+      "type": "buy",
+      "quantity": 5,
+      "price": 80.00,
+      "currency": "CAD",
+      "total": 400.00,
+      "exchange_rate": 1.425,
+      "subtotal_base": 280.70,
+      "fees_base": 1.00,
+      "total_base": 281.70
+    }
+  ]
+}
