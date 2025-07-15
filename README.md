@@ -1,6 +1,37 @@
 # Portfolio-tools Library Documentation
 
-This library provides tools for financial analysis, portfolio management, and market data visualization.
+![Documentation](https://img.shields.io/badge/docs-sphinx-brightgreen.svg)
+![Tests](https://github.com/ggenzone/portfolio-tools/workflows/Tests%20and%20Quality%20Checks/badge.svg)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)
+
+This library provides tools for financial analysis, portfolio management, and market data visualization with comprehensive multi-currency support and FIFO cost calculation.
+
+## 📚 Documentation
+
+**[📖 Full Documentation](https://ggenzone.github.io/portfolio-tools/)** - Complete API reference, user guides, and examples
+
+### Quick Documentation Links
+
+- **[Getting Started](https://ggenzone.github.io/portfolio-tools/examples/basic_usage.html)** - Basic usage examples
+- **[Multi-Currency Support](https://ggenzone.github.io/portfolio-tools/examples/multi_currency.html)** - Working with multiple currencies
+- **[Portfolio JSON Format](https://ggenzone.github.io/portfolio-tools/user_guide/portfolio_format.html)** - Complete format specification
+- **[API Reference](https://ggenzone.github.io/portfolio-tools/api/modules.html)** - Full API documentation
+
+### Building Documentation Locally
+
+```bash
+# Install documentation dependencies
+pip install sphinx sphinx-rtd-theme
+
+# Build documentation
+./manage_docs.sh build
+
+# Serve documentation locally
+./manage_docs.sh serve
+
+# Auto-rebuild on changes
+./manage_docs.sh watch
+```
 
 ## Installation
 

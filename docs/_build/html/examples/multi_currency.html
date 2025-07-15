@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Currency Portfolio Examples &mdash; Portfolio Tools 2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=295d7b4c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Portfolio JSON Format" href="../user_guide/portfolio_format.html" />
+    <link rel="prev" title="Basic Usage Examples" href="basic_usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Portfolio Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/portfolio_tools.html">portfolio_tools package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">portfolio_tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multi-Currency Portfolio Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#multi-currency-portfolio-setup">Multi-Currency Portfolio Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-multi-currency-data">Working with Multi-Currency Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exchange-rate-handling">Exchange Rate Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#currency-conversion-mechanics">Currency Conversion Mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fifo-cost-calculation-with-multiple-currencies">FIFO Cost Calculation with Multiple Currencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-multi-currency-analysis">Advanced Multi-Currency Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-exchange-rates">Custom Exchange Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-for-multi-currency-portfolios">Tips for Multi-Currency Portfolios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migration-from-single-currency">Migration from Single Currency</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/portfolio_format.html">Portfolio JSON Format</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Portfolio Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Multi-Currency Portfolio Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/multi_currency.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multi-currency-portfolio-examples">
+<h1>Multi-Currency Portfolio Examples<a class="headerlink" href="#multi-currency-portfolio-examples" title="Link to this heading"></a></h1>
+<p>Portfolio Tools provides comprehensive support for multi-currency portfolios with automatic currency conversion and FIFO cost calculation.</p>
+<section id="multi-currency-portfolio-setup">
+<h2>Multi-Currency Portfolio Setup<a class="headerlink" href="#multi-currency-portfolio-setup" title="Link to this heading"></a></h2>
+<p>Here’s an example of a portfolio with transactions in multiple currencies:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Multi Currency Portfolio&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EUR&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transactions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ticker&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-06-10&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deposit&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EUR&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;subtotal_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fees_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2000.00</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ticker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-06-12&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">100.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.056</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;subtotal_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">947.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fees_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.50</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">947.50</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ticker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SHOP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-06-13&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">85.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CAD&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">425.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.639</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;subtotal_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">271.58</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fees_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.12</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">281.70</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-multi-currency-data">
+<h2>Working with Multi-Currency Data<a class="headerlink" href="#working-with-multi-currency-data" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">portfolio_tools.portfolio.portfolio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Portfolio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">portfolio_tools.data_provider.yf_data_provider</span><span class="w"> </span><span class="kn">import</span> <span class="n">YFDataProvider</span>
+
+<span class="c1"># Load multi-currency portfolio</span>
+<span class="n">data_provider</span> <span class="o">=</span> <span class="n">YFDataProvider</span><span class="p">()</span>
+<span class="n">portfolio</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="s1">&#39;examples/multi_currency_portfolio.json&#39;</span><span class="p">,</span> <span class="n">data_provider</span><span class="p">)</span>
+
+<span class="c1"># Print positions (all values converted to base currency)</span>
+<span class="n">portfolio</span><span class="o">.</span><span class="n">print_current_positions</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="exchange-rate-handling">
+<h2>Exchange Rate Handling<a class="headerlink" href="#exchange-rate-handling" title="Link to this heading"></a></h2>
+<p>The system automatically handles currency conversion using the exchange rates specified in each transaction:</p>
+<ul class="simple">
+<li><p><strong>EUR/USD</strong>: 1.056 (1 EUR = 1.056 USD)</p></li>
+<li><p><strong>EUR/CAD</strong>: 0.639 (1 EUR = 0.639 CAD)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The DataFrame shows both original and base currency values</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">df_portfolio</span>
+
+<span class="c1"># Check price columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original Currency Prices:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="s1">&#39;Currency&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">nBase Currency Prices:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Price_Base&#39;</span><span class="p">,</span> <span class="s1">&#39;Value_Base&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Expected Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Current positions as of 2025-07-14:
+| Ticker  | Price Base  | Cost        | Quantity  | Value Base  | Return (%)  |
+|---------|-----------|-----------|---------|-----------|-----------|
+| AAPL    | 197.56     | 947.50     | 10.00   | 1975.57   | 108.50    |
+| SHOP    | 81.92      | 281.70     | 5.00    | 409.61    | 45.41     |
+| __EUR   | 1.00       | 770.80     | 770.80  | 770.80    | 0.00      |
+|---------|-----------|-----------|---------|-----------|-----------|
+| TOTAL   |            | 2000.00    |         | 3155.98   | 57.80     |
+</pre></div>
+</div>
+</section>
+<section id="currency-conversion-mechanics">
+<h2>Currency Conversion Mechanics<a class="headerlink" href="#currency-conversion-mechanics" title="Link to this heading"></a></h2>
+<p>Understanding how currency conversion works:</p>
+<ol class="arabic simple">
+<li><p><strong>Transaction Level</strong>: Each transaction specifies its original currency and exchange rate</p></li>
+<li><p><strong>Automatic Conversion</strong>: All amounts are automatically converted to the portfolio’s base currency</p></li>
+<li><p><strong>Fee Handling</strong>: Fees are converted and included in the total cost basis</p></li>
+<li><p><strong>Cash Tracking</strong>: The system automatically creates synthetic cash transactions</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of how conversion works</span>
+<span class="c1"># Original: 10 AAPL @ $100 USD = $1000 USD</span>
+<span class="c1"># Exchange Rate: 1.056 (EUR/USD)</span>
+<span class="c1"># Converted: €947.00 EUR (before fees)</span>
+<span class="c1"># With fees: €947.50 EUR total cost</span>
+
+<span class="c1"># This is automatically handled by the preprocesador</span>
+<span class="n">transaction</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ticker&quot;</span><span class="p">:</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mf">100.00</span><span class="p">,</span>  <span class="c1"># USD</span>
+    <span class="s2">&quot;currency&quot;</span><span class="p">:</span> <span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="mf">1000.00</span><span class="p">,</span>  <span class="c1"># USD</span>
+    <span class="s2">&quot;exchange_rate&quot;</span><span class="p">:</span> <span class="mf">1.056</span><span class="p">,</span>
+    <span class="s2">&quot;subtotal_base&quot;</span><span class="p">:</span> <span class="mf">947.00</span><span class="p">,</span>  <span class="c1"># EUR</span>
+    <span class="s2">&quot;fees_base&quot;</span><span class="p">:</span> <span class="mf">0.50</span><span class="p">,</span>  <span class="c1"># EUR</span>
+    <span class="s2">&quot;total_base&quot;</span><span class="p">:</span> <span class="mf">947.50</span>  <span class="c1"># EUR (final cost)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="fifo-cost-calculation-with-multiple-currencies">
+<h2>FIFO Cost Calculation with Multiple Currencies<a class="headerlink" href="#fifo-cost-calculation-with-multiple-currencies" title="Link to this heading"></a></h2>
+<p>The FIFO calculation works seamlessly across currencies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Buy AAPL in USD, then sell in USD</span>
+<span class="c1"># All costs are tracked in base currency (EUR)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Check FIFO calculation after partial sale</span>
+<span class="n">remaining_quantity</span> <span class="o">=</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">calculate_current_quantity</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Remaining AAPL shares: </span><span class="si">{</span><span class="n">remaining_quantity</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The cost basis is maintained in EUR regardless of transaction currency</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-multi-currency-analysis">
+<h2>Advanced Multi-Currency Analysis<a class="headerlink" href="#advanced-multi-currency-analysis" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_currency_exposure</span><span class="p">(</span><span class="n">portfolio</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analyze currency exposure in the portfolio.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Get the underlying DataFrame</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">df_portfolio</span>
+
+    <span class="c1"># Group by currency (from original transactions)</span>
+    <span class="n">currency_exposure</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">asset</span> <span class="ow">in</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">assets</span><span class="p">:</span>
+        <span class="n">ticker</span> <span class="o">=</span> <span class="n">asset</span><span class="p">[</span><span class="s2">&quot;ticker&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">is_cash_ticker</span><span class="p">(</span><span class="n">ticker</span><span class="p">):</span>
+            <span class="c1"># Get the original currency for this asset</span>
+            <span class="n">transactions</span> <span class="o">=</span> <span class="n">asset</span><span class="p">[</span><span class="s2">&quot;transactions&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">transactions</span><span class="p">:</span>
+                <span class="n">currency</span> <span class="o">=</span> <span class="n">transactions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span>
+                <span class="n">current_qty</span> <span class="o">=</span> <span class="n">portfolio</span><span class="o">.</span><span class="n">calculate_current_quantity</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+
+                <span class="c1"># Get current value in base currency</span>
+                <span class="n">latest_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ticker</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">current_value</span> <span class="o">=</span> <span class="n">latest_data</span><span class="p">[</span><span class="s1">&#39;Value_Base&#39;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">currency</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">currency_exposure</span><span class="p">:</span>
+                    <span class="n">currency_exposure</span><span class="p">[</span><span class="n">currency</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">currency_exposure</span><span class="p">[</span><span class="n">currency</span><span class="p">]</span> <span class="o">+=</span> <span class="n">current_value</span>
+
+    <span class="k">return</span> <span class="n">currency_exposure</span>
+
+<span class="c1"># Usage</span>
+<span class="n">exposure</span> <span class="o">=</span> <span class="n">analyze_currency_exposure</span><span class="p">(</span><span class="n">portfolio</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Currency Exposure (in base currency):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">currency</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">exposure</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">portfolio</span><span class="o">.</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-exchange-rates">
+<h2>Custom Exchange Rates<a class="headerlink" href="#custom-exchange-rates" title="Link to this heading"></a></h2>
+<p>You can specify custom exchange rates for each transaction:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ticker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TSM&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-06-14&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.50</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TWD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2550.00</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.031</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;subtotal_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">79.05</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fees_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">80.00</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="tips-for-multi-currency-portfolios">
+<h2>Tips for Multi-Currency Portfolios<a class="headerlink" href="#tips-for-multi-currency-portfolios" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Consistent Base Currency</strong>: Always use the same base currency for your portfolio</p></li>
+<li><p><strong>Accurate Exchange Rates</strong>: Use accurate exchange rates from the transaction date</p></li>
+<li><p><strong>Fee Conversion</strong>: Convert fees to the base currency for accurate cost tracking</p></li>
+<li><p><strong>Regular Updates</strong>: Update exchange rates regularly for current valuations</p></li>
+</ol>
+</section>
+<section id="migration-from-single-currency">
+<h2>Migration from Single Currency<a class="headerlink" href="#migration-from-single-currency" title="Link to this heading"></a></h2>
+<p>If you have an existing single-currency portfolio and want to add multi-currency support:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original single-currency transaction</span>
+<span class="n">old_transaction</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ticker&quot;</span><span class="p">:</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2025-06-12&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mf">100.00</span><span class="p">,</span>
+    <span class="s2">&quot;fees&quot;</span><span class="p">:</span> <span class="mf">0.50</span>
+<span class="p">}</span>
+
+<span class="c1"># Convert to multi-currency format</span>
+<span class="n">new_transaction</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ticker&quot;</span><span class="p">:</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2025-06-12&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mf">100.00</span><span class="p">,</span>
+    <span class="s2">&quot;currency&quot;</span><span class="p">:</span> <span class="s2">&quot;USD&quot;</span><span class="p">,</span>  <span class="c1"># Add currency</span>
+    <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="mf">1000.00</span><span class="p">,</span>
+    <span class="s2">&quot;exchange_rate&quot;</span><span class="p">:</span> <span class="mf">1.056</span><span class="p">,</span>  <span class="c1"># Add exchange rate</span>
+    <span class="s2">&quot;subtotal_base&quot;</span><span class="p">:</span> <span class="mf">947.00</span><span class="p">,</span>  <span class="c1"># Calculate base amounts</span>
+    <span class="s2">&quot;fees_base&quot;</span><span class="p">:</span> <span class="mf">0.47</span><span class="p">,</span>  <span class="c1"># Convert fees</span>
+    <span class="s2">&quot;total_base&quot;</span><span class="p">:</span> <span class="mf">947.47</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Use the migration script provided to automate this conversion:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>migrate_v1_to_v2.py<span class="w"> </span>old_portfolio.json<span class="w"> </span>new_portfolio.json<span class="w"> </span>--add-cash<span class="w"> </span>--currency<span class="w"> </span>EUR
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basic_usage.html" class="btn btn-neutral float-left" title="Basic Usage Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../user_guide/portfolio_format.html" class="btn btn-neutral float-right" title="Portfolio JSON Format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, GGenZone.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

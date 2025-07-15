@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>portfolio_tools.data_provider.yf_data_provider module &mdash; Portfolio Tools 2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=295d7b4c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="portfolio_tools.plot package" href="portfolio_tools.plot.html" />
+    <link rel="prev" title="portfolio_tools.data_provider.data_provider module" href="portfolio_tools.data_provider.data_provider.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Portfolio Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="portfolio_tools.html">portfolio_tools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="portfolio_tools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="portfolio_tools.data_provider.html">portfolio_tools.data_provider package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="portfolio_tools.data_provider.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="portfolio_tools.data_provider.html#module-portfolio_tools.data_provider">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="portfolio_tools.plot.html">portfolio_tools.plot package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="portfolio_tools.portfolio.html">portfolio_tools.portfolio package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="portfolio_tools.utils.html">portfolio_tools.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="portfolio_tools.html#module-portfolio_tools">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">portfolio_tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/basic_usage.html">Basic Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/multi_currency.html">Multi-Currency Portfolio Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/portfolio_format.html">Portfolio JSON Format</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Portfolio Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="portfolio_tools.html">portfolio_tools package</a></li>
+          <li class="breadcrumb-item"><a href="portfolio_tools.data_provider.html">portfolio_tools.data_provider package</a></li>
+      <li class="breadcrumb-item active">portfolio_tools.data_provider.yf_data_provider module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/portfolio_tools.data_provider.yf_data_provider.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-portfolio_tools.data_provider.yf_data_provider">
+<span id="portfolio-tools-data-provider-yf-data-provider-module"></span><h1>portfolio_tools.data_provider.yf_data_provider module<a class="headerlink" href="#module-portfolio_tools.data_provider.yf_data_provider" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">portfolio_tools.data_provider.yf_data_provider.</span></span><span class="sig-name descname"><span class="pre">YFDataProvider</span></span><a class="reference internal" href="../_modules/portfolio_tools/data_provider/yf_data_provider.html#YFDataProvider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="portfolio_tools.data_provider.data_provider.html#portfolio_tools.data_provider.data_provider.DataProvider" title="portfolio_tools.data_provider.data_provider.DataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataProvider</span></code></a></p>
+<p>Market data provider using Yahoo Finance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.NASDAQ">
+<span class="sig-name descname"><span class="pre">NASDAQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^IXIC'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.NASDAQ" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.SP500">
+<span class="sig-name descname"><span class="pre">SP500</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^GSPC'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.SP500" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.DOW_JONES">
+<span class="sig-name descname"><span class="pre">DOW_JONES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^DJI'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.DOW_JONES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.MERVAL">
+<span class="sig-name descname"><span class="pre">MERVAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^MERV'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.MERVAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.VIX">
+<span class="sig-name descname"><span class="pre">VIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^VIX'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.VIX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BONO_10_ANIOS_USA">
+<span class="sig-name descname"><span class="pre">BONO_10_ANIOS_USA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^TNX'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BONO_10_ANIOS_USA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.DOLAR_INDEX">
+<span class="sig-name descname"><span class="pre">DOLAR_INDEX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DX-Y.NYB'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.DOLAR_INDEX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BRENT">
+<span class="sig-name descname"><span class="pre">BRENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BZ=F'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BRENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.WTI">
+<span class="sig-name descname"><span class="pre">WTI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CL=F'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.WTI" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.ORO">
+<span class="sig-name descname"><span class="pre">ORO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'GC=F'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.ORO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.USDARS">
+<span class="sig-name descname"><span class="pre">USDARS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'USDARS=X'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.USDARS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.USDEUR">
+<span class="sig-name descname"><span class="pre">USDEUR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'USDEUR=X'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.USDEUR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.EURUSD">
+<span class="sig-name descname"><span class="pre">EURUSD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EURUSD=X'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.EURUSD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.AAPL">
+<span class="sig-name descname"><span class="pre">AAPL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AAPL'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.AAPL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.MSFT">
+<span class="sig-name descname"><span class="pre">MSFT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MSFT'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.MSFT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.GOOGL">
+<span class="sig-name descname"><span class="pre">GOOGL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'GOOGL'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.GOOGL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.AMZN">
+<span class="sig-name descname"><span class="pre">AMZN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AMZN'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.AMZN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.TSLA">
+<span class="sig-name descname"><span class="pre">TSLA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TSLA'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.TSLA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.META">
+<span class="sig-name descname"><span class="pre">META</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'META'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.META" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.NVDA">
+<span class="sig-name descname"><span class="pre">NVDA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NVDA'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.NVDA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.INTC">
+<span class="sig-name descname"><span class="pre">INTC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'INTC'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.INTC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BA">
+<span class="sig-name descname"><span class="pre">BA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BA'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.YPF">
+<span class="sig-name descname"><span class="pre">YPF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'YPF'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.YPF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BBAR">
+<span class="sig-name descname"><span class="pre">BBAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BBAR'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BBAR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BMA">
+<span class="sig-name descname"><span class="pre">BMA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BMA'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BMA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.VALE">
+<span class="sig-name descname"><span class="pre">VALE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'VALE'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.VALE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.ARCH">
+<span class="sig-name descname"><span class="pre">ARCH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ARCH'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.ARCH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.SLDP">
+<span class="sig-name descname"><span class="pre">SLDP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SLDP'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.SLDP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.LILMF">
+<span class="sig-name descname"><span class="pre">LILMF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'LILMF'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.LILMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.JOBY">
+<span class="sig-name descname"><span class="pre">JOBY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'JOBY'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.JOBY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.NFE">
+<span class="sig-name descname"><span class="pre">NFE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NFE'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.NFE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.KOS">
+<span class="sig-name descname"><span class="pre">KOS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'KOS'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.KOS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BBD">
+<span class="sig-name descname"><span class="pre">BBD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BBD'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.BBD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.EVTL">
+<span class="sig-name descname"><span class="pre">EVTL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EVTL'</span></em><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.EVTL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/portfolio_tools/data_provider/yf_data_provider.html#YFDataProvider.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the YFDataProvider class with an in-memory cache for ticker data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/portfolio_tools/data_provider/yf_data_provider.html#YFDataProvider.get_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_price" title="Link to this definition"></a></dt>
+<dd><p>Gets the price of an asset on a specific date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ticker</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ticker symbol.</p></li>
+<li><p><strong>fecha</strong> (<em>datetime</em>) – The date for which to get the price.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The asset price on the specified date.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_raw_data">
+<span class="sig-name descname"><span class="pre">get_raw_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'5y'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/portfolio_tools/data_provider/yf_data_provider.html#YFDataProvider.get_raw_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_raw_data" title="Link to this definition"></a></dt>
+<dd><p>Gets all historical data for a ticker directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ticker</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ticker symbol.</p></li>
+<li><p><strong>periodo</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The time period for historical data (default “5y”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The historical data for the ticker.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p>Example DataFrame returned:</p>
+<blockquote>
+<div><p>#   Open    High     Low   Close  Adj Close   Volume
+#2024-07-01 10.00   10.50   9.80   10.20     10.10     1000000
+#2024-07-02 10.20   10.60  10.00   10.40     10.30     1200000
+#…         …     …     …     …       …         …</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_price_series">
+<span class="sig-name descname"><span class="pre">get_price_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Close'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/portfolio_tools/data_provider/yf_data_provider.html#YFDataProvider.get_price_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_price_series" title="Link to this definition"></a></dt>
+<dd><p>Gets the price series of an asset for a specific column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ticker</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ticker symbol.</p></li>
+<li><p><strong>columna</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The price column to get (default “Close”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Price series of the asset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_ticker_info">
+<span class="sig-name descname"><span class="pre">get_ticker_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/portfolio_tools/data_provider/yf_data_provider.html#YFDataProvider.get_ticker_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#portfolio_tools.data_provider.yf_data_provider.YFDataProvider.get_ticker_info" title="Link to this definition"></a></dt>
+<dd><p>Gets detailed information for a ticker using yfinance’s Ticker.info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ticker</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ticker symbol.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with company information and key statistics (e.g., P/E ratio, market cap, etc.).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="portfolio_tools.data_provider.data_provider.html" class="btn btn-neutral float-left" title="portfolio_tools.data_provider.data_provider module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="portfolio_tools.plot.html" class="btn btn-neutral float-right" title="portfolio_tools.plot package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, GGenZone.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

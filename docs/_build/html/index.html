@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Tools Documentation &mdash; Portfolio Tools 2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=295d7b4c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=60dbed4a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="portfolio_tools package" href="api/portfolio_tools.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Portfolio Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/portfolio_tools.html">portfolio_tools package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">portfolio_tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/basic_usage.html">Basic Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/multi_currency.html">Multi-Currency Portfolio Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/portfolio_format.html">Portfolio JSON Format</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Portfolio Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Portfolio Tools Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="portfolio-tools-documentation">
+<h1>Portfolio Tools Documentation<a class="headerlink" href="#portfolio-tools-documentation" title="Link to this heading"></a></h1>
+<a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.8%2B-blue.svg" />
+</a>
+<a class="reference external image-reference" href="https://github.com/ggenzone/portfolio-tools/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/ggenzone/portfolio-tools.svg" />
+</a>
+<a class="reference external image-reference" href="https://ggenzone.github.io/portfolio-tools/"><img alt="Documentation" src="https://img.shields.io/badge/docs-sphinx-brightgreen.svg" />
+</a>
+<p>Portfolio Tools is a comprehensive Python library for portfolio management, analysis, and visualization. It supports multi-currency portfolios with automatic currency conversion, FIFO cost calculation, and advanced analytics.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Multi-Currency Support</strong>: Handle portfolios with transactions in different currencies (USD, EUR, CAD, etc.)</p></li>
+<li><p><strong>FIFO Cost Calculation</strong>: Accurate cost basis tracking using First-In-First-Out methodology</p></li>
+<li><p><strong>Automatic Currency Conversion</strong>: Real-time currency conversion with configurable exchange rates</p></li>
+<li><p><strong>Portfolio Analytics</strong>: Comprehensive analysis tools including returns, composition, and evolution tracking</p></li>
+<li><p><strong>Data Visualization</strong>: Rich plotting capabilities for portfolio composition and performance analysis</p></li>
+<li><p><strong>CSV Export</strong>: Export transaction data and portfolio positions to CSV format</p></li>
+<li><p><strong>CLI Interface</strong>: Command-line tools for portfolio management and analysis</p></li>
+</ul>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ggenzone/portfolio-tools.git
+<span class="nb">cd</span><span class="w"> </span>portfolio-tools
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="basic-usage">
+<h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">portfolio_tools.portfolio.portfolio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Portfolio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">portfolio_tools.data_provider.yf_data_provider</span><span class="w"> </span><span class="kn">import</span> <span class="n">YFDataProvider</span>
+
+<span class="c1"># Create a data provider</span>
+<span class="n">data_provider</span> <span class="o">=</span> <span class="n">YFDataProvider</span><span class="p">()</span>
+
+<span class="c1"># Load portfolio from JSON</span>
+<span class="n">portfolio</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="s1">&#39;path/to/portfolio.json&#39;</span><span class="p">,</span> <span class="n">data_provider</span><span class="p">)</span>
+
+<span class="c1"># Print current positions</span>
+<span class="n">portfolio</span><span class="o">.</span><span class="n">print_current_positions</span><span class="p">()</span>
+
+<span class="c1"># Plot portfolio composition</span>
+<span class="n">portfolio</span><span class="o">.</span><span class="n">plot_composition</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="portfolio-json-format">
+<h3>Portfolio JSON Format<a class="headerlink" href="#portfolio-json-format" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Portfolio&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EUR&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transactions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ticker&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-06-10&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deposit&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EUR&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;subtotal_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fees_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.00</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ticker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-06-12&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;buy&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">100.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1000.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.056</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;subtotal_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">947.00</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fees_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.50</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_base&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">947.50</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="command-line-interface">
+<h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print current positions</span>
+python<span class="w"> </span>-m<span class="w"> </span>cli.cli<span class="w"> </span>print-positions<span class="w"> </span>portfolio.json
+
+<span class="c1"># Export transactions to CSV</span>
+python<span class="w"> </span>-m<span class="w"> </span>cli.cli<span class="w"> </span>export-transactions<span class="w"> </span>portfolio.json
+
+<span class="c1"># Plot portfolio composition</span>
+python<span class="w"> </span>-m<span class="w"> </span>cli.cli<span class="w"> </span>plot<span class="w"> </span>portfolio.json
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/portfolio_tools.html">portfolio_tools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/portfolio_tools.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/portfolio_tools.html#module-portfolio_tools">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">portfolio_tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/portfolio_tools.html">portfolio_tools package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/basic_usage.html">Basic Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#loading-a-portfolio">Loading a Portfolio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#viewing-current-positions">Viewing Current Positions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#calculating-portfolio-metrics">Calculating Portfolio Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#exporting-data">Exporting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#plotting-portfolio-data">Plotting Portfolio Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#working-with-cash-transactions">Working with Cash Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#complete-example">Complete Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/multi_currency.html">Multi-Currency Portfolio Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#multi-currency-portfolio-setup">Multi-Currency Portfolio Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#working-with-multi-currency-data">Working with Multi-Currency Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#exchange-rate-handling">Exchange Rate Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#currency-conversion-mechanics">Currency Conversion Mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#fifo-cost-calculation-with-multiple-currencies">FIFO Cost Calculation with Multiple Currencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#advanced-multi-currency-analysis">Advanced Multi-Currency Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#custom-exchange-rates">Custom Exchange Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#tips-for-multi-currency-portfolios">Tips for Multi-Currency Portfolios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multi_currency.html#migration-from-single-currency">Migration from Single Currency</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="user-guide">
+<h2>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/portfolio_format.html">Portfolio JSON Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#json-structure-overview">JSON Structure Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#basic-structure">Basic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#portfolio-metadata-fields">Portfolio Metadata Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#transaction-structure">Transaction Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#transaction-types">Transaction Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#complete-example">Complete Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#validation-rules">Validation Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#common-mistakes">Common Mistakes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#migration-from-v1-format">Migration from V1 Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/portfolio_format.html#tools-and-utilities">Tools and Utilities</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="migration-guide">
+<h2>Migration Guide<a class="headerlink" href="#migration-guide" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api/portfolio_tools.html" class="btn btn-neutral float-right" title="portfolio_tools package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, GGenZone.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
