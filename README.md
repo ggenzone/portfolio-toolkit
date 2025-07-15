@@ -399,12 +399,54 @@ plot_composition(portfolio.df_portfolio, group_by="sector")
 
 ---
 
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests and checks
+./run_tests.sh
+
+# Run specific test suites
+./run_tests.sh unit         # Unit tests only
+./run_tests.sh coverage     # Tests with coverage report
+./run_tests.sh examples     # Validate example portfolios
+./run_tests.sh cli          # Test CLI commands
+./run_tests.sh lint         # Code quality checks
+```
+
+### Manual Testing
+
+```bash
+# Run unit tests directly
+python -m pytest tests/ -v
+
+# Validate example portfolios
+python tests/validate_examples.py
+
+# Test CLI commands
+python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
+```
+
+## Documentation
+
+```bash
+# Local development
+./manage_docs.sh build      # Build documentation
+./manage_docs.sh serve      # Serve locally
+./manage_docs.sh watch      # Auto-rebuild on changes
+
+# Deploy
+./manage_docs.sh deploy     # Deploy to GitHub Pages
+```
+
 ## To Do
 
+- [x] Add unit and integration tests for all modules
+- [x] Document all public methods with usage examples
+- [x] Support multi-currency portfolios and automatic currency conversion
 - [ ] Add support for more data providers (e.g., Alpha Vantage, IEX Cloud)
 - [ ] Allow loading portfolios from Excel and ODS files natively
-- [ ] Improve error handling and input data validation
-- [ ] Add unit and integration tests for all modules
 - [ ] Implement portfolio performance metrics (Sharpe, Sortino, drawdown, etc.)
 - [ ] Add interactive visualizations (e.g., with Plotly or Dash)
 - [ ] Support multi-currency portfolios and automatic currency conversion

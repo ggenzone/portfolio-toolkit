@@ -56,4 +56,11 @@ temp/
 *.json
 *.ods
 
+# Documentation build files
+docs/_build/
+docs/.doctrees/
+
+# Sphinx generated files
+.buildinfo
+
 porfolio.json

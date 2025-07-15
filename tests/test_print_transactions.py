@@ -14,8 +14,8 @@ def test_print_transactions():
     # Initialize data provider
     data_provider = YFDataProvider()
     
-    # Get the path to the portfolio example file (one level up from tests/)
-    portfolio_file = os.path.join(os.path.dirname(__file__), 'test_portfolio_v2.json')
+    # Get the path to the portfolio example file (in tests/examples/)
+    portfolio_file = os.path.join(os.path.dirname(__file__), 'examples', 'test_portfolio_v2.json')
     
     # Load portfolio v2
     portfolio = Portfolio(portfolio_file, data_provider)
