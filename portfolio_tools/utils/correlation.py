@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def calculate_correlation(returns1, returns2):
     """
     Calculates the correlation between two return series.

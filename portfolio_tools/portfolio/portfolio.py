@@ -1,12 +1,21 @@
 from datetime import datetime
+
 from portfolio_tools.portfolio.parser import load_json
+from portfolio_tools.portfolio.plot import (
+    plot_composition,
+    plot_evolution,
+    plot_evolution_stacked,
+    plot_evolution_ticker,
+    plot_evolution_vs_cost,
+)
 from portfolio_tools.portfolio.preprocesador import preprocess_data
-from portfolio_tools.portfolio.plot import plot_composition, plot_evolution, plot_evolution_stacked, plot_evolution_vs_cost, plot_evolution_ticker
+
 
 class Portfolio:
     """
     Class to represent and manage an asset portfolio.
     """
+
     def __init__(self, json_filepath=None, data_provider=None):
         """
         Initializes the Portfolio class and optionally loads data from a JSON file.
@@ -30,7 +39,9 @@ class Portfolio:
             self.name = portfolio["name"]
             self.currency = portfolio["currency"]
             self.assets = portfolio["assets"]
-            self.df_portfolio = preprocess_data(self.assets, self.start_date, self.data_provider)
+            self.df_portfolio = preprocess_data(
+                self.assets, self.start_date, self.data_provider
+            )
 
     def calculate_value(self):
         """
@@ -48,13 +59,17 @@ class Portfolio:
                     # Skip cash tickers in this calculation as they're handled separately
                     continue
                 else:
-                    historical_prices[ticker] = self.data_provider.get_price_series(ticker)
+                    historical_prices[ticker] = self.data_provider.get_price_series(
+                        ticker
+                    )
 
         if not historical_prices:
             return [], []
 
         dates = sorted(set(historical_prices[next(iter(historical_prices))].index))
-        dates = [date for date in dates if date >= self.start_date]  # Filter dates from start_date
+        dates = [
+            date for date in dates if date >= self.start_date
+        ]  # Filter dates from start_date
         portfolio_value = []
 
         for date in dates:
@@ -70,7 +85,9 @@ class Portfolio:
                     if ticker in historical_prices:
                         prices = historical_prices[ticker]
                         if date in prices.index:
-                            current_quantity = self.calculate_current_quantity(ticker, date)
+                            current_quantity = self.calculate_current_quantity(
+                                ticker, date
+                            )
                             total_value += prices.loc[date] * current_quantity
             portfolio_value.append(total_value)
 
@@ -93,9 +110,15 @@ class Portfolio:
             if asset["ticker"] == ticker:
                 for transaction in asset["transactions"]:
                     if datetime.strptime(transaction["date"], "%Y-%m-%d") <= date:
-                        if transaction["type"] == "buy" or transaction["type"] == "deposit":
+                        if (
+                            transaction["type"] == "buy"
+                            or transaction["type"] == "deposit"
+                        ):
                             current_quantity += transaction["quantity"]
-                        elif transaction["type"] == "sell" or transaction["type"] == "withdrawal":
+                        elif (
+                            transaction["type"] == "sell"
+                            or transaction["type"] == "withdrawal"
+                        ):
                             current_quantity -= transaction["quantity"]
         return current_quantity
 
@@ -119,6 +142,7 @@ class Portfolio:
 
     def print_current_positions(self, target_date=None):
         from portfolio_tools.portfolio.printer import print_current_positions
+
         print_current_positions(self.df_portfolio, target_date)
 
     def print_transactions(self):
@@ -126,6 +150,7 @@ class Portfolio:
         Prints all transactions in CSV format, ordered by date and not grouped by ticker.
         """
         from portfolio_tools.portfolio.printer import print_transactions_csv
+
         print_transactions_csv(self.assets)
 
     def print_data_frame(self):
@@ -135,16 +160,18 @@ class Portfolio:
         print(f"Portfolio '{self.name}' initialized with {len(self.assets)} assets.")
         print(f"Portfolio currency: {self.currency}")
         if self.df_portfolio is not None:
-            temp = self.df_portfolio.sort_values(by=['Date'], ascending=True)
+            temp = self.df_portfolio.sort_values(by=["Date"], ascending=True)
             print(temp.to_string())
-            print(f"Portfolio DataFrame initialized with {len(self.df_portfolio)} records.")
+            print(
+                f"Portfolio DataFrame initialized with {len(self.df_portfolio)} records."
+            )
         else:
             print("No DataFrame available - portfolio not properly initialized.")
 
     def get_cash_transactions(self):
         """
         Returns transactions for the cash asset (synthetic ticker with __ prefix).
-        
+
         Returns:
             list: List of cash transactions (deposits/withdrawals).
         """
@@ -153,23 +180,23 @@ class Portfolio:
             if asset["ticker"] == cash_ticker:
                 return asset["transactions"]
         return []
-    
+
     def get_stock_assets(self):
         """
         Returns only the real stock assets (excluding cash transactions).
-        
+
         Returns:
             list: List of stock assets (excluding synthetic cash ticker).
         """
         return [asset for asset in self.assets if not asset["ticker"].startswith("__")]
-    
+
     def is_cash_ticker(self, ticker):
         """
         Checks if a ticker is a synthetic cash ticker.
-        
+
         Args:
             ticker (str): The ticker to check.
-            
+
         Returns:
             bool: True if it's a cash ticker, False otherwise.
         """

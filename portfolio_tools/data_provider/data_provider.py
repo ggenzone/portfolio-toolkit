@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class DataProvider(ABC):
     """
     Common interface for market data providers.
@@ -59,4 +60,3 @@ class DataProvider(ABC):
             dict: Dictionary with company information and key statistics.
         """
         pass
-

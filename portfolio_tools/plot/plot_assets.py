@@ -1,6 +1,7 @@
 # Moved from plot/plot_assets.py to portfolio_tools/plot/plot_assets.py
 import matplotlib.pyplot as plt
 
+
 def plot_assets(price_series_list, asset_names):
     """
     Plots the closing prices for multiple assets.

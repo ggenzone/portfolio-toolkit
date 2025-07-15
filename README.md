@@ -33,6 +33,38 @@ pip install sphinx sphinx-rtd-theme
 ./manage_docs.sh watch
 ```
 
+## Code Quality
+
+This project maintains high code quality standards using:
+
+- **Black** - Code formatting
+- **isort** - Import sorting  
+- **flake8** - Linting
+- **pytest** - Testing
+
+### Quick Quality Checks
+
+```bash
+# Run all quality checks
+./check_quality.sh
+
+# Auto-format code
+./format_code.sh
+
+# Individual tools
+black portfolio_tools/      # Format code
+isort portfolio_tools/      # Sort imports
+flake8 portfolio_tools/     # Lint code
+pytest tests/              # Run tests
+```
+
+### Configuration
+
+Code quality tools are configured in `pyproject.toml` and `setup.cfg`:
+- Line length: 88 characters
+- Black and isort profiles: compatible
+- flake8 ignores: E203, E501, W503
+
 ## Installation
 
 Install from the project root (local development):

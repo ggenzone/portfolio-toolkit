@@ -1,14 +1,17 @@
-import yfinance as yf
-import pandas as pd
-from datetime import datetime
 import os
-import numpy as np
+from datetime import datetime
+
+import pandas as pd
+import yfinance as yf
+
 from .data_provider import DataProvider
+
 
 class YFDataProvider(DataProvider):
     """
     Market data provider using Yahoo Finance.
     """
+
     # === Index tickers ===
     NASDAQ = "^IXIC"
     SP500 = "^GSPC"
@@ -83,7 +86,9 @@ class YFDataProvider(DataProvider):
             datos = pd.read_pickle(archivo_existente)
         else:
             # print(f"Downloading data for {ticker}")
-            datos = yf.download(ticker, period=periodo, auto_adjust=auto_adjust, progress=False)
+            datos = yf.download(
+                ticker, period=periodo, auto_adjust=auto_adjust, progress=False
+            )
             datos.to_pickle(archivo_existente)
             # print(f"Data saved as binary in '{archivo_existente}'")
 
@@ -103,7 +108,7 @@ class YFDataProvider(DataProvider):
         """
         datos = self.__load_ticker(ticker)
         if fecha in datos.index:
-            return datos.loc[fecha, 'Close'].item()  # Return closing price
+            return datos.loc[fecha, "Close"].item()  # Return closing price
         else:
             raise ValueError(f"No data available for ticker {ticker} on date {fecha}.")
 
@@ -156,5 +161,3 @@ class YFDataProvider(DataProvider):
         """
         ticker_obj = yf.Ticker(ticker)
         return ticker_obj.info
-
-
