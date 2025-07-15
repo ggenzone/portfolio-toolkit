@@ -57,6 +57,7 @@ temp/
 
 # Documentation build files
 docs/_build/
+docs/api/
 docs/.doctrees/
 
 # Sphinx generated files

@@ -143,14 +143,6 @@ User Guide
    user_guide/portfolio_format
    user_guide/migration
 
-Migration Guide
---------------
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Migration
-
-   migration/v1_to_v2
 
 Testing
 -------
