@@ -1,0 +1,32 @@
+{
+  "name": "Basic Portfolio Test",
+  "currency": "EUR",
+  "transactions": [
+    {
+      "ticker": null,
+      "date": "2025-06-10",
+      "type": "deposit",
+      "quantity": 1000.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 1000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1000.00,
+      "fees_base": 0.00,
+      "total_base": 1000.00
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2025-06-12",
+      "type": "buy",
+      "quantity": 5,
+      "price": 100,
+      "currency": "USD",
+      "total": 500.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 500.00,
+      "fees_base": 0.25,
+      "total_base": 500.25
+    }
+  ]
+}

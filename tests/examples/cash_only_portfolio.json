@@ -1,0 +1,45 @@
+{
+  "name": "Cash Only Portfolio Test",
+  "currency": "EUR",
+  "transactions": [
+    {
+      "ticker": null,
+      "date": "2025-06-10",
+      "type": "deposit",
+      "quantity": 1000.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 1000.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 1000.00,
+      "fees_base": 0.00,
+      "total_base": 1000.00
+    },
+    {
+      "ticker": null,
+      "date": "2025-06-15",
+      "type": "deposit",
+      "quantity": 500.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 500.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 500.00,
+      "fees_base": 0.00,
+      "total_base": 500.00
+    },
+    {
+      "ticker": null,
+      "date": "2025-06-20",
+      "type": "withdrawal",
+      "quantity": 200.00,
+      "price": 1.00,
+      "currency": "EUR",
+      "total": 200.00,
+      "exchange_rate": 1.00,
+      "subtotal_base": 200.00,
+      "fees_base": 2.00,
+      "total_base": 202.00
+    }
+  ]
+}
