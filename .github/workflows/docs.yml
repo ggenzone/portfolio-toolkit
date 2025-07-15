@@ -2,7 +2,7 @@ name: Deploy Documentation to GitHub Pages
 
 on:
   push:
-    branches: [ main, feat/support-portfolio-base-currency ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 

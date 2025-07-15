@@ -56,9 +56,10 @@ class YFDataProvider(DataProvider):
 
     def __init__(self):
         """
-        Initializes the YFDataProvider class with an in-memory cache for ticker data.
+        Initializes the YFDataProvider class with in-memory caches for ticker data and info.
         """
         self.cache = {}
+        self.info_cache = {}
 
     def __load_ticker(self, ticker, periodo="5y", auto_adjust=True):
         """
@@ -94,6 +95,38 @@ class YFDataProvider(DataProvider):
 
         self.cache[ticker] = datos
         return datos
+
+    def __load_ticker_info(self, ticker):
+        """
+        Private method to load ticker info into the cache. If the file exists, it loads it;
+        otherwise, it downloads the info and saves it to a file.
+
+        Args:
+            ticker (str): The ticker symbol.
+
+        Returns:
+            dict: The ticker information.
+        """
+        cache_dir = "/tmp/portfolio_tools_cache"
+        os.makedirs(cache_dir, exist_ok=True)
+        archivo_existente = f"{cache_dir}/{datetime.now().strftime('%Y%m%d')}-{ticker}_info.pkl"
+
+        if ticker in self.info_cache:
+            # print(f"Using cached info for {ticker}")
+            return self.info_cache[ticker]
+
+        if os.path.exists(archivo_existente):
+            # print(f"Loading info from local binary file: {archivo_existente}")
+            info = pd.read_pickle(archivo_existente)
+        else:
+            # print(f"Downloading info for {ticker}")
+            ticker_obj = yf.Ticker(ticker)
+            info = ticker_obj.info
+            pd.to_pickle(info, archivo_existente)
+            # print(f"Info saved as binary in '{archivo_existente}'")
+
+        self.info_cache[ticker] = info
+        return info
 
     def get_price(self, ticker, fecha):
         """
@@ -144,6 +177,7 @@ class YFDataProvider(DataProvider):
             pd.Series: Price series of the asset.
         """
         datos = self.__load_ticker(ticker)
+
         if columna in datos.columns:
             return datos[columna]
         else:
@@ -159,5 +193,28 @@ class YFDataProvider(DataProvider):
         Returns:
             dict: Dictionary with company information and key statistics (e.g., P/E ratio, market cap, etc.).
         """
-        ticker_obj = yf.Ticker(ticker)
-        return ticker_obj.info
+        return self.__load_ticker_info(ticker)
+
+    def get_ticker_currency(self, ticker):
+        """
+        Gets the currency of a ticker from its info.
+
+        Args:
+            ticker (str): The ticker symbol.
+
+        Returns:
+            str: The currency code (e.g., 'USD', 'EUR', 'CAD') or 'USD' as default.
+        """
+        try:
+            info = self.get_ticker_info(ticker)
+            # Try different possible currency fields in the info
+            currency = info.get('currency') or info.get('financialCurrency') or info.get('tradeCurrency')
+            
+            if currency:
+                return currency.upper()
+            else:
+                # Default to USD if no currency information is found
+                return 'USD'
+        except Exception:
+            # If there's any error getting info, default to USD
+            return 'USD'

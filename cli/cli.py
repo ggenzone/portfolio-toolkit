@@ -10,10 +10,8 @@ from cli.commands.ticker_info import run as run_ticker_info
 
 
 def main():
-    parser = argparse.ArgumentParser(description="CLI for financial portfolio analysis and visualization")
-    parser.add_argument('-v', '--version', action='version', version='Finanzas CLI 1.0')
-
-    subparsers = parser.add_subparsers(dest='command', help='Command to execute')
+    parser = argparse.ArgumentParser(description="Portfolio Tools CLI")
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # Subcommand: composition
     parser_composition = subparsers.add_parser('composition', help='Plot the portfolio composition')
@@ -43,11 +41,9 @@ def main():
     # Subcommand: clear-cache
     parser_clear_cache = subparsers.add_parser('clear-cache', help='Delete all cache files in temp/*.pkl')
 
-    # Subcommand: ticker-info
-    parser_ticker_info = subparsers.add_parser('ticker-info', help='Show detailed info for a ticker')
-    parser_ticker_info.add_argument('-t', '--ticker', required=True, help='Ticker symbol (e.g. AAPL)')
-
-    # You can add more subcommands in the future
+    # Ticker info command
+    ticker_info_parser = subparsers.add_parser("ticker-info", help="Show detailed ticker information")
+    ticker_info_parser.add_argument("ticker", help="Ticker symbol (e.g., AAPL, SHOP)")
 
     args = parser.parse_args()
 
@@ -65,8 +61,9 @@ def main():
         run_dump_data_frame(args)
     elif args.command == 'clear-cache':
         run_clear_cache(args)
-    elif args.command == 'ticker-info':
-        run_ticker_info(args)
+    elif args.command == "ticker-info":
+        from cli.commands.ticker_info import run
+        run(args)
     else:
         parser.print_help()
 

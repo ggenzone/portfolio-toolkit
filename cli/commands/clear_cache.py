@@ -1,16 +1,38 @@
 import os
 import glob
 
+
 def run(args):
+    """
+    Clears all cache files (historical data and ticker info).
+    
+    Args:
+        args: Command line arguments (not used in this command).
+    """
     cache_dir = "/tmp/portfolio_tools_cache"
-    files = glob.glob(f'{cache_dir}/*.pkl')
-    if not files:
-        print(f"No cache files found in {cache_dir}/.")
+    
+    if not os.path.exists(cache_dir):
+        print(f"Cache directory {cache_dir} does not exist.")
         return
-    for file in files:
-        try:
-            os.remove(file)
-            print(f"Deleted: {file}")
-        except Exception as e:
-            print(f"Error deleting {file}: {e}")
-    print("Cache cleared.")
+    
+    # Clear historical data cache files
+    historical_files = glob.glob(f"{cache_dir}/*_historical_data.pkl")
+    
+    # Clear ticker info cache files
+    info_files = glob.glob(f"{cache_dir}/*_info.pkl")
+    
+    all_files = historical_files + info_files
+    
+    if not all_files:
+        print("No cache files found to delete.")
+        return
+    
+    print(f"Found {len(all_files)} cache files to delete:")
+    print(f"  - {len(historical_files)} historical data files")
+    print(f"  - {len(info_files)} ticker info files")
+    
+    for file in all_files:
+        os.remove(file)
+        print(f"Deleted: {os.path.basename(file)}")
+    
+    print(f"\n✅ Successfully cleared {len(all_files)} cache files.")
