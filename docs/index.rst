@@ -24,7 +24,7 @@ Features
 * **Portfolio Analytics**: Comprehensive analysis tools including returns, composition, and evolution tracking
 * **Data Visualization**: Rich plotting capabilities for portfolio composition and performance analysis
 * **CSV Export**: Export transaction data and portfolio positions to CSV format
-* **CLI Interface**: Command-line tools for portfolio management and analysis
+* **CLI Interface**: Powerful command-line tools built with Click for portfolio analysis, data visualization, and market research
 
 Quick Start
 -----------
@@ -128,6 +128,7 @@ Examples
    :caption: Examples
 
    examples/basic_usage
+   examples/cli_usage
    examples/multi_currency
    examples/advanced_analysis
 
