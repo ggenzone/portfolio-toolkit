@@ -12,7 +12,8 @@ setup(
         "numpy>=1.24.0",
         "matplotlib>=3.7.0",
         "yfinance>=0.2.0",
-        "tabulate"
+        "tabulate",
+        "click>=8.0.0"
     ],
     entry_points={
         'console_scripts': [

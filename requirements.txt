@@ -11,3 +11,6 @@ yfinance>=0.2.0
 # Pretty printing
 tabulate
 
+# CLI framework
+click>=8.0.0
+

@@ -1,20 +1,19 @@
+import click
 from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
 from portfolio_tools.portfolio.portfolio import Portfolio
 
 
-def run(args):
-    """
-    Dumps the portfolio DataFrame for debugging purposes.
-    
-    Args:
-        args: Command line arguments containing the portfolio file path.
-    """
+@click.command(name='dump-data-frame')
+@click.option('-f', '--file', 'portfolio_file', required=True, 
+              help='Portfolio file in JSON format')
+def dump_data_frame(portfolio_file):
+    """Dump portfolio DataFrame for debugging purposes."""
     try:
         # Initialize data provider
         data_provider = YFDataProvider()
         
         # Load portfolio
-        portfolio = Portfolio(args.file, data_provider)
+        portfolio = Portfolio(portfolio_file, data_provider)
         
         # The DataFrame is already printed during initialization
         # But we can call it explicitly for clarity
@@ -24,7 +23,7 @@ def run(args):
         portfolio.print_data_frame()
         
     except FileNotFoundError:
-        print(f"Error: Portfolio file '{args.file}' not found.")
+        print(f"Error: Portfolio file '{portfolio_file}' not found.")
     except Exception as e:
         print(f"Error loading portfolio: {e}")
         print(e.with_traceback())

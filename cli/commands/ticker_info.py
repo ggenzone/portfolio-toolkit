@@ -1,26 +1,27 @@
+import click
 from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
-from tabulate import tabulate
 
-def run(args):
-    """
-    Show detailed information for a ticker including currency.
+
+@click.command(name='ticker-info')
+@click.argument('ticker')
+def ticker_info(ticker):
+    """Show detailed ticker information.
     
-    Args:
-        args: Command line arguments containing the ticker symbol.
+    TICKER: Ticker symbol (e.g., AAPL, SHOP)
     """
     try:
         data_provider = YFDataProvider()
-        ticker = args.ticker.upper()
+        ticker_symbol = ticker.upper()
         
-        print(f"📊 Ticker Information: {ticker}")
+        print(f"📊 Ticker Information: {ticker_symbol}")
         print("=" * 50)
         
         # Get currency
-        currency = data_provider.get_ticker_currency(ticker)
+        currency = data_provider.get_ticker_currency(ticker_symbol)
         print(f"💰 Currency: {currency}")
         
         # Get detailed info
-        info = data_provider.get_ticker_info(ticker)
+        info = data_provider.get_ticker_info(ticker_symbol)
         
         # Display key information
         key_fields = [
@@ -60,7 +61,7 @@ def run(args):
             
             print(f"{label:<20}: {value}")
         
-        print(f"\n✅ Information retrieved and cached for {ticker}")
+        print(f"\n✅ Information retrieved and cached for {ticker_symbol}")
         
     except Exception as e:
         print(f"❌ Error getting ticker information: {e}")
