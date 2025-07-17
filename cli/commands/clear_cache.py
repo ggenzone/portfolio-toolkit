@@ -1,14 +1,11 @@
 import os
 import glob
+import click
 
 
-def run(args):
-    """
-    Clears all cache files (historical data and ticker info).
-    
-    Args:
-        args: Command line arguments (not used in this command).
-    """
+@click.command(name='clear-cache')
+def clear_cache():
+    """Delete all cache files in temp/*.pkl."""
     cache_dir = "/tmp/portfolio_tools_cache"
     
     if not os.path.exists(cache_dir):

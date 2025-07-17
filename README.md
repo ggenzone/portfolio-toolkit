@@ -84,6 +84,8 @@ pip uninstall portfolio-tools
 
 ## Command Line Interface (CLI)
 
+The CLI has been refactored to use the [Click](https://click.palletsprojects.com/) framework for better user experience, improved help text, and more intuitive command structure.
+
 After installation, you can use the CLI tool:
 
 ```bash
@@ -93,7 +95,7 @@ portfolio-tools --help
 ### Example CLI Usage
 
 ```bash
-portfolio-tools -v
+portfolio-tools --version
 ```
 Shows the CLI version.
 
@@ -108,9 +110,9 @@ portfolio-tools correlation -t AAPL,MSFT,GOOGL
 Calculates the correlation between all pairs of the specified tickers.
 
 ```bash
-portfolio-tools plot -t AAPL,MSFT,GOOGL
+portfolio-tools plot AAPL,MSFT,GOOGL USD
 ```
-Plots the price evolution of the specified assets, showing their historical prices in a single chart.
+Plots the price evolution of the specified assets in the target currency.
 
 ```bash
 portfolio-tools print-positions -f portfolio.json
@@ -120,33 +122,58 @@ Prints a table of current portfolio positions from the file `portfolio.json`.
 ```bash
 portfolio-tools clear-cache
 ```
-Deletes all cache files in the `temp/` directory (files ending with `.pkl`).
+Deletes all cache files in the temp directory.
 
 ```bash
-portfolio-tools ticker-info -t AAPL
+portfolio-tools ticker-info AAPL
 ```
 Shows detailed information for a ticker in a formatted table.
+
+```bash
+portfolio-tools convert-currency AAPL EUR --days 5
+```
+Converts ticker prices to different currency showing recent days.
 
 ### Local CLI Usage
 
 ```bash
-python -m cli.cli -v
+python -m cli.cli --help
 ```
 
-### Available commands
+### Available Commands
 
-- `composition`: Plots the portfolio composition.
-  - `-f`, `--file`: Path to the portfolio file in JSON format (required).
-- `correlation`: Calculates the correlation between all pairs of a list of tickers.
-  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required).
-- `plot`: Plots the price evolution of a list of assets.
-  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required).
-- `print-positions`: Prints a table of current portfolio positions.
-  - `-f`, `--file`: Path to the portfolio file in JSON format (required).
-- `clear-cache`: Deletes all cache files in the `temp/` directory.
-- `-v`, `--version`: Shows the CLI version.
-- `ticker-info`: Shows detailed information for a ticker in a formatted table.
-  - `-t`, `--ticker`: Ticker symbol (e.g. AAPL) (required).
+- `composition`: Plot the portfolio composition
+  - `-f`, `--file`: Portfolio file in JSON format (required)
+
+- `correlation`: Calculate correlation between asset pairs
+  - `-t`, `--tickers`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required)
+
+- `plot`: Plot the price evolution of a list of assets
+  - `TICKERS`: Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL) (required)
+  - `CURRENCY`: Target currency (e.g., EUR, USD, CAD) (required)
+
+- `plot-portfolio`: Plot the portfolio evolution
+  - `-f`, `--file`: Portfolio file in JSON format (required)
+
+- `print-positions`: Print current portfolio positions as a table
+  - `-f`, `--file`: Portfolio file in JSON format (required)
+  - `-d`, `--date`: Target date in YYYY-MM-DD format (optional)
+
+- `export-transactions`: Export all portfolio transactions in CSV format
+  - `-f`, `--file`: Portfolio file in JSON format (required)
+
+- `dump-data-frame`: Dump portfolio DataFrame for debugging purposes
+  - `-f`, `--file`: Portfolio file in JSON format (required)
+
+- `clear-cache`: Delete all cache files in temp/*.pkl
+
+- `ticker-info`: Show detailed ticker information
+  - `TICKER`: Ticker symbol (e.g., AAPL, SHOP) (required)
+
+- `convert-currency`: Convert ticker prices to different currency
+  - `TICKER`: Ticker symbol (e.g., AAPL, SHOP) (required)
+  - `CURRENCY`: Target currency (e.g., EUR, USD, CAD) (required)
+  - `--days`: Number of recent days to show (default: 5)
 
 ---
 
@@ -457,6 +484,9 @@ python -m pytest tests/ -v
 python tests/validate_examples.py
 
 # Test CLI commands
+portfolio-tools print-positions -f tests/examples/basic_portfolio.json
+
+# Or using the module directly
 python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
 ```
 
@@ -486,4 +516,4 @@ python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
 - [ ] Add export to PDF/Excel reports
 - [ ] Allow portfolio rebalancing and optimization simulations
 - [ ] Add risk analysis and Value at Risk (VaR)
-- [ ] Improve CLI interface for task automation
+- [x] Improve CLI interface for task automation (migrated to Click framework)
