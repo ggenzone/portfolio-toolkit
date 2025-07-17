@@ -9,7 +9,7 @@ class TestPortfolioV2(unittest.TestCase):
     def setUp(self):
         """Set up test data using external JSON files"""
         self.data_provider = YFDataProvider()
-        self.examples_dir = os.path.join(os.path.dirname(__file__), 'examples')
+        self.examples_dir = os.path.join(os.path.dirname(__file__), '..', 'examples')
         self.test_json_path = os.path.join(self.examples_dir, 'test_portfolio_v2.json')
         self.basic_portfolio_path = os.path.join(self.examples_dir, 'basic_portfolio.json')
         self.multi_currency_path = os.path.join(self.examples_dir, 'multi_currency_portfolio.json')
