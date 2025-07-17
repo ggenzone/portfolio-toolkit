@@ -40,7 +40,7 @@ class Portfolio:
             self.currency = portfolio["currency"]
             self.assets = portfolio["assets"]
             self.df_portfolio = preprocess_data(
-                self.assets, self.start_date, self.data_provider
+                self.assets, self.start_date, self.data_provider, self.currency
             )
 
     def calculate_value(self):

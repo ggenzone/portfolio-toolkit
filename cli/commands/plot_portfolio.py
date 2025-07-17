@@ -4,7 +4,7 @@ from portfolio_tools.portfolio.portfolio import Portfolio
 
 def run(args):
     """
-    Dumps the portfolio DataFrame for debugging purposes.
+    Plot the portfolio evolution.
     
     Args:
         args: Command line arguments containing the portfolio file path.
@@ -15,16 +15,11 @@ def run(args):
         
         # Load portfolio
         portfolio = Portfolio(args.file, data_provider)
-        
-        # The DataFrame is already printed during initialization
-        # But we can call it explicitly for clarity
-        print("\n" + "="*80)
-        print("PORTFOLIO DATAFRAME DUMP")
-        print("="*80)
-        portfolio.print_data_frame()
+
+        # Plot portfolio evolution
+        portfolio.plot_evolution()
         
     except FileNotFoundError:
         print(f"Error: Portfolio file '{args.file}' not found.")
     except Exception as e:
         print(f"Error loading portfolio: {e}")
-        print(e.with_traceback())

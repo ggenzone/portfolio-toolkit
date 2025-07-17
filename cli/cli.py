@@ -23,7 +23,12 @@ def main():
 
     # Subcommand: plot
     parser_plot = subparsers.add_parser('plot', help='Plot the price evolution of a list of assets')
-    parser_plot.add_argument('-t', '--tickers', required=True, help='Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL)')
+    parser_plot.add_argument("tickers", help='Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL)')
+    parser_plot.add_argument("currency", help="Target currency (e.g., EUR, USD, CAD)")
+
+    # Subcommand: plot-portfolio
+    parser_plot_portfolio = subparsers.add_parser('plot-portfolio', help='Plot the portfolio evolution')
+    parser_plot_portfolio.add_argument('-f', '--file', required=True, help='Portfolio file in JSON format')
 
     # Subcommand: print-positions
     parser_print_positions = subparsers.add_parser('print-positions', help='Print current portfolio positions as a table')
@@ -59,6 +64,9 @@ def main():
         run_correlation(args)
     elif args.command == 'plot':
         run_plot(args)
+    elif args.command == 'plot-portfolio':
+        from cli.commands.plot_portfolio import run as run_plot_portfolio
+        run_plot_portfolio(args)
     elif args.command == 'print-positions':
         run_print_positions(args)
     elif args.command == 'export-transactions':

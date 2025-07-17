@@ -288,7 +288,11 @@ class YFDataProvider(DataProvider):
         datos = self.__load_ticker(ticker)
 
         if columna in datos.columns:
-            return datos[columna]
+            series = datos[columna]
+            # Si es un DataFrame con una sola columna, convertir a Series
+            if isinstance(series, pd.DataFrame):
+                series = series.iloc[:, 0]
+            return series
         else:
             raise ValueError(f"Column {columna} is not available for ticker {ticker}.")
 
@@ -353,7 +357,6 @@ class YFDataProvider(DataProvider):
             # We got the inverse pair, so we need to invert the rates
             exchange_rates = 1 / exchange_rates
 
-        # Align the series by date (inner join to only keep common dates)
         aligned_prices, aligned_rates = original_prices.align(
             exchange_rates, join="inner"
         )

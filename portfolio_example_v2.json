@@ -55,7 +55,7 @@
       "total_base": 472.31
     },
     {
-      "ticker": "SHOP",
+      "ticker": "DMX.V",
       "date": "2025-06-18",
       "type": "buy",
       "quantity": 3,
@@ -68,7 +68,7 @@
       "total_base": 160.00
     },
     {
-      "ticker": "SHOP",
+      "ticker": "DMX.V",
       "date": "2025-06-19",
       "type": "buy",
       "quantity": 5,
@@ -81,7 +81,7 @@
       "total_base": 281.22
     },
     {
-      "ticker": "SHOP",
+      "ticker": "DMX.V",
       "date": "2025-06-22",
       "type": "sell",
       "quantity": 4,

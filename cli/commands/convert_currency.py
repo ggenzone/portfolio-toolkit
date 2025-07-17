@@ -27,7 +27,7 @@ def run(args):
         
         # Get converted prices
         converted_prices = data_provider.get_price_series_converted(ticker, target_currency, 'Close')
-        original_prices = data_provider.get_price_series('AAPL', 'Close')
+        original_prices = data_provider.get_price_series(ticker, 'Close')
         
         # Show recent data
         recent_data = pd.DataFrame({
@@ -52,3 +52,4 @@ def run(args):
         
     except Exception as e:
         print(f"❌ Error converting currency: {e}")
+        print(e.with_traceback())

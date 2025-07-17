@@ -56,7 +56,7 @@ def plot_evolution(df_portfolio):
         return
 
     df_pivot = df_portfolio.pivot_table(
-        index="Date", columns="Ticker", values="Value", aggfunc="sum", fill_value=0
+        index="Date", columns="Ticker", values="Value_Base", aggfunc="sum", fill_value=0
     )
     df_pivot.sort_index(inplace=True)
     dates = pd.to_datetime(df_pivot.index)
@@ -95,7 +95,7 @@ def plot_evolution_stacked(df_portfolio):
         None
     """
     df_pivot = df_portfolio.pivot_table(
-        index="Date", columns="Ticker", values="Value", aggfunc="sum", fill_value=0
+        index="Date", columns="Ticker", values="Value_Base", aggfunc="sum", fill_value=0
     )
     df_pivot.sort_index(inplace=True)
     dates = pd.to_datetime(df_pivot.index)
@@ -128,12 +128,14 @@ def plot_evolution_vs_cost(df_portfolio):
 
     # Group by date and sum values and costs
     df_grouped = (
-        df_portfolio.groupby("Date").agg({"Value": "sum", "Cost": "sum"}).reset_index()
+        df_portfolio.groupby("Date")
+        .agg({"Value_Base": "sum", "Cost": "sum"})
+        .reset_index()
     )
 
     # Extract data
     dates = pd.to_datetime(df_grouped["Date"])
-    values = df_grouped["Value"]
+    values = df_grouped["Value_Base"]
     costs = df_grouped["Cost"]
 
     # Create the plot
@@ -197,7 +199,7 @@ def plot_evolution_ticker(df_portfolio, ticker):
         return
 
     dates = pd.to_datetime(df_ticker["Date"])
-    values = df_ticker["Value"]
+    values = df_ticker["Value_Base"]
     costs = df_ticker["Cost"]
 
     # Create the plot
