@@ -360,21 +360,6 @@ Inconsistent Totals
      "total_base": 1005.00  // For buy transactions
    }
 
-Migration from V1 Format
------------------------
-
-If you have an existing portfolio in the old V1 format, use the migration tool:
-
-.. code-block:: bash
-
-   python migrate_v1_to_v2.py old_portfolio.json new_portfolio.json --add-cash
-
-The migration tool will:
-- Convert grouped transactions to flat structure
-- Add currency and exchange rate information
-- Generate synthetic cash transactions
-- Calculate base currency amounts
-
 Best Practices
 -------------
 
@@ -393,9 +378,3 @@ Portfolio Tools provides several utilities for working with JSON files:
 
    # Validate portfolio format
    python tests/validate_examples.py
-
-   # Migrate from V1 to V2
-   python migrate_v1_to_v2.py old.json new.json
-
-   # Quick migration with bash script
-   ./quick_migrate.sh old.json
