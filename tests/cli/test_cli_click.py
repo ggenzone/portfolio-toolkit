@@ -21,7 +21,7 @@ class TestClickCLI(unittest.TestCase):
     def setUpClass(cls):
         """Set up test environment."""
         cls.project_root = Path(__file__).parent.parent
-        cls.cli_module = "cli.cli"
+        cls.cli_module = str(Path(__file__).parent.parent / "cli" / "cli.py")
         
         # Create a sample portfolio file for testing
         cls.sample_portfolio = {
