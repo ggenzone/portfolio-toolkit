@@ -17,7 +17,7 @@ class TestCLIBasic(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.project_root = Path(__file__).parent.parent
-        cls.cli_module = str(Path(__file__).parent.parent / "cli" / "cli.py")
+        cls.cli_module = "cli.cli"
 
     def run_command(self, args, description):
         """Run a CLI command and check if it succeeds."""
