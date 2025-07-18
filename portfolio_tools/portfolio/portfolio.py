@@ -149,9 +149,9 @@ class Portfolio:
         """
         Prints all transactions in CSV format, ordered by date and not grouped by ticker.
         """
-        from portfolio_tools.portfolio.printer import print_transactions_csv
+        from portfolio_tools.asset.print import print_asset_transactions_csv
 
-        print_transactions_csv(self.assets)
+        print_asset_transactions_csv(self.assets)
 
     def print_data_frame(self):
         """

@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 
+from portfolio_tools.asset.create import create_asset
 from portfolio_tools.ticker.get_cash_ticker import get_cash_ticker
 from portfolio_tools.transaction.create_synthetic_cash import (
     create_synthetic_cash_transaction,
@@ -41,12 +42,8 @@ def load_json(json_filepath):
 
             # Group all transactions by ticker (including cash)
             if ticker not in assets:
-                assets[ticker] = {
-                    "ticker": ticker,
-                    "transactions": [],
-                    "sector": "Cash" if ticker.startswith("__") else "Unknown",
-                    "country": "Unknown",
-                }
+                assets[ticker] = create_asset(ticker)
+
             assets[ticker]["transactions"].append(transaction)
 
             # Create synthetic cash transactions for asset purchases/sales
@@ -55,12 +52,7 @@ def load_json(json_filepath):
 
                 # Ensure cash asset exists
                 if cash_ticker not in assets:
-                    assets[cash_ticker] = {
-                        "ticker": cash_ticker,
-                        "transactions": [],
-                        "sector": "Cash",
-                        "country": "Unknown",
-                    }
+                    assets[cash_ticker] = create_asset(cash_ticker)
 
                 # Create synthetic cash transaction
                 cash_transaction = create_synthetic_cash_transaction(
