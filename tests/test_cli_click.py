@@ -19,7 +19,7 @@ class TestClickCLI(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """Set up test environment."""
+        """Set up test environment."""  
         cls.project_root = Path(__file__).parent.parent
         cls.cli_module = "cli.cli"
         

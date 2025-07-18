@@ -1,6 +1,13 @@
 import json
 from datetime import datetime
 
+from portfolio_tools.ticker.get_cash_ticker import get_cash_ticker
+from portfolio_tools.transaction.create_synthetic_cash import (
+    create_synthetic_cash_transaction,
+)
+from portfolio_tools.transaction.get_ticker import get_transaction_ticker
+from portfolio_tools.transaction.validate import validate_transaction
+
 
 def load_json(json_filepath):
     """
@@ -26,20 +33,11 @@ def load_json(json_filepath):
 
         # Process all transactions
         for transaction in data["transactions"]:
-            if (
-                "date" not in transaction
-                or "type" not in transaction
-                or "quantity" not in transaction
-            ):
-                raise ValueError("A transaction does not have the expected format.")
+            validate_transaction(transaction)
 
             transaction_dates.append(datetime.strptime(transaction["date"], "%Y-%m-%d"))
 
-            # Determine ticker (use synthetic ticker for cash transactions)
-            if transaction["ticker"] is None:
-                ticker = f"__{portfolio_currency}"  # e.g., "__EUR"
-            else:
-                ticker = transaction["ticker"]
+            ticker = get_transaction_ticker(transaction, portfolio_currency)
 
             # Group all transactions by ticker (including cash)
             if ticker not in assets:
@@ -53,7 +51,7 @@ def load_json(json_filepath):
 
             # Create synthetic cash transactions for asset purchases/sales
             if transaction["ticker"] is not None:  # Only for real assets, not cash
-                cash_ticker = f"__{portfolio_currency}"
+                cash_ticker = get_cash_ticker(portfolio_currency)
 
                 # Ensure cash asset exists
                 if cash_ticker not in assets:
@@ -65,43 +63,9 @@ def load_json(json_filepath):
                     }
 
                 # Create synthetic cash transaction
-                if transaction["type"] == "buy":
-                    # When buying assets, cash decreases (sell cash)
-                    cash_transaction = {
-                        "date": transaction["date"],
-                        "type": "sell",
-                        "quantity": transaction.get(
-                            "total_base", transaction.get("total", 0)
-                        ),
-                        "price": 1.00,
-                        "currency": transaction.get("currency", portfolio_currency),
-                        "total": transaction.get("total", 0),
-                        "exchange_rate": transaction.get("exchange_rate", 0),
-                        "subtotal_base": transaction.get("subtotal_base", 0),
-                        "fees_base": transaction.get(
-                            "fees_base", 0
-                        ),  # Fees already deducted
-                        "total_base": transaction.get("total_base", 0),
-                    }
-                elif transaction["type"] == "sell":
-                    # When selling assets, cash increases (buy cash)
-                    net_proceeds = transaction.get(
-                        "total_base", transaction.get("total", 0)
-                    ) - transaction.get("fees_base", 0)
-                    cash_transaction = {
-                        "date": transaction["date"],
-                        "type": "buy",
-                        "quantity": net_proceeds,
-                        "price": 1.00,
-                        "currency": transaction.get("currency", portfolio_currency),
-                        "total": transaction.get("total", 0),
-                        "exchange_rate": transaction.get("exchange_rate", 0),
-                        "subtotal_base": transaction.get("subtotal_base", 0),
-                        "fees_base": transaction.get(
-                            "fees_base", 0
-                        ),  # Fees already deducted
-                        "total_base": transaction.get("total_base", 0),
-                    }
+                cash_transaction = create_synthetic_cash_transaction(
+                    transaction, portfolio_currency
+                )
 
                 if transaction["type"] in ["buy", "sell"]:
                     assets[cash_ticker]["transactions"].append(cash_transaction)
