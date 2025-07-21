@@ -18,24 +18,24 @@ def get_ticker_holding_intervals(assets, ticker):
     # Find the asset with the given ticker
     asset_transactions = None
     for asset in assets:
-        if asset["ticker"] == ticker:
-            asset_transactions = asset["transactions"]
+        if asset.ticker == ticker:
+            asset_transactions = asset.transactions
             break
 
     if not asset_transactions:
         return []
 
     # Sort transactions by date
-    sorted_transactions = sorted(asset_transactions, key=lambda x: x["date"])
+    sorted_transactions = sorted(asset_transactions, key=lambda x: x.date)
 
     intervals = []
     current_quantity = 0
     holding_start = None
 
     for transaction in sorted_transactions:
-        date = transaction["date"]
-        transaction_type = transaction["type"]
-        quantity = transaction["quantity"]
+        date = transaction.date
+        transaction_type = transaction.transaction_type
+        quantity = transaction.quantity
 
         # Calculate new quantity after transaction
         if transaction_type == "buy":

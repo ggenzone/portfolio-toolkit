@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from portfolio_tools.data_provider.data_provider import DataProvider
 from portfolio_tools.portfolio.parser import load_json
 from portfolio_tools.portfolio.plot import (
     plot_composition,
@@ -9,6 +10,10 @@ from portfolio_tools.portfolio.plot import (
     plot_evolution_vs_cost,
 )
 from portfolio_tools.portfolio.preprocesador import preprocess_data
+from portfolio_tools.position.get_closed_positions import get_closed_positions
+from portfolio_tools.position.get_open_positions import get_open_positions
+from portfolio_tools.position.print_closed_positions import print_closed_positions
+from portfolio_tools.position.print_open_positions import print_open_positions
 
 
 class Portfolio:
@@ -16,7 +21,7 @@ class Portfolio:
     Class to represent and manage an asset portfolio.
     """
 
-    def __init__(self, json_filepath=None, data_provider=None):
+    def __init__(self, json_filepath: str, data_provider: DataProvider):
         """
         Initializes the Portfolio class and optionally loads data from a JSON file.
 
@@ -33,12 +38,26 @@ class Portfolio:
         self.start_date = None
         self.df_portfolio = None  # DataFrame to store the portfolio evolution
         self.data_provider = data_provider  # Data provider
+        self.account = None  # Placeholder for account information
 
         if json_filepath:
-            portfolio, self.start_date = load_json(json_filepath)
+            portfolio, assets, account, self.start_date = load_json(
+                json_filepath, data_provider
+            )
             self.name = portfolio["name"]
             self.currency = portfolio["currency"]
-            self.assets = portfolio["assets"]
+            self.assets = assets
+            self.account = account
+
+            # Include cash account in assets if it has transactions
+            # if account and "transactions" in account and account["transactions"]:
+            #    cash_ticker = f"__{account['currency']}"
+            #    cash_asset = {
+            #        "ticker": cash_ticker,
+            #        "transactions": account["transactions"]
+            #    }
+            #    self.assets.append(cash_asset)
+
             self.df_portfolio = preprocess_data(
                 self.assets, self.start_date, self.data_provider, self.currency
             )
@@ -144,6 +163,12 @@ class Portfolio:
         from portfolio_tools.portfolio.printer import print_current_positions
 
         print_current_positions(self.df_portfolio, target_date)
+        position = get_open_positions(assets=self.assets, date=target_date)
+        print_open_positions(position, target_date)
+
+    def print_closed_positions(self, target_date=None):
+        position = get_closed_positions(self.assets, target_date)
+        print_closed_positions(position, target_date)
 
     def print_transactions(self):
         """
@@ -167,37 +192,3 @@ class Portfolio:
             )
         else:
             print("No DataFrame available - portfolio not properly initialized.")
-
-    def get_cash_transactions(self):
-        """
-        Returns transactions for the cash asset (synthetic ticker with __ prefix).
-
-        Returns:
-            list: List of cash transactions (deposits/withdrawals).
-        """
-        cash_ticker = f"__{self.currency}"
-        for asset in self.assets:
-            if asset["ticker"] == cash_ticker:
-                return asset["transactions"]
-        return []
-
-    def get_stock_assets(self):
-        """
-        Returns only the real stock assets (excluding cash transactions).
-
-        Returns:
-            list: List of stock assets (excluding synthetic cash ticker).
-        """
-        return [asset for asset in self.assets if not asset["ticker"].startswith("__")]
-
-    def is_cash_ticker(self, ticker):
-        """
-        Checks if a ticker is a synthetic cash ticker.
-
-        Args:
-            ticker (str): The ticker to check.
-
-        Returns:
-            bool: True if it's a cash ticker, False otherwise.
-        """
-        return ticker.startswith("__")

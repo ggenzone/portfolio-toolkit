@@ -4,6 +4,7 @@ from cli.commands.correlation import correlation
 from cli.commands.plot import plot
 from cli.commands.plot_portfolio import plot_portfolio
 from cli.commands.print_positions import print_positions
+from cli.commands.closed_positions import closed_positions
 from cli.commands.export_transactions import export_transactions
 from cli.commands.dump_data_frame import dump_data_frame
 from cli.commands.clear_cache import clear_cache
@@ -24,6 +25,7 @@ cli.add_command(correlation)
 cli.add_command(plot)
 cli.add_command(plot_portfolio)
 cli.add_command(print_positions)
+cli.add_command(closed_positions)
 cli.add_command(export_transactions)
 cli.add_command(dump_data_frame)
 cli.add_command(clear_cache)

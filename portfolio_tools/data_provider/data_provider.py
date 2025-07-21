@@ -49,6 +49,21 @@ class DataProvider(ABC):
         pass
 
     @abstractmethod
+    def get_price_series_converted(self, ticker, target_currency, column="Close"):
+        """
+        Gets the price series of an asset for a specific column, converted to a target currency.
+
+        Args:
+            ticker (str): The ticker symbol.
+            target_currency (str): The currency to convert prices to.
+            column (str): The price column to get (default "Close").
+
+        Returns:
+            pd.Series: Price series of the asset in the target currency.
+        """
+        pass
+
+    @abstractmethod
     def get_ticker_info(self, ticker):
         """
         Gets detailed information for a ticker (e.g., P/E ratio, market cap, etc.).
