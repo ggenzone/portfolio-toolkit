@@ -52,35 +52,35 @@ class TestCLIBasic(unittest.TestCase):
     def test_version_display(self):
         self.assertTrue(self.run_command(["--version"], "Version display"))
 
-    def test_composition_help(self):
-        self.assertTrue(self.run_command(["composition", "--help"], "Composition command help"))
+    def test_ticker_help(self):
+        self.assertTrue(self.run_command(["ticker", "--help"], "Ticker command help"))
 
-    def test_correlation_help(self):
-        self.assertTrue(self.run_command(["correlation", "--help"], "Correlation command help"))
+    def test_ticker_print_help(self):
+        self.assertTrue(self.run_command(["ticker", "print", "--help"], "Ticker print command help"))
 
-    def test_plot_help(self):
-        self.assertTrue(self.run_command(["plot", "--help"], "Plot command help"))
+    def test_ticker_correlation_help(self):
+        self.assertTrue(self.run_command(["ticker", "correlation", "--help"], "Ticker correlation command help"))
 
-    def test_plot_portfolio_help(self):
-        self.assertTrue(self.run_command(["plot-portfolio", "--help"], "Plot portfolio command help"))
+    def test_portfolio_help(self):
+        self.assertTrue(self.run_command(["portfolio", "--help"], "Portfolio command help"))
 
-    def test_print_positions_help(self):
-        self.assertTrue(self.run_command(["print-positions", "--help"], "Print positions command help"))
+    def test_portfolio_print_help(self):
+        self.assertTrue(self.run_command(["portfolio", "print", "--help"], "Portfolio print command help"))
 
-    def test_export_transactions_help(self):
-        self.assertTrue(self.run_command(["export-transactions", "--help"], "Export transactions command help"))
+    def test_portfolio_plot_help(self):
+        self.assertTrue(self.run_command(["portfolio", "plot", "--help"], "Portfolio plot command help"))
 
-    def test_dump_data_frame_help(self):
-        self.assertTrue(self.run_command(["dump-data-frame", "--help"], "Dump data frame command help"))
+    def test_portfolio_export_help(self):
+        self.assertTrue(self.run_command(["portfolio", "export", "--help"], "Portfolio export command help"))
+
+    def test_watchlist_help(self):
+        self.assertTrue(self.run_command(["watchlist", "--help"], "Watchlist command help"))
+
+    def test_optimization_help(self):
+        self.assertTrue(self.run_command(["optimization", "--help"], "Optimization command help"))
 
     def test_clear_cache_help(self):
         self.assertTrue(self.run_command(["clear-cache", "--help"], "Clear cache command help"))
-
-    def test_ticker_info_help(self):
-        self.assertTrue(self.run_command(["ticker-info", "--help"], "Ticker info command help"))
-
-    def test_convert_currency_help(self):
-        self.assertTrue(self.run_command(["convert-currency", "--help"], "Convert currency command help"))
 
     def test_clear_cache_execution(self):
         self.assertTrue(self.run_command(["clear-cache"], "Clear cache execution"))
