@@ -1,8 +1,11 @@
 """
-Test suite for the Click-based CLI refactoring.
+Test suite for the new organized CLI structure.
 
-This module tests that all CLI commands work correctly after the migration
-from argparse to Click.
+This module tests that all CLI commands work correctly with the new organized structure:
+- ticker: Ticker analysis commands
+- watchlist: Watchlist analysis commands  
+- optimization: Portfolio optimization commands
+- portfolio: Portfolio analysis commands
 """
 
 import unittest
@@ -14,12 +17,12 @@ import json
 from pathlib import Path
 
 
-class TestClickCLI(unittest.TestCase):
-    """Test suite for the Click-based CLI."""
+class TestNewCLI(unittest.TestCase):
+    """Test suite for the new organized CLI structure."""
 
     @classmethod
     def setUpClass(cls):
-        """Set up test environment."""
+        """Set up test environment."""  
         cls.project_root = Path(__file__).parent.parent
         cls.cli_module = "cli.cli"
         
@@ -86,15 +89,13 @@ class TestClickCLI(unittest.TestCase):
         self.assertIn("Manage and analyze your investment portfolios", result.stdout)
         self.assertIn("Commands:", result.stdout)
         
-        # Check that all expected commands are listed
+        # Check that all expected command groups are listed
         expected_commands = [
-            "composition", "correlation", "plot", "plot-portfolio",
-            "print-positions", "export-transactions", "dump-data-frame",
-            "clear-cache", "ticker-info", "convert-currency"
+            "ticker", "watchlist", "optimization", "portfolio", "clear-cache"
         ]
         
         for command in expected_commands:
-            self.assertIn(command, result.stdout, f"Command {command} not found in help output")
+            self.assertIn(command, result.stdout, f"Command group {command} not found in help output")
 
     def test_version_option(self):
         """Test the --version option."""
@@ -102,94 +103,172 @@ class TestClickCLI(unittest.TestCase):
         # Just check that it runs without error, version output format may vary
         self.assertEqual(result.returncode, 0)
 
-    def test_composition_help(self):
-        """Test composition command help."""
-        result = self.run_cli_command(["composition", "--help"])
+    # Ticker Command Tests
+    def test_ticker_help(self):
+        """Test ticker command group help."""
+        result = self.run_cli_command(["ticker", "--help"])
         
-        self.assertIn("Plot the portfolio composition", result.stdout)
-        self.assertIn("-f, --file", result.stdout)
-        self.assertIn("Portfolio file in JSON format", result.stdout)
+        self.assertIn("Ticker analysis commands", result.stdout)
+        self.assertIn("print", result.stdout)
+        self.assertIn("plot", result.stdout)
+        self.assertIn("export", result.stdout)
+        self.assertIn("compare", result.stdout)
 
-    def test_correlation_help(self):
-        """Test correlation command help."""
-        result = self.run_cli_command(["correlation", "--help"])
+    def test_ticker_print_help(self):
+        """Test ticker print subcommand help."""
+        result = self.run_cli_command(["ticker", "print", "--help"])
         
-        self.assertIn("Calculate correlation between asset pairs", result.stdout)
-        self.assertIn("-t, --tickers", result.stdout)
-        self.assertIn("Comma-separated list of tickers", result.stdout)
+        self.assertIn("Print ticker information", result.stdout)
+        self.assertIn("info", result.stdout)
+        self.assertIn("stats", result.stdout)
+        self.assertIn("beta", result.stdout)
 
-    def test_plot_help(self):
-        """Test plot command help."""
-        result = self.run_cli_command(["plot", "--help"])
+    def test_ticker_print_info_help(self):
+        """Test ticker print info command help."""
+        result = self.run_cli_command(["ticker", "print", "info", "--help"])
         
-        self.assertIn("Plot the price evolution of a list of assets", result.stdout)
-        self.assertIn("TICKERS", result.stdout)
-        self.assertIn("CURRENCY", result.stdout)
+        self.assertIn("Show detailed ticker information", result.stdout)
+        self.assertIn("SYMBOL", result.stdout)
 
-    def test_plot_portfolio_help(self):
-        """Test plot-portfolio command help."""
-        result = self.run_cli_command(["plot-portfolio", "--help"])
+    def test_ticker_print_info_implemented(self):
+        """Test ticker print info works (shows real data, not 'not implemented')."""
+        result = self.run_cli_command(["ticker", "print", "info", "AAPL"])
         
-        self.assertIn("Plot the portfolio evolution", result.stdout)
-        self.assertIn("-f, --file", result.stdout)
+        # The ticker info command appears to be implemented
+        self.assertIn("AAPL", result.stdout)
+        self.assertIn("Currency", result.stdout)
 
-    def test_print_positions_help(self):
-        """Test print-positions command help."""
-        result = self.run_cli_command(["print-positions", "--help"])
+    def test_ticker_compare_help(self):
+        """Test ticker compare command help."""
+        result = self.run_cli_command(["ticker", "compare", "--help"])
         
-        self.assertIn("Print current portfolio positions as a table", result.stdout)
-        self.assertIn("-f, --file", result.stdout)
-        self.assertIn("-d, --date", result.stdout)
+        self.assertIn("Compare multiple tickers", result.stdout)
+        self.assertIn("SYMBOLS", result.stdout)
 
-    def test_export_transactions_help(self):
-        """Test export-transactions command help."""
-        result = self.run_cli_command(["export-transactions", "--help"])
+    def test_ticker_compare_not_implemented(self):
+        """Test ticker compare shows not implemented message."""
+        result = self.run_cli_command(["ticker", "compare", "AAPL", "MSFT"])
         
-        self.assertIn("Export all portfolio transactions in CSV format", result.stdout)
-        self.assertIn("-f, --file", result.stdout)
+        self.assertIn("not implemented yet", result.stdout)
+        self.assertIn("ticker compare AAPL MSFT", result.stdout)
 
-    def test_dump_data_frame_help(self):
-        """Test dump-data-frame command help."""
-        result = self.run_cli_command(["dump-data-frame", "--help"])
+    def test_ticker_plot_help(self):
+        """Test ticker plot subcommand help."""
+        result = self.run_cli_command(["ticker", "plot", "--help"])
         
-        self.assertIn("Dump portfolio DataFrame for debugging purposes", result.stdout)
-        self.assertIn("-f, --file", result.stdout)
+        self.assertIn("Plot ticker data", result.stdout)
+        self.assertIn("returns-distribution", result.stdout)
+        self.assertIn("volatility", result.stdout)
 
+    def test_ticker_export_help(self):
+        """Test ticker export subcommand help."""
+        result = self.run_cli_command(["ticker", "export", "--help"])
+        
+        self.assertIn("Export ticker data", result.stdout)
+        self.assertIn("data", result.stdout)
+
+    # Portfolio Command Tests
+    def test_portfolio_help(self):
+        """Test portfolio command group help."""
+        result = self.run_cli_command(["portfolio", "--help"])
+        
+        self.assertIn("Portfolio analysis commands", result.stdout)
+        self.assertIn("print", result.stdout)
+        self.assertIn("plot", result.stdout)
+        self.assertIn("suggest", result.stdout)
+        self.assertIn("export", result.stdout)
+
+    def test_portfolio_print_help(self):
+        """Test portfolio print subcommand help."""
+        result = self.run_cli_command(["portfolio", "print", "--help"])
+        
+        self.assertIn("Print portfolio information", result.stdout)
+        self.assertIn("dump-data-frame", result.stdout)
+        self.assertIn("performance-summary", result.stdout)
+        self.assertIn("income", result.stdout)
+        self.assertIn("transactions", result.stdout)
+
+    def test_portfolio_print_open_positions_help(self):
+        """Test portfolio open-positions command help (direct command)."""
+        result = self.run_cli_command(["portfolio", "open-positions", "--help"])
+        
+        self.assertIn("Show open positions", result.stdout)
+        self.assertIn("FILE", result.stdout)
+
+    def test_portfolio_plot_help(self):
+        """Test portfolio plot subcommand help."""
+        result = self.run_cli_command(["portfolio", "plot", "--help"])
+        
+        self.assertIn("Plot portfolio data", result.stdout)
+        self.assertIn("evolution", result.stdout)
+        self.assertIn("cumulative-returns", result.stdout)
+        self.assertIn("profit", result.stdout)
+        self.assertIn("allocation", result.stdout)
+
+    def test_portfolio_suggest_help(self):
+        """Test portfolio suggest subcommand help."""
+        result = self.run_cli_command(["portfolio", "suggest", "--help"])
+        
+        self.assertIn("Portfolio suggestions", result.stdout)
+        self.assertIn("rebalance", result.stdout)
+
+    def test_portfolio_export_help(self):
+        """Test portfolio export subcommand help."""
+        result = self.run_cli_command(["portfolio", "export", "--help"])
+        
+        self.assertIn("Export portfolio data", result.stdout)
+        self.assertIn("tax-report", result.stdout)
+
+    # Watchlist Command Tests
+    def test_watchlist_help(self):
+        """Test watchlist command group help."""
+        result = self.run_cli_command(["watchlist", "--help"])
+        
+        self.assertIn("Watchlist analysis commands", result.stdout)
+        self.assertIn("print", result.stdout)
+
+    def test_watchlist_print_help(self):
+        """Test watchlist print subcommand help."""
+        result = self.run_cli_command(["watchlist", "print", "--help"])
+        
+        self.assertIn("Print watchlist information", result.stdout)
+        self.assertIn("stats-summary", result.stdout)
+
+    # Optimization Command Tests
+    def test_optimization_help(self):
+        """Test optimization command group help."""
+        result = self.run_cli_command(["optimization", "--help"])
+        
+        self.assertIn("Portfolio optimization commands", result.stdout)
+        self.assertIn("plot", result.stdout)
+        self.assertIn("calc", result.stdout)
+        self.assertIn("print", result.stdout)
+        self.assertIn("optimize", result.stdout)
+        self.assertIn("export", result.stdout)
+        self.assertIn("backtest", result.stdout)
+
+    def test_optimization_plot_help(self):
+        """Test optimization plot subcommand help."""
+        result = self.run_cli_command(["optimization", "plot", "--help"])
+        
+        self.assertIn("Plot optimization data", result.stdout)
+        self.assertIn("composition", result.stdout)
+        self.assertIn("frontier", result.stdout)
+        self.assertIn("correlation-matrix", result.stdout)
+
+    def test_optimization_calc_help(self):
+        """Test optimization calc subcommand help."""
+        result = self.run_cli_command(["optimization", "calc", "--help"])
+        
+        self.assertIn("Calculate optimization metrics", result.stdout)
+        self.assertIn("var", result.stdout)
+
+    # Legacy Commands (should still work)
     def test_clear_cache_help(self):
         """Test clear-cache command help."""
         result = self.run_cli_command(["clear-cache", "--help"])
         
         self.assertIn("Delete all cache files in temp/*.pkl", result.stdout)
-
-    def test_ticker_info_help(self):
-        """Test ticker-info command help."""
-        result = self.run_cli_command(["ticker-info", "--help"])
-        
-        self.assertIn("Show detailed ticker information", result.stdout)
-        self.assertIn("TICKER", result.stdout)
-
-    def test_convert_currency_help(self):
-        """Test convert-currency command help."""
-        result = self.run_cli_command(["convert-currency", "--help"])
-        
-        self.assertIn("Convert ticker prices to different currency", result.stdout)
-        self.assertIn("TICKER", result.stdout)
-        self.assertIn("CURRENCY", result.stdout)
-        self.assertIn("--days", result.stdout)
-
-    def test_invalid_command(self):
-        """Test that invalid commands show appropriate error."""
-        result = self.run_cli_command(["invalid-command"], expect_success=False)
-        
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("No such command", result.stderr)
-
-    def test_missing_required_option(self):
-        """Test that missing required options show appropriate error."""
-        result = self.run_cli_command(["composition"], expect_success=False)
-        
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("Missing option", result.stderr)
 
     def test_clear_cache_execution(self):
         """Test clear-cache command execution (safe to run)."""
@@ -198,33 +277,34 @@ class TestClickCLI(unittest.TestCase):
         # Should run without error even if no cache files exist
         self.assertEqual(result.returncode, 0)
 
-    def test_ticker_info_missing_argument(self):
-        """Test ticker-info command with missing ticker argument."""
-        result = self.run_cli_command(["ticker-info"], expect_success=False)
+    # Error Handling Tests
+    def test_invalid_command(self):
+        """Test that invalid commands show appropriate error."""
+        result = self.run_cli_command(["invalid-command"], expect_success=False)
+        
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("No such command", result.stderr)
+
+    def test_ticker_missing_argument(self):
+        """Test ticker print info with missing symbol argument."""
+        result = self.run_cli_command(["ticker", "print", "info"], expect_success=False)
         
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Missing argument", result.stderr)
 
-    def test_convert_currency_missing_arguments(self):
-        """Test convert-currency command with missing arguments."""
-        result = self.run_cli_command(["convert-currency"], expect_success=False)
+    def test_portfolio_missing_file_argument(self):
+        """Test portfolio open-positions with missing file argument."""
+        result = self.run_cli_command(["portfolio", "open-positions"], expect_success=False)
         
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Missing argument", result.stderr)
 
-    def test_plot_missing_arguments(self):
-        """Test plot command with missing arguments."""
-        result = self.run_cli_command(["plot"], expect_success=False)
-        
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("Missing argument", result.stderr)
-
-    def test_command_with_file_option_validation(self):
-        """Test that commands requiring file options validate correctly."""
+    def test_command_with_nonexistent_file(self):
+        """Test that commands requiring files validate correctly."""
         # Test with non-existent file
-        result = self.run_cli_command(["composition", "-f", "non_existent_file.json"], expect_success=False)
+        result = self.run_cli_command(["portfolio", "open-positions", "non_existent_file.json", "2024-01-01"], expect_success=False)
         
-        # The command should fail during execution, not during parsing
+        # The command should fail during execution
         self.assertNotEqual(result.returncode, 0)
 
 
@@ -260,41 +340,12 @@ class TestCLIIntegration(unittest.TestCase):
         return result
 
     @unittest.skip("Requires network access - run manually when needed")
-    def test_ticker_info_real_ticker(self):
-        """Test ticker-info with a real ticker (requires network)."""
-        result = self.run_cli_command(["ticker-info", "AAPL"])
+    def test_ticker_info_implementation(self):
+        """Test when ticker commands are implemented (requires network)."""
+        result = self.run_cli_command(["ticker", "print", "info", "AAPL"])
         
-        if result.returncode == 0:
-            self.assertIn("AAPL", result.stdout)
-            self.assertIn("Currency:", result.stdout)
-        else:
-            # Network issues are acceptable in automated tests
-            self.assertIn("Error", result.stdout)
-
-    @unittest.skip("Requires network access - run manually when needed")
-    def test_convert_currency_real_ticker(self):
-        """Test convert-currency with a real ticker (requires network)."""
-        result = self.run_cli_command(["convert-currency", "AAPL", "EUR", "--days", "3"])
-        
-        if result.returncode == 0:
-            self.assertIn("Converting AAPL", result.stdout)
-            self.assertIn("EUR", result.stdout)
-        else:
-            # Network issues are acceptable in automated tests
-            self.assertIn("Error", result.stdout)
-
-    @unittest.skip("Requires network access - run manually when needed")
-    def test_correlation_real_tickers(self):
-        """Test correlation with real tickers (requires network)."""
-        result = self.run_cli_command(["correlation", "-t", "AAPL,MSFT"])
-        
-        if result.returncode == 0:
-            self.assertIn("AAPL", result.stdout)
-            self.assertIn("MSFT", result.stdout)
-            self.assertIn("Correlation", result.stdout)
-        else:
-            # Network issues are acceptable in automated tests
-            self.assertIn("Error", result.stdout)
+        # For now, all commands show "not implemented"
+        self.assertIn("not implemented yet", result.stdout)
 
 
 def run_cli_smoke_tests():
@@ -315,11 +366,15 @@ def run_cli_smoke_tests():
     tests = [
         (["--help"], "Main help"),
         (["--version"], "Version"),
-        (["composition", "--help"], "Composition help"),
-        (["correlation", "--help"], "Correlation help"),
-        (["plot", "--help"], "Plot help"),
-        (["ticker-info", "--help"], "Ticker info help"),
+        (["ticker", "--help"], "Ticker help"),
+        (["ticker", "print", "--help"], "Ticker print help"),
+        (["portfolio", "--help"], "Portfolio help"),
+        (["portfolio", "print", "--help"], "Portfolio print help"),
+        (["watchlist", "--help"], "Watchlist help"),
+        (["optimization", "--help"], "Optimization help"),
         (["clear-cache"], "Clear cache"),
+        (["ticker", "print", "info", "AAPL"], "Ticker info (not implemented)"),
+        (["ticker", "compare", "AAPL", "MSFT"], "Ticker compare (not implemented)"),
     ]
     
     passed = 0
@@ -341,7 +396,7 @@ def run_cli_smoke_tests():
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="Test the CLI refactoring")
+    parser = argparse.ArgumentParser(description="Test the new CLI structure")
     parser.add_argument("--smoke", action="store_true", help="Run smoke tests only")
     parser.add_argument("--integration", action="store_true", help="Include integration tests (requires network)")
     args = parser.parse_args()
@@ -352,7 +407,7 @@ if __name__ == "__main__":
     else:
         # Run unit tests
         loader = unittest.TestLoader()
-        suite = loader.loadTestsFromTestCase(TestClickCLI)
+        suite = loader.loadTestsFromTestCase(TestNewCLI)
         
         if args.integration:
             suite.addTests(loader.loadTestsFromTestCase(TestCLIIntegration))

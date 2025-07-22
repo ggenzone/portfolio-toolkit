@@ -141,6 +141,8 @@ User Guide
 
    user_guide/installation
    user_guide/getting_started
+   user_guide/watchlist_format
+   user_guide/optimization_format
    user_guide/portfolio_format
    user_guide/migration
 

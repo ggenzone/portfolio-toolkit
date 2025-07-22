@@ -2,45 +2,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def plot_composition(df_portfolio, group_by="Ticker"):
-    """
-    Generates a pie chart showing the portfolio composition grouped by Ticker, Sector, or Country.
-
-    Args:
-        df_portfolio (pd.DataFrame): Structured DataFrame with the portfolio evolution.
-        group_by (str): Grouping criterion ('Ticker', 'Sector', 'Country').
-
-    Returns:
-        None
-    """
-    # Filter by the latest available date to analyze current holdings
-    last_date = df_portfolio["Date"].max()
-    df_current = df_portfolio[df_portfolio["Date"] == last_date]
-
-    composition = df_current.groupby(group_by)["Value"].sum()
-    composition = composition[composition > 0]
-
-    labels = composition.index.tolist()
-    sizes = composition.values.tolist()
-    colors = plt.cm.tab20.colors[: len(labels)]
-
-    plt.figure(figsize=(10, 8))
-    plt.pie(
-        sizes,
-        labels=labels,
-        autopct="%1.1f%%",
-        startangle=140,
-        colors=colors,
-        wedgeprops={"edgecolor": "white"},
-    )
-    plt.title(
-        f"Portfolio Composition by {group_by.capitalize()} (Holdings as of {last_date})",
-        fontsize=16,
-    )
-    plt.tight_layout()
-    plt.show()
-
-
 def plot_evolution(df_portfolio):
     """
     Generates a chart showing the evolution of the portfolio value over time.
