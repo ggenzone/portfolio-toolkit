@@ -14,3 +14,4 @@ tabulate
 # CLI framework
 click>=8.0.0
 
+pytest
