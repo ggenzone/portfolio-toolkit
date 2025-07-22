@@ -1,48 +1,23 @@
-from typing import List, Optional
-
-import pandas as pd
+from dataclasses import dataclass, field
+from typing import List
 
 from .market_asset import MarketAsset
 from .portfolio_asset_transaction import PortfolioAssetTransaction
 
 
+@dataclass
 class PortfolioAsset(MarketAsset):
-    def __init__(
-        self,
-        ticker: str,
-        prices: pd.Series,
-        info: dict,
-        currency: Optional[str] = None,
-        transactions: Optional[List[PortfolioAssetTransaction]] = None,
-    ):
-        """
-        Represents a portfolio asset, extending MarketAsset with transactions.
-
-        Args:
-            ticker (str): The ticker symbol of the asset.
-            prices (pd.Series): Historical price data for the asset.
-            info (dict): Additional information about the asset (e.g., from a data provider).
-            currency (Optional[str]): The currency for the asset. If None, it is derived from the info.
-            transactions (Optional[List[PortfolioAssetTransaction]]): List of transactions for the asset.
-        """
-        super().__init__(ticker, prices, info, currency)
-        self.transactions = transactions or []
+    transactions: List[PortfolioAssetTransaction] = field(default_factory=list)
 
     def add_transaction(self, transaction: PortfolioAssetTransaction):
         """
         Adds a transaction to the portfolio asset.
-
-        Args:
-            transaction (PortfolioAssetTransaction): The transaction to add.
         """
         self.transactions.append(transaction)
 
     def add_transaction_from_dict(self, transaction_dict: dict):
         """
         Adds a transaction to the account from a dictionary.
-
-        Args:
-            transaction_dict (dict): Dictionary containing transaction details.
         """
         transaction = PortfolioAssetTransaction(
             date=transaction_dict["date"],

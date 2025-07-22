@@ -9,7 +9,7 @@ from .closed_position import ClosedPosition
 
 
 def get_closed_positions(
-    assets: List[PortfolioAsset], date: str
+    assets: List[PortfolioAsset], from_date: str, to_date: str
 ) -> List[ClosedPosition]:
     """
     Calculates all closed positions for multiple assets using FIFO logic up to a specific date.
@@ -24,7 +24,7 @@ def get_closed_positions(
     all_closed_positions: List[ClosedPosition] = []
 
     for asset in assets:
-        asset_closed_positions = get_asset_closed_positions(asset, date)
+        asset_closed_positions = get_asset_closed_positions(asset, from_date, to_date)
         all_closed_positions.extend(asset_closed_positions)
 
     return all_closed_positions

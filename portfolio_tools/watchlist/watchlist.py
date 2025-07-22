@@ -1,4 +1,5 @@
 from typing import List
+
 from portfolio_tools.asset.market_asset import MarketAsset
 from portfolio_tools.data_provider.data_provider import DataProvider
 
@@ -8,7 +9,13 @@ class Watchlist:
     Class to represent and manage an asset watchlist.
     """
 
-    def __init__(self, name: str, currency: str, assets: List[MarketAsset], data_provider: DataProvider):
+    def __init__(
+        self,
+        name: str,
+        currency: str,
+        assets: List[MarketAsset],
+        data_provider: DataProvider,
+    ):
         """
         Initializes the Watchlist class and optionally loads data from a JSON file.
 

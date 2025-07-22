@@ -69,6 +69,8 @@ def get_asset_open_positions(asset: PortfolioAsset, date: str) -> ValuedPosition
     # Create and return a ValuedPosition object
     return ValuedPosition(
         ticker=asset.ticker,
+        sector=asset.sector,
+        country=asset.country,
         buy_price=average_price,
         quantity=quantity,
         current_price=current_price,

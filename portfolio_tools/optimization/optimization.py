@@ -1,6 +1,5 @@
-from datetime import datetime
-
 from typing import List
+
 from portfolio_tools.asset.optimization_asset import OptimizationAsset
 from portfolio_tools.data_provider.data_provider import DataProvider
 
@@ -10,7 +9,13 @@ class Optimization:
     Class to represent and manage an asset optimization.
     """
 
-    def __init__(self, name: str, currency: str, assets: List[OptimizationAsset], data_provider: DataProvider):
+    def __init__(
+        self,
+        name: str,
+        currency: str,
+        assets: List[OptimizationAsset],
+        data_provider: DataProvider,
+    ):
         """
         Initializes the Optimization class and optionally loads data from a JSON file.
 

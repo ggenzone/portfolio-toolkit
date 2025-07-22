@@ -26,6 +26,8 @@ def get_open_positions(assets: List[PortfolioAsset], date: str) -> List[ValuedPo
         if position.quantity != 0:  # Only include positions with non-zero quantity
             valued_position = ValuedPosition(
                 ticker=ticker,
+                sector=asset.sector,
+                country=asset.country,
                 buy_price=position.buy_price,
                 quantity=position.quantity,
                 current_price=position.current_price,

@@ -3,17 +3,12 @@ from datetime import datetime
 from portfolio_tools.data_provider.data_provider import DataProvider
 from portfolio_tools.portfolio.parser import load_json
 from portfolio_tools.portfolio.plot import (
-    plot_composition,
     plot_evolution,
     plot_evolution_stacked,
     plot_evolution_ticker,
     plot_evolution_vs_cost,
 )
 from portfolio_tools.portfolio.preprocesador import preprocess_data
-from portfolio_tools.position.get_closed_positions import get_closed_positions
-from portfolio_tools.position.get_open_positions import get_open_positions
-from portfolio_tools.position.print_closed_positions import print_closed_positions
-from portfolio_tools.position.print_open_positions import print_open_positions
 
 
 class Portfolio:
@@ -141,9 +136,6 @@ class Portfolio:
                             current_quantity -= transaction["quantity"]
         return current_quantity
 
-    def plot_composition(self, group_by="Ticker"):
-        plot_composition(self.df_portfolio, group_by)
-
     def plot_evolution(self):
         plot_evolution(self.df_portfolio)
 
@@ -158,17 +150,6 @@ class Portfolio:
 
     def plot_evolution_ticker(self, ticker):
         plot_evolution_ticker(self.df_portfolio, ticker)
-
-    def print_current_positions(self, target_date=None):
-        from portfolio_tools.portfolio.printer import print_current_positions
-
-        print_current_positions(self.df_portfolio, target_date)
-        position = get_open_positions(assets=self.assets, date=target_date)
-        print_open_positions(position, target_date)
-
-    def print_closed_positions(self, target_date=None):
-        position = get_closed_positions(self.assets, target_date)
-        print_closed_positions(position, target_date)
 
     def print_transactions(self):
         """

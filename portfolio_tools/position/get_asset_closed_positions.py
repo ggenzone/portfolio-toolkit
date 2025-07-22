@@ -6,7 +6,7 @@ from .closed_position import ClosedPosition
 
 
 def get_asset_closed_positions(
-    asset: PortfolioAsset, date: str
+    asset: PortfolioAsset, from_date: str, to_date: str
 ) -> List[ClosedPosition]:
     """
     Calculates all closed positions for an asset using FIFO logic up to a specific date.
@@ -20,7 +20,7 @@ def get_asset_closed_positions(
         List[ClosedPosition]: List of ClosedPosition objects representing closed positions.
     """
     transactions = sorted(
-        [tx for tx in asset.transactions if tx.date <= date], key=lambda x: x.date
+        [tx for tx in asset.transactions if tx.date <= to_date], key=lambda x: x.date
     )
     ticker = asset.ticker
 
@@ -78,4 +78,9 @@ def get_asset_closed_positions(
                 if oldest_position["quantity"] == 0:
                     open_positions.pop(0)
 
-    return closed_positions
+    # Filter closed positions by from_date
+    filtered_closed_positions = [
+        pos for pos in closed_positions if pos.sell_date >= from_date
+    ]
+
+    return filtered_closed_positions

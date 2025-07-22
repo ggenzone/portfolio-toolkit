@@ -8,8 +8,9 @@ def test_get_closed_positions_simple_buy_sell():
         PortfolioAssetTransaction(date="2025-07-19", transaction_type="sell", quantity=5, price=120, currency="USD", total=600, exchange_rate=1, subtotal_base=600, fees_base=0, total_base=600),
     ]
     asset = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions)
-    date = "2025-07-20"
-    closed_positions = get_asset_closed_positions(asset, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-20"
+    closed_positions = get_asset_closed_positions(asset, from_date, to_date)
 
     assert len(closed_positions) == 1
     assert closed_positions[0].ticker == "AAPL"
@@ -26,8 +27,9 @@ def test_get_closed_positions_multiple_buys_single_sell():
         PortfolioAssetTransaction(date="2025-07-20", transaction_type="sell", quantity=12, price=120, currency="USD", total=1440, exchange_rate=1, subtotal_base=960, fees_base=0, total_base=1440),
     ]
     asset = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions)
-    date = "2025-07-21"
-    closed_positions = get_asset_closed_positions(asset, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-21"
+    closed_positions = get_asset_closed_positions(asset, from_date, to_date)
 
     assert len(closed_positions) == 2
     assert closed_positions[0].buy_date == "2025-07-18"
@@ -53,8 +55,9 @@ def test_get_closed_positions_partial_fifo():
         PortfolioAssetTransaction(date="2025-07-20", transaction_type="sell", quantity=12, price=120, currency="USD", total=1440, exchange_rate=1, subtotal_base=1440, fees_base=0, total_base=1440),
     ]
     asset = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions)
-    date = "2025-07-21"
-    closed_positions = get_asset_closed_positions(asset, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-21"
+    closed_positions = get_asset_closed_positions(asset, from_date, to_date)
 
     assert len(closed_positions) == 2
     # First position - full first buy
@@ -72,8 +75,10 @@ def test_get_closed_positions_no_sells():
         PortfolioAssetTransaction(date="2025-07-19", transaction_type="buy", quantity=5, price=120, currency="USD", total=600, exchange_rate=1, subtotal_base=600, fees_base=0, total_base=600),
     ]
     asset = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions)
-    date = "2025-07-20"
-    closed_positions = get_asset_closed_positions(asset, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-20"
+    closed_positions = get_asset_closed_positions(asset, from_date, to_date)
+
 
     assert len(closed_positions) == 0
 
@@ -84,8 +89,9 @@ def test_get_closed_positions_date_filter():
         PortfolioAssetTransaction(date="2025-07-20", transaction_type="sell", quantity=3, price=120, currency="USD", total=360, exchange_rate=1, subtotal_base=360, fees_base=0, total_base=360),
     ]
     asset = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions)
-    date = "2025-07-19"  # Only consider transactions up to this date
-    closed_positions = get_asset_closed_positions(asset, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-19"
+    closed_positions = get_asset_closed_positions(asset, from_date, to_date)
 
     assert len(closed_positions) == 1
     assert closed_positions[0].sell_date == "2025-07-19"
@@ -97,8 +103,9 @@ def test_get_closed_positions_sell_more_than_available():
         PortfolioAssetTransaction(date="2025-07-19", transaction_type="sell", quantity=15, price=120, currency="USD", total=1800, exchange_rate=1, subtotal_base=1800, fees_base=0, total_base=1800),
     ]
     asset = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions)
-    date = "2025-07-20"
-    closed_positions = get_asset_closed_positions(asset, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-20"
+    closed_positions = get_asset_closed_positions(asset, from_date, to_date)
 
     assert len(closed_positions) == 1
     assert closed_positions[0].quantity == 10  # Only 10 available to sell

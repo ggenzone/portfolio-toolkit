@@ -1,22 +1,21 @@
+from dataclasses import dataclass, field
+
 from .position import Position
 
 
+@dataclass
 class ValuedPosition(Position):
-    def __init__(
-        self, ticker: str, buy_price: float, quantity: float, current_price: float
-    ):
-        """
-        Represents a position with its current valuation.
+    current_price: float
+    sector: str
+    country: str
+    value: float = field(init=False)
 
-        Args:
-            ticker (str): The ticker symbol of the asset.
-            buy_price (float): The price at which the asset was purchased.
-            quantity (float): The quantity of the asset held.
-            current_price (float): The current price of the asset.
-        """
-        super().__init__(ticker, buy_price, quantity)
-        self.current_price = current_price
-        self.value = current_price * quantity  # Current value of the position
+    def __post_init__(self):
+        super().__post_init__()  # Calcula cost
+        self.value = self.current_price * self.quantity
 
     def __repr__(self):
-        return f"ValuedPosition(ticker={self.ticker}, buy_price={self.buy_price}, quantity={self.quantity}, cost={self.cost}, current_price={self.current_price}, value={self.value})"
+        return (
+            f"ValuedPosition(ticker={self.ticker}, buy_price={self.buy_price}, quantity={self.quantity}, "
+            f"cost={self.cost}, current_price={self.current_price}, value={self.value})"
+        )

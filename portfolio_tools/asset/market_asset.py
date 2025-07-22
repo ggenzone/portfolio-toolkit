@@ -1,27 +1,24 @@
-from typing import Optional
+from dataclasses import dataclass, field
+from typing import Dict, Optional
 
 import pandas as pd
 
 
+@dataclass
 class MarketAsset:
-    def __init__(
-        self, ticker: str, prices: pd.Series, info: dict, currency: Optional[str] = None
-    ):
-        """
-        Represents a market asset with associated data.
+    ticker: str
+    prices: pd.Series
+    info: Dict
+    currency: Optional[str] = None
 
-        Args:
-            ticker (str): The ticker symbol of the asset.
-            prices (pd.Series): Historical price data for the asset.
-            info (dict): Additional information about the asset (e.g., from a data provider).
-            currency (Optional[str]): The currency for the asset. If None, it is derived from the info.
-        """
-        self.ticker = ticker
-        self.sector = info.get("sector", "Unknown")
-        self.country = info.get("country", "Unknown")
-        self.prices = prices
-        self.info = info
-        self.currency = currency or info.get("currency", "Unknown")
+    # Campos derivados que no se pasan al constructor
+    sector: str = field(init=False)
+    country: str = field(init=False)
+
+    def __post_init__(self):
+        self.sector = self.info.get("sector", "Unknown")
+        self.country = self.info.get("country", "Unknown")
+        self.currency = self.currency or self.info.get("currency", "Unknown")
 
     def __repr__(self):
         return (

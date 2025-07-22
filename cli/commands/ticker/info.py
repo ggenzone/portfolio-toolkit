@@ -2,16 +2,16 @@ import click
 from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
 
 
-@click.command(name='ticker-info')
-@click.argument('ticker')
-def ticker_info(ticker):
+@click.command()
+@click.argument('symbol')
+def info(symbol):
     """Show detailed ticker information.
     
     TICKER: Ticker symbol (e.g., AAPL, SHOP)
     """
     try:
         data_provider = YFDataProvider()
-        ticker_symbol = ticker.upper()
+        ticker_symbol = symbol.upper()
         
         print(f"📊 Ticker Information: {ticker_symbol}")
         print("=" * 50)

@@ -5,12 +5,16 @@ from portfolio_tools.utils.log_returns import calculate_log_returns
 
 
 @click.command()
-@click.option('-t', '--tickers', required=True, 
-              help='Comma-separated list of tickers (e.g. AAPL,MSFT,GOOGL)')
-def correlation(tickers):
+@click.argument('symbols', nargs=-1, required=True)
+def correlation(symbols):
+    """Compare multiple tickers"""
+    if len(symbols) < 2:
+        click.echo("Error: At least 2 symbols are required")
+        return
+    
     """Calculate correlation between asset pairs."""
     data_provider = YFDataProvider()
-    ticker_list = [t.strip() for t in tickers.split(',') if t.strip()]
+    ticker_list = [t.strip() for t in symbols if t.strip()]
     prices = {ticker: data_provider.get_price_series(ticker) for ticker in ticker_list}
     returns = {ticker: calculate_log_returns(prices[ticker]) for ticker in ticker_list}
     print("|" + "-"*37 + "|")

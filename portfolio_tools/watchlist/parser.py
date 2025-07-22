@@ -1,7 +1,9 @@
 import json
+
 from portfolio_tools.asset.market_asset import MarketAsset
 from portfolio_tools.data_provider.data_provider import DataProvider
 from portfolio_tools.watchlist.watchlist import Watchlist
+
 
 def create_watchlist_from_json(
     json_filepath: str, data_provider: DataProvider
@@ -30,14 +32,14 @@ def create_watchlist_from_json(
         for asset_data in data["assets"]:
             if "ticker" not in asset_data:
                 raise ValueError("Each asset must have a 'ticker' field.")
-            
+
             ticker = asset_data.get("ticker")
             info = data_provider.get_asset_info(ticker)
-            prices = data_provider.get_price_series_converted(
-                ticker, currency
-            )
-            
+            prices = data_provider.get_price_series_converted(ticker, currency)
+
             asset = MarketAsset(ticker, prices, info, currency)
             assets.append(asset)
 
-        return Watchlist(name=name, currency=currency, assets=assets, data_provider=data_provider)
+        return Watchlist(
+            name=name, currency=currency, assets=assets, data_provider=data_provider
+        )

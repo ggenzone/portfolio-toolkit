@@ -14,8 +14,9 @@ def test_get_closed_positions_multiple_assets():
     asset_aapl = PortfolioAsset(ticker="AAPL", prices=None, info={}, transactions=transactions_aapl)
     asset_googl = PortfolioAsset(ticker="GOOGL", prices=None, info={}, transactions=transactions_googl)
     assets = [asset_aapl, asset_googl]
-    date = "2025-07-20"
-    closed_positions = get_closed_positions(assets, date)
+    from_date = "2025-07-18"
+    to_date = "2025-07-20"
+    closed_positions = get_closed_positions(assets, from_date, to_date)
 
     assert len(closed_positions) == 2
     # Check AAPL position
