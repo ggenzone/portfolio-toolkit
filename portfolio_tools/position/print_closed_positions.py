@@ -116,8 +116,6 @@ def print_closed_positions_summary(positions: List[ClosedPosition], date: str) -
     print(f"Closed positions summary as of {date}:")
     print("-" * 50)
 
-    total_cost = 0
-    total_value = 0
     total_profit = 0
     winning_positions = 0
     losing_positions = 0
@@ -127,13 +125,9 @@ def print_closed_positions_summary(positions: List[ClosedPosition], date: str) -
     worst_ticker = ""
 
     for position in positions:
-        value = position.value
-        cost = position.cost
         return_percentage = position.return_percentage
 
-        total_cost += cost
-        total_value += value
-        total_profit = position.profit
+        total_profit += position.profit
 
         if return_percentage > 0:
             winning_positions += 1
@@ -148,19 +142,15 @@ def print_closed_positions_summary(positions: List[ClosedPosition], date: str) -
             worst_return = return_percentage
             worst_ticker = position.ticker
 
-    total_return = (
-        ((total_value - total_cost) / total_cost) * 100 if total_cost > 0 else 0
-    )
     win_rate = (winning_positions / len(positions)) * 100 if len(positions) > 0 else 0
 
     print(f"Total positions: {len(positions)}")
     print(f"Winning positions: {winning_positions}")
     print(f"Losing positions: {losing_positions}")
     print(f"Win rate: {win_rate:.1f}%")
-    print(f"Total cost: ${total_cost:.2f}")
-    print(f"Total value: ${total_value:.2f}")
+
     print(f"Total profit: ${total_profit:.2f}")
-    print(f"Total return: {total_return:.2f}%")
+
     print(f"Best performer: {best_ticker} ({best_return:.2f}%)")
     print(f"Worst performer: {worst_ticker} ({worst_return:.2f}%)")
     print("-" * 50)

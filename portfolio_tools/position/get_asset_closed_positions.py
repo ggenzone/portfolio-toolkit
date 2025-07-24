@@ -36,9 +36,11 @@ def get_asset_closed_positions(
                     "date": transaction.date,
                     "quantity": transaction.quantity,
                     "total_base": transaction.total_base,
-                    "price": transaction.total_base / transaction.quantity
-                    if transaction.quantity > 0
-                    else 0,
+                    "price": (
+                        transaction.total_base / transaction.quantity
+                        if transaction.quantity > 0
+                        else 0
+                    ),
                 }
             )
 

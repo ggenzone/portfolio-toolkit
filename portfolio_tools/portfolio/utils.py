@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def get_ticker_holding_intervals(assets, ticker):
+def get_ticker_holding_intervals(assets, ticker):  # noqa: C901
     """
     Returns the date intervals where a specific ticker was held in the portfolio.
 

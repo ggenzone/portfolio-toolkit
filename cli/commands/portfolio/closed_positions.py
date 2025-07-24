@@ -1,5 +1,5 @@
 import click
-from portfolio_tools.portfolio.portfolio import Portfolio
+from portfolio_tools.portfolio.load_portfolio_json import load_portfolio_json
 from portfolio_tools.position.print_closed_positions import print_closed_positions, print_closed_positions_to_csv, print_closed_positions_summary
 from portfolio_tools.position.get_closed_positions import get_closed_positions
 from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
@@ -17,7 +17,8 @@ def closed_positions(file, date, output_file, plot):
     """Show closed positions"""
     data = load_json_file(file)
     data_provider = YFDataProvider()
-    portfolio = Portfolio(json_filepath=file, data_provider=data_provider)
+    portfolio = load_portfolio_json(json_filepath=file, data_provider=data_provider)
+
     closed_positions = get_closed_positions(portfolio.assets, from_date='2010-01-01', to_date=date)
         
     # Aquí puedes usar los parámetros opcionales

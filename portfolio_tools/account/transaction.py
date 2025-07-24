@@ -15,11 +15,11 @@ class AccountTransaction:
 
         Args:
             transaction_date (date): The date of the transaction.
-            transaction_type (str): The type of transaction ('buy', 'sell', 'deposit', 'withdrawal').
+            transaction_type (str): The type of transaction ('buy', 'sell', 'deposit', 'withdrawal', 'income').
             amount (float): The amount involved in the transaction.
             description (Optional[str]): Additional details about the transaction.
         """
-        if transaction_type not in {"buy", "sell", "deposit", "withdrawal"}:
+        if transaction_type not in {"buy", "sell", "deposit", "withdrawal", "income"}:
             raise ValueError(f"Invalid transaction type: {transaction_type}")
 
         self.transaction_date = transaction_date

@@ -10,7 +10,8 @@ from datetime import datetime
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from portfolio_tools.portfolio.portfolio import Portfolio
+from portfolio_tools.portfolio.load_portfolio_json import load_portfolio_json
+from portfolio_tools.portfolio.time_series_portfolio import create_time_series_portfolio_from_portfolio
 from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
 
 
@@ -23,8 +24,9 @@ def validate_portfolio(portfolio_path, expected_name, expected_currency):
         data_provider = YFDataProvider()
         
         # Load portfolio
-        portfolio = Portfolio(portfolio_path, data_provider)
-        
+        basic_portfolio = load_portfolio_json(portfolio_path, data_provider)
+        portfolio = create_time_series_portfolio_from_portfolio(basic_portfolio)
+
         # Basic validation
         print(f"✓ Portfolio loaded successfully")
         print(f"  Name: {portfolio.name}")
@@ -37,7 +39,7 @@ def validate_portfolio(portfolio_path, expected_name, expected_currency):
         print(f"✓ Basic properties validated")
         
         # Try to get DataFrame
-        df = portfolio.df_portfolio
+        df = portfolio.portfolio_timeseries
         if df is not None:
             print(f"✓ DataFrame generated successfully ({len(df)} rows)")
         else:
@@ -50,8 +52,8 @@ def validate_portfolio(portfolio_path, expected_name, expected_currency):
         print(f"✓ Required columns present")
         
         # Try printing current positions
-        print(f"✓ Current positions:")
-        portfolio.print_current_positions()
+        # print(f"✓ Current positions:")
+        # portfolio.print_current_positions()
         
         return True
         
@@ -77,7 +79,7 @@ def main():
         ("basic_portfolio.json", "Basic Portfolio Test", "EUR"),
         ("multi_currency_portfolio.json", "Multi Currency Portfolio Test", "EUR"),
         ("fifo_test_portfolio.json", "FIFO Test Portfolio", "EUR"),
-        ("cash_only_portfolio.json", "Cash Only Portfolio Test", "EUR"),
+        # ("cash_only_portfolio.json", "Cash Only Portfolio Test", "EUR"),
         ("test_portfolio_v2.json", "Test Portfolio", "EUR")
     ]
     

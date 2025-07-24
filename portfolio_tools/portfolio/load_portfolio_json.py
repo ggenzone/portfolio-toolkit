@@ -1,18 +1,17 @@
 import json
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 from portfolio_tools.account.account import Account
 from portfolio_tools.asset.create import create_market_asset
 from portfolio_tools.asset.portfolio_asset import PortfolioAsset
 from portfolio_tools.data_provider.data_provider import DataProvider
+from portfolio_tools.portfolio.portfolio import Portfolio
 from portfolio_tools.transaction.get_ticker import get_transaction_ticker
 from portfolio_tools.transaction.validate import validate_transaction
 
 
-def load_json(
-    json_filepath: str, data_provider: DataProvider
-) -> Tuple[Dict[str, str], List[PortfolioAsset], Account, datetime]:
+def load_portfolio_json(json_filepath: str, data_provider: DataProvider) -> Portfolio:
     """
     Loads and validates a JSON file containing portfolio information.
 
@@ -21,11 +20,7 @@ def load_json(
         data_provider (DataProvider): Data provider instance for fetching ticker information.
 
     Returns:
-        Tuple[Dict[str, str], List[PortfolioAsset], Account, datetime]:
-            - Portfolio information with name and currency.
-            - List of real assets (non-cash).
-            - Cash account with all cash transactions.
-            - Calculated portfolio start date.
+        Portfolio: The loaded portfolio object.
     """
     with open(json_filepath, mode="r", encoding="utf-8") as file:
         data = json.load(file)
@@ -45,7 +40,14 @@ def load_json(
             "currency": data["currency"],
         }
 
-        return portfolio, assets, account, start_date
+        return Portfolio(
+            name=portfolio["name"],
+            currency=portfolio["currency"],
+            assets=assets,
+            account=account,
+            start_date=start_date,
+            data_provider=data_provider,
+        )
 
 
 def process_transactions(
@@ -89,7 +91,7 @@ def process_transactions(
             assets_dict[ticker].add_transaction_from_dict(transaction)
 
             # Create synthetic cash transaction for asset purchases/sales
-            if transaction["type"] in ["buy", "sell"]:
+            if transaction["type"] in ["buy", "sell", "dividend"]:
                 cash_account.add_transaction_from_assets_dict(transaction)
 
     start_date = min(transaction_dates) if transaction_dates else None

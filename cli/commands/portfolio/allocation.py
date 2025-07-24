@@ -1,6 +1,6 @@
 import click
 from portfolio_tools.plot.engine import PlotEngine
-from portfolio_tools.portfolio.portfolio import Portfolio
+from portfolio_tools.portfolio.load_portfolio_json import load_portfolio_json
 from portfolio_tools.position.get_open_positions import get_open_positions
 from portfolio_tools.position.plot_open_positions import plot_open_positions
 from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
@@ -15,7 +15,7 @@ def allocation(file, date, country):
     """Plot current portfolio allocation"""
     data = load_json_file(file)
     data_provider = YFDataProvider()
-    portfolio = Portfolio(json_filepath=file, data_provider=data_provider)
+    portfolio = load_portfolio_json(file, data_provider)
     open_positions = get_open_positions(portfolio.assets, date)
 
     pie_data = plot_open_positions(open_positions, group_by='Country' if country else 'Sector')
