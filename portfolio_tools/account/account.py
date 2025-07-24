@@ -47,12 +47,19 @@ class Account:
         Args:
             transaction_dict (dict): Dictionary containing transaction details.
         """
-        type = "buy" if transaction_dict["type"] == "sell" else "sell"
-        text = (
-            f"Buy ${transaction_dict['ticker']} asset"
-            if type == "buy"
-            else f"Sell ${transaction_dict['ticker']} asset"
-        )
+        text = ""
+        type = ""
+        if transaction_dict["type"] == "buy":
+            type = "sell"
+            text = f"Sell ${transaction_dict['ticker']} asset"
+        elif transaction_dict["type"] == "sell":
+            type = "buy"
+            text = f"Buy ${transaction_dict['ticker']} asset"
+        elif transaction_dict["type"] == "dividend":
+            type = "income"
+            text = f"Dividend received for ${transaction_dict['ticker']} asset"
+        else:
+            raise ValueError(f"Unknown transaction type: {transaction_dict['type']}")
 
         transaction = AccountTransaction(
             transaction_date=transaction_dict["date"],

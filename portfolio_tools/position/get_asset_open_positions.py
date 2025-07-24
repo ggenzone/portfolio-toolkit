@@ -5,7 +5,9 @@ from portfolio_tools.asset.portfolio_asset import PortfolioAsset
 from .valued_position import ValuedPosition
 
 
-def get_asset_open_positions(asset: PortfolioAsset, date: str) -> ValuedPosition:
+def get_asset_open_positions(  # noqa: C901
+    asset: PortfolioAsset, date: str
+) -> ValuedPosition:
     """
     Computes the open position of an asset as of a given date.
 

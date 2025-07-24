@@ -72,17 +72,9 @@ validate_examples() {
 test_cli_commands() {
     print_section "Testing CLI Commands"
     echo "===================="
-    
-    print_status "Testing print-positions command..."
-    python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
-    
-    echo
-    print_status "Testing export-transactions command..."
-    python -m cli.cli export-transactions -f tests/examples/basic_portfolio.json | head -5
-    
-    echo
-    print_status "Testing dump-data-frame command..."
-    python -m cli.cli dump-data-frame -f tests/examples/basic_portfolio.json | head -10
+
+    print_status "Testing portfolio open-positions command..."
+    python -m cli.cli portfolio open-positions tests/examples/basic_portfolio.json 2025-01-01
     
     print_status "CLI commands tested successfully!"
 }

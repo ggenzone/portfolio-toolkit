@@ -1,13 +1,13 @@
 import pandas as pd
 
 from portfolio_tools.plot.line_chart_data import LineChartData
-from portfolio_tools.portfolio.portfolio import Portfolio
+from portfolio_tools.portfolio.time_series_portfolio import TimeSeriesPortfolio
 
 
-def plot_portfolio_evolution(portfolio: Portfolio) -> LineChartData:
+def plot_portfolio_evolution(portfolio: TimeSeriesPortfolio) -> LineChartData:
     """Plot open positions in the portfolio"""
 
-    portfolio_data = portfolio.df_portfolio
+    portfolio_data = portfolio.portfolio_timeseries
 
     if portfolio_data is None or portfolio_data.empty:
         raise ValueError("Portfolio DataFrame is not available.")

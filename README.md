@@ -136,7 +136,6 @@ python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
 - [ ] Allow loading portfolios from Excel and ODS files natively
 - [ ] Implement portfolio performance metrics (Sharpe, Sortino, drawdown, etc.)
 - [ ] Add interactive visualizations (e.g., with Plotly or Dash)
-- [ ] Support multi-currency portfolios and automatic currency conversion
 - [ ] Document all public methods with usage examples
 - [ ] Add export to PDF/Excel reports
 - [ ] Allow portfolio rebalancing and optimization simulations

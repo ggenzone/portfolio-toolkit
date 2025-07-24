@@ -1,50 +1,36 @@
+from dataclasses import dataclass
+from typing import List
+
+from portfolio_tools.account.account import Account
+from portfolio_tools.asset.portfolio_asset import PortfolioAsset
 from portfolio_tools.data_provider.data_provider import DataProvider
-from portfolio_tools.portfolio.parser import load_json
-from portfolio_tools.portfolio.preprocesador import preprocess_data
 
 
+@dataclass
 class Portfolio:
-    """
-    Class to represent and manage an asset portfolio.
-    """
+    name: str
+    currency: str
+    assets: List[PortfolioAsset]
+    data_provider: DataProvider
+    account: Account
+    start_date: str  # = field(init=False)
 
-    def __init__(self, json_filepath: str, data_provider: DataProvider):
-        """
-        Initializes the Portfolio class and optionally loads data from a JSON file.
+    # def __post_init__(self):
+    #    # Determina la fecha más antigua de las transacciones de todos los activos
+    #    all_dates = []
+    #    for asset in self.assets:
+    #        for tx in asset.transactions:
+    #            all_dates.append(tx.date)
 
-        Args:
-            json_filepath (str, optional): Path to the JSON file to load data from.
-            data_provider (DataProvider, optional): Data provider to obtain historical prices.
+    #    if all_dates:
+    #        self.start_date = min(all_dates)
+    #    else:
+    #        self.start_date = "N/A"  # o lanzar una excepción si es requerido
 
-        Returns:
-            None
-        """
-        self.name = None
-        self.currency = None
-        self.assets = []
-        self.start_date = None
-        self.df_portfolio = None  # DataFrame to store the portfolio evolution
-        self.data_provider = data_provider  # Data provider
-        self.account = None  # Placeholder for account information
-
-        if json_filepath:
-            portfolio, assets, account, self.start_date = load_json(
-                json_filepath, data_provider
-            )
-            self.name = portfolio["name"]
-            self.currency = portfolio["currency"]
-            self.assets = assets
-            self.account = account
-
-            # Include cash account in assets if it has transactions
-            # if account and "transactions" in account and account["transactions"]:
-            #    cash_ticker = f"__{account['currency']}"
-            #    cash_asset = {
-            #        "ticker": cash_ticker,
-            #        "transactions": account["transactions"]
-            #    }
-            #    self.assets.append(cash_asset)
-
-            self.df_portfolio = preprocess_data(
-                self.assets, self.start_date, self.data_provider, self.currency
-            )
+    def __repr__(self):
+        return (
+            f"Portfolio(name={self.name}, currency={self.currency}, "
+            f"assets={len(self.assets)}, start_date={self.start_date}, "
+            f"data_provider={type(self.data_provider).__name__}, "
+            f"account={self.account})"
+        )
