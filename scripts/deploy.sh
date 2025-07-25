@@ -23,7 +23,7 @@ print_error() {
 }
 
 # Check if we're in the right directory
-if [[ ! -f "setup.py" ]] || [[ ! -d "portfolio_tools" ]]; then
+if [[ ! -f "setup.py" ]] || [[ ! -d "portfolio_toolkit" ]]; then
     print_error "Please run this script from the project root directory"
     exit 1
 fi
@@ -40,11 +40,21 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Run quality checks
-print_status "Running quality checks..."
-black --check portfolio_toolkit/
-isort --check-only portfolio_toolkit/
-flake8 portfolio_toolkit/
+# Run quality checks (if tools are available)
+if command -v black &> /dev/null; then
+    print_status "Running Black formatter check..."
+    black --check portfolio_toolkit/
+fi
+
+if command -v isort &> /dev/null; then
+    print_status "Running isort check..."
+    isort --check-only portfolio_toolkit/
+fi
+
+if command -v flake8 &> /dev/null; then
+    print_status "Running flake8 check..."
+    flake8 portfolio_toolkit/
+fi
 
 # Build package
 print_status "Building package..."

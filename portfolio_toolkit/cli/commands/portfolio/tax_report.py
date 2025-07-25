@@ -7,7 +7,7 @@ from portfolio_toolkit.portfolio.print_cash_incomes import print_cash_incomes
 from portfolio_toolkit.position.get_valuation import get_valuation
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 from portfolio_toolkit.position.print_open_positions import print_open_positions
-from tests import portfolio
+from portfolio_toolkit.portfolio.portfolio import Portfolio
 from ..utils import load_json_file
 
 

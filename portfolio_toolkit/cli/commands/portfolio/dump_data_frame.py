@@ -3,7 +3,7 @@ from portfolio_toolkit.portfolio.time_series_portfolio import create_time_series
 from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
 from portfolio_toolkit.portfolio.print_date_frame import print_data_frame
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
-from tests import portfolio
+from portfolio_toolkit.portfolio.portfolio import Portfolio
 from ..utils import load_json_file
 
 
