@@ -1,5 +1,6 @@
 import click
 
+from .. import __version__
 from .commands.clear_cache import clear_cache
 from .commands.optimization.optimization import optimization
 from .commands.portfolio.portfolio import portfolio
@@ -10,7 +11,7 @@ from .commands.watchlist.watchlist import watchlist
 
 
 @click.group()
-@click.version_option(version="1.0.0", package_name="portfolio-toolkit")
+@click.version_option(version=__version__, package_name="portfolio-toolkit")
 def cli():
     """Portfolio Toolkit CLI - Manage and analyze your investment portfolios."""
     pass
