@@ -1,6 +1,6 @@
-from portfolio_tools.position.get_closed_positions import get_closed_positions
-from portfolio_tools.asset import PortfolioAsset, PortfolioAssetTransaction
-from portfolio_tools.position import ClosedPosition
+from portfolio_toolkit.position.get_closed_positions import get_closed_positions
+from portfolio_toolkit.asset import PortfolioAsset, PortfolioAssetTransaction
+from portfolio_toolkit.position import ClosedPosition
 
 def test_get_closed_positions_multiple_assets():
     transactions_aapl = [

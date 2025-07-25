@@ -1,7 +1,7 @@
 Portfolio JSON Format
 ====================
 
-Portfolio Tools uses a structured JSON format (Version 2) for storing portfolio data. This format supports multi-currency transactions, FIFO cost tracking, and comprehensive transaction history.
+Portfolio Toolkit uses a structured JSON format (Version 2) for storing portfolio data. This format supports multi-currency transactions, FIFO cost tracking, and comprehensive transaction history.
 
 JSON Structure Overview
 ----------------------
@@ -533,9 +533,36 @@ Best Practices
 Tools and Utilities
 ------------------
 
-Portfolio Tools provides several utilities for working with JSON files:
+Portfolio Toolkit provides several utilities for working with JSON files:
 
 .. code-block:: bash
 
    # Validate portfolio format
    python tests/validate_examples.py
+
+   # Parse and validate portfolio using CLI
+   portfolio-toolkit portfolio parse examples/portfolio_example.json
+
+   # Display portfolio summary with current positions
+   portfolio-toolkit portfolio summary examples/portfolio_example.json
+
+   # Show portfolio performance analysis
+   portfolio-toolkit portfolio performance examples/portfolio_example.json
+
+   # Convert portfolio to different formats
+   portfolio-toolkit portfolio export examples/portfolio_example.json --format csv
+
+You can also use the CLI to work with portfolio data interactively:
+
+.. code-block:: bash
+
+   # Show all available portfolio commands
+   portfolio-toolkit portfolio --help
+
+   # Validate portfolio format and check for errors
+   portfolio-toolkit portfolio validate examples/portfolio_example.json
+
+   # Display detailed transaction history
+   portfolio-toolkit portfolio transactions examples/portfolio_example.json
+
+For more information about CLI commands, see the :doc:`CLI Reference <../cli_reference>`.

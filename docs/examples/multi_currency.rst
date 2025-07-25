@@ -1,7 +1,7 @@
 Multi-Currency Portfolio Examples
 =================================
 
-Portfolio Tools provides comprehensive support for multi-currency portfolios with automatic currency conversion and FIFO cost calculation.
+Portfolio Toolkit provides comprehensive support for multi-currency portfolios with automatic currency conversion and FIFO cost calculation.
 
 Multi-Currency Portfolio Setup
 ------------------------------
@@ -61,8 +61,8 @@ Working with Multi-Currency Data
 
 .. code-block:: python
 
-   from portfolio_tools.portfolio.portfolio import Portfolio
-   from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+   from portfolio_toolkit.portfolio.portfolio import Portfolio
+   from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 
    # Load multi-currency portfolio
    data_provider = YFDataProvider()
@@ -70,6 +70,22 @@ Working with Multi-Currency Data
 
    # Print positions (all values converted to base currency)
    portfolio.print_current_positions()
+
+CLI Usage for Multi-Currency Portfolios
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also analyze multi-currency portfolios using the Portfolio Toolkit CLI:
+
+.. code-block:: bash
+
+   # Display current positions with automatic currency conversion
+   portfolio-toolkit portfolio open-positions -f examples/multi_currency_portfolio.json
+
+   # Plot portfolio evolution (all in base currency)
+   portfolio-toolkit portfolio plot -f examples/multi_currency_portfolio.json
+
+   # Export multi-currency data
+   portfolio-toolkit portfolio export -f examples/multi_currency_portfolio.json --format csv
 
 Exchange Rate Handling
 ----------------------

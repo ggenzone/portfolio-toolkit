@@ -1,15 +1,15 @@
 Watchlist JSON Format
 =====================
 
-Portfolio Tools utiliza un formato JSON estructurado para almacenar listas de activos (Watchlist). Este formato es mucho más simple que el de Portfolio y está diseñado para facilitar el seguimiento de activos.
+Portfolio Toolkit uses a structured JSON format for storing asset watchlists. This format is much simpler than the Portfolio format and is designed to facilitate asset tracking and monitoring.
 
 JSON Structure Overview
-------------------------
+-----------------------
 
-El archivo JSON de Watchlist tiene tres secciones principales:
+The Watchlist JSON file has two main sections:
 
-1. **Watchlist Metadata**: Información básica sobre la lista de activos.
-2. **Assets**: Un listado de objetos que representan los activos.
+1. **Watchlist Metadata**: Basic information about the asset list
+2. **Assets**: An array of objects representing the assets to track
 
 Basic Structure
 ---------------
@@ -33,33 +33,33 @@ name
 ~~~~
 - **Type**: String
 - **Required**: Yes
-- **Description**: Nombre de la lista de activos.
+- **Description**: Display name for the watchlist
 - **Example**: ``"Tech Stocks Watchlist"``
 
 currency
 ~~~~~~~~
 - **Type**: String
 - **Required**: Yes
-- **Description**: Moneda base para la lista de activos (ISO 4217 code).
+- **Description**: Base currency for the watchlist (ISO 4217 code)
 - **Supported**: USD, EUR, CAD, GBP, etc.
 - **Example**: ``"USD"``
 
 Assets Structure
 ----------------
 
-Cada objeto en el array ``assets`` debe incluir el siguiente campo:
+Each object in the ``assets`` array must include the following field:
 
 ticker
 ^^^^^^
 - **Type**: String
 - **Required**: Yes
-- **Description**: Símbolo del activo (e.g., "AAPL", "GOOGL").
+- **Description**: Asset symbol (e.g., "AAPL", "GOOGL")
 - **Example**: ``"AAPL"``
 
 Complete Example
 ----------------
 
-Aquí tienes un ejemplo completo de un archivo JSON de Watchlist:
+Here's a complete example of a Watchlist JSON file:
 
 .. code-block:: json
 
@@ -77,36 +77,90 @@ Aquí tienes un ejemplo completo de un archivo JSON de Watchlist:
 Validation Rules
 ----------------
 
-Las siguientes reglas de validación aplican:
+The following validation rules apply:
 
 Required Fields
 ~~~~~~~~~~~~~~~
-- Todos los campos listados arriba son obligatorios.
-- Ningún campo puede ser ``null``.
+- All fields listed above are required
+- No field can be ``null``
 
 Data Types
 ~~~~~~~~~~
-- ``name`` y ``currency`` deben ser cadenas de texto no vacías.
-- ``ticker`` debe ser una cadena de texto válida.
+- ``name`` and ``currency`` must be non-empty strings
+- ``ticker`` must be a valid string
 
 Logical Consistency
 ~~~~~~~~~~~~~~~~~~~
-- ``currency`` debe ser un código ISO 4217 válido.
-- Los valores de ``ticker`` deben ser únicos dentro de la lista.
+- ``currency`` must be a valid ISO 4217 code
+- ``ticker`` values must be unique within the watchlist
 
 Best Practices
 --------------
 
-1. **Consistent Currency Codes**: Usa códigos ISO 4217 (USD, EUR, CAD).
-2. **Unique Tickers**: Evita duplicados en la lista de activos.
-3. **Validation**: Usa herramientas para validar el formato de tu Watchlist.
+1. **Consistent Currency Codes**: Use ISO 4217 currency codes (USD, EUR, CAD)
+2. **Unique Tickers**: Avoid duplicates in the asset list
+3. **Validation**: Use validation tools to check your watchlist format
+4. **Meaningful Names**: Choose descriptive names for your watchlists
+5. **Logical Grouping**: Group related assets together (e.g., by sector, region)
 
 Tools and Utilities
 -------------------
 
-Portfolio Tools proporciona utilidades para trabajar con archivos JSON de Watchlist:
+Portfolio Toolkit provides utilities for working with Watchlist JSON files:
 
 .. code-block:: bash
 
-   # Validar el formato de Watchlist
-   python validate_watchlist.py
+   # Validate watchlist format
+   python -m portfolio_toolkit.watchlist.validate
+
+   # Print watchlist information using CLI
+   python -m cli.cli watchlist print -f my_watchlist.json
+
+Common Use Cases
+---------------
+
+**Sector-Based Watchlist**
+
+.. code-block:: json
+
+   {
+     "name": "Technology Sector ETFs",
+     "currency": "USD",
+     "assets": [
+       { "ticker": "QQQ" },
+       { "ticker": "VGT" },
+       { "ticker": "XLK" },
+       { "ticker": "FTEC" }
+     ]
+   }
+
+**International Markets Watchlist**
+
+.. code-block:: json
+
+   {
+     "name": "Global Market Tracking",
+     "currency": "EUR",
+     "assets": [
+       { "ticker": "VTI" },
+       { "ticker": "VXUS" },
+       { "ticker": "VEA" },
+       { "ticker": "VWO" }
+     ]
+   }
+
+**Individual Stocks Watchlist**
+
+.. code-block:: json
+
+   {
+     "name": "Blue Chip Stocks",
+     "currency": "USD",
+     "assets": [
+       { "ticker": "AAPL" },
+       { "ticker": "MSFT" },
+       { "ticker": "GOOGL" },
+       { "ticker": "AMZN" },
+       { "ticker": "TSLA" }
+     ]
+   }

@@ -1,9 +1,9 @@
 import io
 import sys
 import pandas as pd
-from portfolio_tools.asset.print import print_asset_transactions_csv
-from portfolio_tools.asset.portfolio_asset import PortfolioAsset
-from portfolio_tools.asset.portfolio_asset_transaction import PortfolioAssetTransaction
+from portfolio_toolkit.asset.print import print_asset_transactions_csv
+from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.asset.portfolio_asset_transaction import PortfolioAssetTransaction
 
 def test_print_asset_transactions_csv():
     # Create test assets using the actual classes

@@ -1,6 +1,6 @@
 def test_currency_conversion():
     """Test currency conversion functionality."""
-    from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+    from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
     import pandas as pd
     
     dp = YFDataProvider()

@@ -56,7 +56,7 @@ build_docs() {
     
     # Generate API documentation
     print_status "Generating API documentation..."
-    sphinx-apidoc -o api ../portfolio_tools --separate --force
+    sphinx-apidoc -o api ../portfolio_toolkit --separate --force
     
     # Build HTML documentation
     print_status "Building HTML documentation..."

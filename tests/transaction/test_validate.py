@@ -1,5 +1,5 @@
 import pytest
-from portfolio_tools.transaction.validate import validate_transaction
+from portfolio_toolkit.transaction.validate import validate_transaction
 
 def test_validate_transaction_valid():
     transaction = {

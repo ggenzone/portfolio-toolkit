@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Portfolio Tools'
+project = 'Portfolio Toolkit'
 copyright = '2025, Guido Genzone'
 author = 'Guido Genzone'
 release = '2.0'

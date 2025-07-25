@@ -24,7 +24,7 @@ class TestNewCLI(unittest.TestCase):
     def setUpClass(cls):
         """Set up test environment."""  
         cls.project_root = Path(__file__).parent.parent
-        cls.cli_module = "cli.cli"
+        cls.cli_module = "portfolio_toolkit.cli.cli"
         
         # Create a sample portfolio file for testing
         cls.sample_portfolio = {
@@ -85,7 +85,7 @@ class TestNewCLI(unittest.TestCase):
         """Test that the main CLI shows help correctly."""
         result = self.run_cli_command(["--help"])
         
-        self.assertIn("Portfolio Tools CLI", result.stdout)
+        self.assertIn("Portfolio Toolkit CLI", result.stdout)
         self.assertIn("Manage and analyze your investment portfolios", result.stdout)
         self.assertIn("Commands:", result.stdout)
         

@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from portfolio_tools.utils.correlation import calculate_correlation
+from portfolio_toolkit.utils.correlation import calculate_correlation
 
 
 class TestCorrelation(unittest.TestCase):

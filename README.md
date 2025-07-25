@@ -8,15 +8,15 @@ This library provides tools for financial analysis, portfolio management, and ma
 
 ## 📚 Documentation
 
-**[📖 Full Documentation](https://ggenzone.github.io/portfolio-tools/)** - Complete API reference, user guides, and examples
+**[📖 Full Documentation](https://ggenzone.github.io/portfolio-toolkit/)** - Complete API reference, user guides, and examples
 
 ### Quick Documentation Links
 
-- **[Getting Started](https://ggenzone.github.io/portfolio-tools/examples/basic_usage.html)** - Basic usage examples
-- **[CLI Usage Guide](https://ggenzone.github.io/portfolio-tools/examples/cli_usage.html)** - Complete command-line interface reference
-- **[Multi-Currency Support](https://ggenzone.github.io/portfolio-tools/examples/multi_currency.html)** - Working with multiple currencies
-- **[Portfolio JSON Format](https://ggenzone.github.io/portfolio-tools/user_guide/portfolio_format.html)** - Complete format specification
-- **[API Reference](https://ggenzone.github.io/portfolio-tools/api/modules.html)** - Full API documentation
+- **[Getting Started](https://ggenzone.github.io/portfolio-toolkit/examples/basic_usage.html)** - Basic usage examples
+- **[CLI Usage Guide](https://ggenzone.github.io/portfolio-toolkit/examples/cli_usage.html)** - Complete command-line interface reference
+- **[Multi-Currency Support](https://ggenzone.github.io/portfolio-toolkit/examples/multi_currency.html)** - Working with multiple currencies
+- **[Portfolio JSON Format](https://ggenzone.github.io/portfolio-toolkit/user_guide/portfolio_format.html)** - Complete format specification
+- **[API Reference](https://ggenzone.github.io/portfolio-toolkit/api/modules.html)** - Full API documentation
 
 ### Building Documentation Locally
 
@@ -53,9 +53,9 @@ This project maintains high code quality standards using:
 ./format_code.sh
 
 # Individual tools
-black portfolio_tools/      # Format code
-isort portfolio_tools/      # Sort imports
-flake8 portfolio_tools/     # Lint code
+black portfolio_toolkit/      # Format code
+isort portfolio_toolkit/      # Sort imports
+flake8 portfolio_toolkit/     # Lint code
 pytest tests/              # Run tests
 ```
 
@@ -80,7 +80,7 @@ pip install -e .
 
 To uninstall:
 ```bash
-pip uninstall portfolio-tools
+pip uninstall portfolio-toolkit
 ```
 
 ## Testing
