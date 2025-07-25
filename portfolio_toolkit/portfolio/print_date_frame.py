@@ -1,4 +1,4 @@
-from portfolio_tools.portfolio.time_series_portfolio import TimeSeriesPortfolio
+from portfolio_toolkit.portfolio.time_series_portfolio import TimeSeriesPortfolio
 
 
 def print_data_frame(portfolio: TimeSeriesPortfolio):

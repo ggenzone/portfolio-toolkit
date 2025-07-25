@@ -1,6 +1,6 @@
 from typing import List
 
-from portfolio_tools.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
 
 from .closed_position import ClosedPosition
 

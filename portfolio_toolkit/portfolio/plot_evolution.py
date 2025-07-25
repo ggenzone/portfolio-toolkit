@@ -1,7 +1,7 @@
 import pandas as pd
 
-from portfolio_tools.plot.line_chart_data import LineChartData
-from portfolio_tools.portfolio.time_series_portfolio import TimeSeriesPortfolio
+from portfolio_toolkit.plot.line_chart_data import LineChartData
+from portfolio_toolkit.portfolio.time_series_portfolio import TimeSeriesPortfolio
 
 
 def plot_portfolio_evolution(portfolio: TimeSeriesPortfolio) -> LineChartData:

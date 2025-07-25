@@ -1,6 +1,6 @@
 from typing import List
 
-from portfolio_tools.position.valued_position import ValuedPosition
+from portfolio_toolkit.position.valued_position import ValuedPosition
 
 
 def get_valuation(open_positions: List[ValuedPosition]) -> float:

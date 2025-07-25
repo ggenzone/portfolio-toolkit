@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
-from portfolio_tools.utils.log_returns import calculate_log_returns
+from portfolio_toolkit.utils.log_returns import calculate_log_returns
 
 
 class TestLogReturns(unittest.TestCase):

@@ -86,13 +86,13 @@ run_linting() {
     
     print_status "Checking with flake8..."
     if command -v flake8 &> /dev/null; then
-        flake8 portfolio_tools --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 portfolio_tools --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 portfolio_toolkit --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 portfolio_toolkit --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     else
         print_warning "flake8 not found, installing..."
         pip install flake8
-        flake8 portfolio_tools --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 portfolio_tools --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 portfolio_toolkit --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 portfolio_toolkit --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     fi
 }
 

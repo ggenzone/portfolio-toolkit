@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import List
 
-from portfolio_tools.account.account import Account
-from portfolio_tools.asset.portfolio_asset import PortfolioAsset
-from portfolio_tools.data_provider.data_provider import DataProvider
+from portfolio_toolkit.account.account import Account
+from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.data_provider.data_provider import DataProvider
 
 
 @dataclass

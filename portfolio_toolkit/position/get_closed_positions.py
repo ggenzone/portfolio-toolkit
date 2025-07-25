@@ -1,7 +1,7 @@
 from typing import List
 
-from portfolio_tools.asset.portfolio_asset import PortfolioAsset
-from portfolio_tools.position.get_asset_closed_positions import (
+from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.position.get_asset_closed_positions import (
     get_asset_closed_positions,
 )
 

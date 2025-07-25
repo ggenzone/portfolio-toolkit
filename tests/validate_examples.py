@@ -10,9 +10,9 @@ from datetime import datetime
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from portfolio_tools.portfolio.load_portfolio_json import load_portfolio_json
-from portfolio_tools.portfolio.time_series_portfolio import create_time_series_portfolio_from_portfolio
-from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
+from portfolio_toolkit.portfolio.time_series_portfolio import create_time_series_portfolio_from_portfolio
+from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 
 
 def validate_portfolio(portfolio_path, expected_name, expected_currency):

@@ -3,8 +3,8 @@ from typing import List
 
 import matplotlib.pyplot as plt
 
-from portfolio_tools.plot.pie_chart_data import PieChartData
-from portfolio_tools.position.valued_position import ValuedPosition
+from portfolio_toolkit.plot.pie_chart_data import PieChartData
+from portfolio_toolkit.position.valued_position import ValuedPosition
 
 
 def plot_open_positions(

@@ -1,10 +1,10 @@
 import click
-from portfolio_tools.portfolio.load_portfolio_json import load_portfolio_json
-from portfolio_tools.position.print_closed_positions import print_closed_positions, print_closed_positions_to_csv, print_closed_positions_summary
-from portfolio_tools.position.get_closed_positions import get_closed_positions
-from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
-from portfolio_tools.position.plot_closed_positions import plot_closed_positions
-from portfolio_tools.plot.engine import PlotEngine
+from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
+from portfolio_toolkit.position.print_closed_positions import print_closed_positions, print_closed_positions_to_csv, print_closed_positions_summary
+from portfolio_toolkit.position.get_closed_positions import get_closed_positions
+from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
+from portfolio_toolkit.position.plot_closed_positions import plot_closed_positions
+from portfolio_toolkit.plot.engine import PlotEngine
 from ..utils import load_json_file
 
 

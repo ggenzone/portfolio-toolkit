@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from portfolio_tools.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
 
 from .valued_position import ValuedPosition
 

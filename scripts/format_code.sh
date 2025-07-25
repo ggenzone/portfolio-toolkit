@@ -4,15 +4,15 @@
 echo "🎨 Auto-formatting code..."
 
 echo "=== APPLYING BLACK ==="
-black portfolio_tools/
+black portfolio_toolkit/
 
 echo -e "\n=== APPLYING ISORT ==="
-isort portfolio_tools/
+isort portfolio_toolkit/
 
 echo -e "\n=== VERIFICATION ==="
 echo "Running checks to verify formatting..."
 
-black --check portfolio_tools/ && isort --check-only portfolio_tools/ && flake8 portfolio_tools/
+black --check portfolio_toolkit/ && isort --check-only portfolio_toolkit/ && flake8 portfolio_toolkit/
 
 if [ $? -eq 0 ]; then
     echo -e "\n✅ Code formatting completed successfully!"

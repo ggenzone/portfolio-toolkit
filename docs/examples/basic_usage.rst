@@ -1,15 +1,15 @@
 Basic Usage Examples
 ====================
 
-This section provides basic examples of how to use Portfolio Tools.
+This section provides basic examples of how to use Portfolio Toolkit.
 
 Loading a Portfolio
 -------------------
 
 .. code-block:: python
 
-   from portfolio_tools.portfolio.portfolio import Portfolio
-   from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+   from portfolio_toolkit.portfolio.portfolio import Portfolio
+   from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 
    # Create a Yahoo Finance data provider
    data_provider = YFDataProvider()
@@ -127,8 +127,8 @@ Here's a complete example that loads a portfolio and performs various operations
 
 .. code-block:: python
 
-   from portfolio_tools.portfolio.portfolio import Portfolio
-   from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+   from portfolio_toolkit.portfolio.portfolio import Portfolio
+   from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
    from datetime import datetime
 
    def analyze_portfolio(portfolio_path):

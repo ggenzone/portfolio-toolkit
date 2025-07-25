@@ -4,15 +4,15 @@
 echo "🔍 Running code quality checks..."
 
 echo "=== BLACK CHECK ==="
-black --check portfolio_tools/
+black --check portfolio_toolkit/
 BLACK_EXIT=$?
 
 echo -e "\n=== ISORT CHECK ==="
-isort --check-only portfolio_tools/
+isort --check-only portfolio_toolkit/
 ISORT_EXIT=$?
 
 echo -e "\n=== FLAKE8 CHECK ==="
-flake8 portfolio_tools/
+flake8 portfolio_toolkit/
 FLAKE8_EXIT=$?
 
 echo -e "\n=== PYTEST ==="

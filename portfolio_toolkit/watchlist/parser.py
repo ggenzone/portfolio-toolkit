@@ -1,8 +1,8 @@
 import json
 
-from portfolio_tools.asset.market_asset import MarketAsset
-from portfolio_tools.data_provider.data_provider import DataProvider
-from portfolio_tools.watchlist.watchlist import Watchlist
+from portfolio_toolkit.asset.market_asset import MarketAsset
+from portfolio_toolkit.data_provider.data_provider import DataProvider
+from portfolio_toolkit.watchlist.watchlist import Watchlist
 
 
 def create_watchlist_from_json(

@@ -2,13 +2,13 @@ from typing import List
 
 import pandas as pd
 
-from portfolio_tools.asset.portfolio_asset import PortfolioAsset
-from portfolio_tools.data_provider.data_provider import DataProvider
-from portfolio_tools.portfolio.utils import (
+from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.data_provider.data_provider import DataProvider
+from portfolio_toolkit.portfolio.utils import (
     create_date_series_from_intervals,
     get_ticker_holding_intervals,
 )
-from portfolio_tools.position.get_asset_open_positions import get_asset_open_positions
+from portfolio_toolkit.position.get_asset_open_positions import get_asset_open_positions
 
 """
 The function `preprocess_data` returns a DataFrame with the following structure:

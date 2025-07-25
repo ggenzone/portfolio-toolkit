@@ -1,8 +1,8 @@
 import json
 
-from portfolio_tools.asset.optimization_asset import OptimizationAsset
-from portfolio_tools.data_provider.data_provider import DataProvider
-from portfolio_tools.optimization.optimization import Optimization
+from portfolio_toolkit.asset.optimization_asset import OptimizationAsset
+from portfolio_toolkit.data_provider.data_provider import DataProvider
+from portfolio_toolkit.optimization.optimization import Optimization
 
 
 def create_optimization_from_json(

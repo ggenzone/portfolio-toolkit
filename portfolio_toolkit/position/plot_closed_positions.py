@@ -2,8 +2,8 @@ from collections import defaultdict
 from datetime import datetime
 from typing import List
 
-from portfolio_tools.plot.bar_chart_data import BarChartData
-from portfolio_tools.position.closed_position import ClosedPosition
+from portfolio_toolkit.plot.bar_chart_data import BarChartData
+from portfolio_toolkit.position.closed_position import ClosedPosition
 
 
 def plot_closed_positions(closed_positions: List[ClosedPosition]) -> BarChartData:

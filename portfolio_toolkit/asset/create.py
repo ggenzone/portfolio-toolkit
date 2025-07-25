@@ -1,6 +1,6 @@
 from typing import Optional
 
-from portfolio_tools.data_provider.data_provider import DataProvider
+from portfolio_toolkit.data_provider.data_provider import DataProvider
 
 from .portfolio_asset import PortfolioAsset
 

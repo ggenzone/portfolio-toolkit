@@ -5,15 +5,15 @@ Portfolio Tools Documentation
    :target: https://www.python.org/downloads/
    :alt: Python Version
 
-.. image:: https://img.shields.io/github/license/ggenzone/portfolio-tools.svg
-   :target: https://github.com/ggenzone/portfolio-tools/blob/main/LICENSE
+.. image:: https://img.shields.io/github/license/ggenzone/portfolio-toolkit.svg
+   :target: https://github.com/ggenzone/portfolio-toolkit/blob/main/LICENSE
    :alt: License
 
 .. image:: https://img.shields.io/badge/docs-sphinx-brightgreen.svg
-   :target: https://ggenzone.github.io/portfolio-tools/
+   :target: https://ggenzone.github.io/portfolio-toolkit/
    :alt: Documentation
 
-Portfolio Tools is a comprehensive Python library for portfolio management, analysis, and visualization. It supports multi-currency portfolios with automatic currency conversion, FIFO cost calculation, and advanced analytics.
+Portfolio Toolkit is a comprehensive Python library for portfolio management, analysis, and visualization. It supports multi-currency portfolios with automatic currency conversion, FIFO cost calculation, and advanced analytics.
 
 Features
 --------
@@ -34,8 +34,8 @@ Installation
 
 .. code-block:: bash
 
-   git clone https://github.com/ggenzone/portfolio-tools.git
-   cd portfolio-tools
+   git clone https://github.com/ggenzone/portfolio-toolkit.git
+   cd portfolio-toolkit
    pip install -r requirements.txt
 
 Basic Usage
@@ -43,8 +43,8 @@ Basic Usage
 
 .. code-block:: python
 
-   from portfolio_tools.portfolio.portfolio import Portfolio
-   from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
+   from portfolio_toolkit.portfolio.portfolio import Portfolio
+   from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 
    # Create a data provider
    data_provider = YFDataProvider()
@@ -117,7 +117,7 @@ API Reference
    :maxdepth: 2
    :caption: API Documentation
 
-   api/portfolio_tools
+   api/portfolio_toolkit
    api/modules
 
 Examples

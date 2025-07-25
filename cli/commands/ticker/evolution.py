@@ -1,6 +1,6 @@
 import click
-from portfolio_tools.data_provider.yf_data_provider import YFDataProvider
-from portfolio_tools.plot.plot_assets import plot_assets
+from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
+from portfolio_toolkit.plot.plot_assets import plot_assets
 
 
 @click.command()

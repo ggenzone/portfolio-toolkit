@@ -47,7 +47,7 @@ class PortfolioAsset(MarketAsset):
             float: Cash amount to be added to account due to fractional shares sold
                    (only applies to reverse splits where shares are lost)
         """
-        from portfolio_tools.position.get_asset_open_positions import (
+        from portfolio_toolkit.position.get_asset_open_positions import (
             get_asset_open_positions,
         )
 

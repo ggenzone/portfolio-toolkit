@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
-from portfolio_tools.asset.optimization_asset import OptimizationAsset
-from portfolio_tools.data_provider.data_provider import DataProvider
+from portfolio_toolkit.asset.optimization_asset import OptimizationAsset
+from portfolio_toolkit.data_provider.data_provider import DataProvider
 
 
 @dataclass

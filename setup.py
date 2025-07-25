@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="portfolio-tools",
+    name="portfolio-toolkit",
     version="0.1.0",
     description="Financial portfolio analysis library and CLI.",
     author="Guido Genzone",
-    url="https://github.com/ggenzone/portfolio-tools",
+    url="https://github.com/ggenzone/portfolio-toolkit",
     packages=find_packages(),
     install_requires=[
         "pandas>=2.0.0",
@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'portfolio-tools = cli.cli:main',
+            'portfolio-toolkit = cli.cli:main',
         ],
     },
     python_requires='>=3.8',
