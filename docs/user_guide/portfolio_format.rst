@@ -6,10 +6,11 @@ Portfolio Tools uses a structured JSON format (Version 2) for storing portfolio 
 JSON Structure Overview
 ----------------------
 
-The portfolio JSON file has three main sections:
+The portfolio JSON file has four main sections:
 
 1. **Portfolio Metadata**: Basic information about the portfolio
 2. **Transactions**: Flat array of all transactions (deposits, withdrawals, buys, sells)
+3. **Splits**: Array of stock split events (optional)
 
 Basic Structure
 --------------
@@ -21,6 +22,9 @@ Basic Structure
      "currency": "EUR",
      "transactions": [
        // Array of transaction objects
+     ],
+     "splits": [
+       // Array of stock split objects (optional)
      ]
    }
 
@@ -214,10 +218,115 @@ Cash Withdrawal
      "total_base": 505.00
    }
 
+Stock Splits Structure
+---------------------
+
+The ``splits`` array is optional and contains stock split events that automatically adjust historical positions. Each split object includes the following fields:
+
+Split Fields
+~~~~~~~~~~~
+
+ticker
+^^^^^^
+- **Type**: String
+- **Required**: Yes
+- **Description**: Stock symbol that underwent the split
+- **Example**: ``"EVTL"``, ``"AAPL"``, ``"GOOGL"``
+
+date
+^^^^
+- **Type**: String
+- **Required**: Yes
+- **Format**: YYYY-MM-DD
+- **Description**: Date when the stock split became effective
+- **Example**: ``"2024-09-23"``
+
+ratio
+^^^^^
+- **Type**: String
+- **Required**: Yes
+- **Description**: Human-readable split ratio
+- **Format**: ``"new:old"`` (e.g., "2:1" for a 2-for-1 split)
+- **Examples**: ``"2:1"`` (split), ``"4:1"`` (split), ``"1:10"`` (reverse split)
+
+split_factor
+^^^^^^^^^^^^
+- **Type**: Number
+- **Required**: Yes
+- **Description**: Numerical factor to multiply existing shares
+- **Calculation**: ``new_shares = old_shares × split_factor``
+- **Examples**: ``2.0`` (2:1 split), ``0.1`` (1:10 reverse split)
+
+Split Types
+~~~~~~~~~~
+
+Forward Stock Split (2:1)
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+
+   {
+     "ticker": "AAPL",
+     "date": "2024-08-31",
+     "ratio": "4:1",
+     "split_factor": 4.0
+   }
+
+**Effect**: 100 shares become 400 shares, price adjusts from $200 to $50
+
+Reverse Stock Split (1:10)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+
+   {
+     "ticker": "EVTL",
+     "date": "2024-09-23",
+     "ratio": "1:10",
+     "split_factor": 0.1
+   }
+
+**Effect**: 1000 shares become 100 shares, price adjusts from $1 to $10
+
+Split Processing
+~~~~~~~~~~~~~~~
+
+When a split is processed:
+
+1. **Automatic Adjustment**: All positions held before the split date are automatically adjusted
+2. **FIFO Preservation**: The system maintains FIFO cost basis tracking
+3. **Fractional Shares**: For reverse splits, fractional shares are converted to cash
+4. **Transaction Creation**: The system creates sell/buy transactions to represent the split
+
+.. note::
+   Splits are processed automatically when loading the portfolio. The original transactions remain unchanged, but the effective position calculations account for all splits.
+
+Complete Split Example
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: json
+
+   {
+     "splits": [
+       {
+         "ticker": "AAPL",
+         "date": "2022-08-31",
+         "ratio": "4:1",
+         "split_factor": 4.0
+       },
+       {
+         "ticker": "EVTL",
+         "date": "2024-09-23",
+         "ratio": "1:10",
+         "split_factor": 0.1
+       }
+     ]
+   }
+
 Complete Example
 ---------------
 
-Here's a complete portfolio JSON file:
+Here's a complete portfolio JSON file with splits:
 
 .. code-block:: json
 
@@ -277,6 +386,20 @@ Here's a complete portfolio JSON file:
          "fees_base": 3.00,
          "total_base": 753.33
        }
+     ],
+     "splits": [
+       {
+         "ticker": "AAPL",
+         "date": "2024-08-31",
+         "ratio": "4:1",
+         "split_factor": 4.0
+       },
+       {
+         "ticker": "EVTL",
+         "date": "2024-09-23",
+         "ratio": "1:10",
+         "split_factor": 0.1
+       }
      ]
    }
 
@@ -287,14 +410,16 @@ The following validation rules apply:
 
 Required Fields
 ~~~~~~~~~~~~~~
-- All fields listed above are required
+- All transaction fields listed above are required
 - No field can be null except ``ticker`` for cash transactions
+- Split fields are required when ``splits`` array is present
 
 Data Types
 ~~~~~~~~~
 - Dates must be in YYYY-MM-DD format
-- Numbers must be positive
+- Numbers must be positive (except split_factor which can be any positive number)
 - Strings must not be empty
+- Split ratios must follow "new:old" format
 
 Logical Consistency
 ~~~~~~~~~~~~~~~~~
@@ -302,6 +427,16 @@ Logical Consistency
 - ``total`` must equal ``quantity × price``
 - Exchange rates must be positive
 - For base currency transactions, ``exchange_rate`` should be ``1.00``
+- Split dates must be valid dates
+- Split factors must be positive numbers
+- Split ratios must match the split_factor calculation
+
+Split-Specific Rules
+~~~~~~~~~~~~~~~~~~
+- Split dates should be before any dependent transactions
+- Split factors must be consistent with ratios (e.g., "2:1" → 2.0, "1:10" → 0.1)
+- Tickers in splits must correspond to actual stock transactions
+- Multiple splits for the same ticker must be in chronological order
 
 Common Mistakes
 --------------
@@ -358,6 +493,32 @@ Inconsistent Totals
      "subtotal_base": 1000.00,
      "fees_base": 5.00,
      "total_base": 1005.00  // For buy transactions
+   }
+
+Incorrect Split Factor
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: json
+
+   // ❌ Wrong: Split factor doesn't match ratio
+   {
+     "ticker": "AAPL",
+     "ratio": "2:1",
+     "split_factor": 0.5  // Should be 2.0 for a 2:1 split
+   }
+
+   // ✅ Correct: Split factor matches ratio
+   {
+     "ticker": "AAPL",
+     "ratio": "2:1",
+     "split_factor": 2.0  // 2 new shares for 1 old share
+   }
+
+   // ✅ Correct: Reverse split
+   {
+     "ticker": "EVTL",
+     "ratio": "1:10",
+     "split_factor": 0.1  // 1 new share for 10 old shares
    }
 
 Best Practices

@@ -62,7 +62,7 @@ class YFDataProvider(DataProvider):
         self.info_cache = {}
         self.currency_cache = {}
 
-    def __load_ticker(self, ticker, periodo="5y", auto_adjust=True):
+    def __load_ticker(self, ticker, periodo="5y", auto_adjust=False):
         """
         Private method to load ticker data into the cache. If the file exists, it loads it;
         otherwise, it downloads the data and saves it to a file.
@@ -89,7 +89,7 @@ class YFDataProvider(DataProvider):
         else:
             # print(f"Downloading data for {ticker}")
             datos = yf.download(
-                ticker, period=periodo, auto_adjust=auto_adjust, progress=False
+                ticker, period=periodo, auto_adjust=False, progress=False
             )
             datos.to_pickle(archivo_existente)
             # print(f"Data saved as binary in '{archivo_existente}'")

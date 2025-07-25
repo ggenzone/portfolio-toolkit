@@ -1,3 +1,4 @@
+from .create import create_market_asset
 from .market_asset import MarketAsset
 from .optimization_asset import OptimizationAsset
 from .portfolio_asset import PortfolioAsset
@@ -8,4 +9,5 @@ __all__ = [
     "PortfolioAssetTransaction",
     "PortfolioAsset",
     "OptimizationAsset",
+    "create_market_asset",
 ]
