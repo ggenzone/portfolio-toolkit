@@ -1,20 +1,18 @@
+from dataclasses import dataclass, field
 from typing import List
 
 from .transaction import AccountTransaction
 
 
+@dataclass
 class Account:
-    def __init__(self, name: str, currency: str):
-        """
-        Represents an account with a list of transactions.
+    """
+    Represents an account with a list of transactions.
+    """
 
-        Args:
-            name (str): The name of the account.
-            currency (str): The currency of the account.
-        """
-        self.name = name
-        self.currency = currency
-        self.transactions: List[AccountTransaction] = []
+    name: str
+    currency: str
+    transactions: List[AccountTransaction] = field(default_factory=list)
 
     def add_transaction(self, transaction: AccountTransaction):
         """
@@ -66,6 +64,25 @@ class Account:
             transaction_type=type,
             amount=transaction_dict["total_base"],
             description=text,
+        )
+        self.add_transaction(transaction)
+
+    def add_transaction_from_split_dict(self, split_dict: dict, amount: float = 0.0):
+        """
+        Adds a transaction to the account from a stock split dictionary.
+
+        Args:
+            split_dict (dict): Dictionary containing split information with keys:
+                - date: Split date (str)
+                - ticker: Ticker symbol of the asset
+                - split_factor: Split ratio as float (e.g., 2.0 for 2:1 split, 0.1 for 1:10 reverse split)
+                - amount: Amount of the asset affected by the split (default is 0.0)
+        """
+        transaction = AccountTransaction(
+            transaction_date=split_dict["date"],
+            transaction_type="buy",
+            amount=amount,
+            description=f"Stock split for {split_dict['ticker']} with factor {split_dict['split_factor']}",
         )
         self.add_transaction(transaction)
 

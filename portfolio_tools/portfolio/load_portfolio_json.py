@@ -31,8 +31,10 @@ def load_portfolio_json(json_filepath: str, data_provider: DataProvider) -> Port
 
         portfolio_currency = data["currency"]
 
+        splits = data.get("splits", [])
+
         assets, account, start_date = process_transactions(
-            data["transactions"], portfolio_currency, data_provider
+            data["transactions"], splits, portfolio_currency, data_provider
         )
 
         portfolio = {
@@ -51,7 +53,10 @@ def load_portfolio_json(json_filepath: str, data_provider: DataProvider) -> Port
 
 
 def process_transactions(
-    transactions: dict, portfolio_currency: str, data_provider: DataProvider
+    transactions: dict,
+    splits: dict,
+    portfolio_currency: str,
+    data_provider: DataProvider,
 ) -> Tuple[List[PortfolioAsset], Account, datetime]:
     """
     Processes transactions to create asset objects and validate them.
@@ -93,6 +98,14 @@ def process_transactions(
             # Create synthetic cash transaction for asset purchases/sales
             if transaction["type"] in ["buy", "sell", "dividend"]:
                 cash_account.add_transaction_from_assets_dict(transaction)
+
+    # Process splits
+    for split in splits:
+        ticker = split["ticker"]
+        if ticker in assets_dict:
+            remaining_amount = assets_dict[ticker].add_split(split)
+            if remaining_amount > 0.01:
+                cash_account.add_transaction_from_split_dict(split, remaining_amount)
 
     start_date = min(transaction_dates) if transaction_dates else None
 
