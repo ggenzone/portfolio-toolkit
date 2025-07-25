@@ -1,17 +1,17 @@
 import click
-from pathlib import Path
+
+from .beta import beta
+from .compare import compare
+from .correlation import correlation
+from .evolution import evolution
+from .export_data import data
 
 # Import individual command modules
 from .info import info
 from .returns import returns
-from .stats import stats
-from .correlation import correlation
-from .beta import beta
 from .returns_distribution import returns_distribution
+from .stats import stats
 from .volatility import volatility
-from .export_data import data
-from .compare import compare
-from .evolution import evolution
 
 
 @click.group()

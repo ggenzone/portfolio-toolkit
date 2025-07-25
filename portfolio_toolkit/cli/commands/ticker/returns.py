@@ -1,9 +1,11 @@
 import click
+
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 from portfolio_toolkit.utils.log_returns import calculate_log_returns
 
+
 @click.command()
-@click.argument('symbol')
+@click.argument("symbol")
 def returns(symbol):
     """Show daily/cumulative returns"""
     data_provider = YFDataProvider()

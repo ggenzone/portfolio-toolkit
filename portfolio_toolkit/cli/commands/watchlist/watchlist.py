@@ -1,6 +1,6 @@
-import click
 import json
-from pathlib import Path
+
+import click
 
 
 def not_implemented(command_name):
@@ -12,7 +12,7 @@ def not_implemented(command_name):
 def load_json_file(filepath):
     """Load and validate JSON file"""
     try:
-        with open(filepath, 'r') as f:
+        with open(filepath, "r") as f:
             return json.load(f)
     except FileNotFoundError:
         click.echo(f"Error: File '{filepath}' not found")
@@ -35,8 +35,8 @@ def print():
 
 
 # Print commands
-@print.command('stats-summary')
-@click.argument('file', type=click.Path(exists=True))
+@print.command("stats-summary")
+@click.argument("file", type=click.Path(exists=True))
 def stats_summary(file):
     """Show statistical summary of all assets"""
     data = load_json_file(file)

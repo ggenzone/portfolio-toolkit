@@ -1,9 +1,10 @@
 import click
+
 from ..utils import not_implemented
 
 
 @click.command()
-@click.argument('symbols', nargs=-1, required=True)
+@click.argument("symbols", nargs=-1, required=True)
 def compare(symbols):
     """Compare multiple tickers"""
     if len(symbols) < 2:

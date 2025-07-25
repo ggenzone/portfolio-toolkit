@@ -1,19 +1,19 @@
 import click
-from pathlib import Path
+
+from .allocation import allocation
+from .closed_positions import closed_positions
+from .cumulative_returns import cumulative_returns
+from .dump_data_frame import dump_data_frame
+from .evolution import evolution
+from .income import income
 
 # Import individual command modules
 from .open_positions import open_positions
-from .closed_positions import closed_positions
 from .performance_summary import performance_summary
-from .income import income
-from .evolution import evolution
-from .cumulative_returns import cumulative_returns
 from .profit import profit
-from .allocation import allocation
 from .rebalance import rebalance
 from .tax_report import tax_report
 from .transactions import transactions
-from .dump_data_frame import dump_data_frame
 
 
 @click.group()
@@ -44,6 +44,7 @@ def suggest():
 def export():
     """Export portfolio data"""
     pass
+
 
 portfolio.add_command(open_positions)
 portfolio.add_command(closed_positions)

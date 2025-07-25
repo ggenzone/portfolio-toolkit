@@ -10,8 +10,9 @@ def not_implemented(command_name):
 def load_json_file(filepath):
     """Load and validate JSON file"""
     import json
+
     try:
-        with open(filepath, 'r') as f:
+        with open(filepath, "r") as f:
             return json.load(f)
     except FileNotFoundError:
         click.echo(f"Error: File '{filepath}' not found")

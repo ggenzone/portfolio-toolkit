@@ -1,6 +1,6 @@
-import click
 import json
-from pathlib import Path
+
+import click
 
 
 def not_implemented(command_name):
@@ -12,7 +12,7 @@ def not_implemented(command_name):
 def load_json_file(filepath):
     """Load and validate JSON file"""
     try:
-        with open(filepath, 'r') as f:
+        with open(filepath, "r") as f:
             return json.load(f)
     except FileNotFoundError:
         click.echo(f"Error: File '{filepath}' not found")
@@ -66,7 +66,7 @@ def backtest():
 
 # Plot commands
 @plot.command()
-@click.argument('file', type=click.Path(exists=True))
+@click.argument("file", type=click.Path(exists=True))
 def composition(file):
     """Plot current portfolio composition (by weight or sector)"""
     data = load_json_file(file)
@@ -74,15 +74,15 @@ def composition(file):
 
 
 @plot.command()
-@click.argument('file', type=click.Path(exists=True))
+@click.argument("file", type=click.Path(exists=True))
 def frontier(file):
     """Plot efficient frontier (based on variance and expected return)"""
     data = load_json_file(file)
     not_implemented("optimization plot frontier")
 
 
-@plot.command('correlation-matrix')
-@click.argument('file', type=click.Path(exists=True))
+@plot.command("correlation-matrix")
+@click.argument("file", type=click.Path(exists=True))
 def correlation_matrix(file):
     """Plot correlation matrix between assets"""
     data = load_json_file(file)
@@ -91,7 +91,7 @@ def correlation_matrix(file):
 
 # Calc commands
 @calc.command()
-@click.argument('file', type=click.Path(exists=True))
+@click.argument("file", type=click.Path(exists=True))
 def var(file):
     """Calculate and show Value at Risk (VaR)"""
     data = load_json_file(file)
@@ -100,41 +100,32 @@ def var(file):
 
 # Print commands
 @print.command()
-@click.argument('file', type=click.Path(exists=True))
+@click.argument("file", type=click.Path(exists=True))
 def sharpe(file):
     """Show Sharpe ratio for the portfolio"""
     data = load_json_file(file)
     not_implemented("optimization print sharpe")
 
 
-@print.command('stats-summary')
-@click.argument('file', type=click.Path(exists=True))
+@print.command("stats-summary")
+@click.argument("file", type=click.Path(exists=True))
 def stats_summary(file):
     """Show statistical summary of all assets"""
     data = load_json_file(file)
     not_implemented("optimization print stats-summary")
 
 
-@print.command('risk-allocation')
-@click.argument('file', type=click.Path(exists=True))
+@print.command("risk-allocation")
+@click.argument("file", type=click.Path(exists=True))
 def risk_allocation(file):
     """Show risk contribution by asset"""
     data = load_json_file(file)
     not_implemented("optimization print risk-allocation")
 
 
-# Optimize commands
-@optimize.command()
-@click.argument('file', type=click.Path(exists=True))
-def weights(file):
-    """Optimize weights to maximize Sharpe or minimize risk"""
-    data = load_json_file(file)
-    not_implemented("optimization optimize weights")
-
-
 # Export commands
 @export.command()
-@click.argument('file', type=click.Path(exists=True))
+@click.argument("file", type=click.Path(exists=True))
 def weights(file):
     """Export current or suggested weights"""
     data = load_json_file(file)
@@ -142,8 +133,8 @@ def weights(file):
 
 
 # Backtest commands
-@backtest.command('equal-weight')
-@click.argument('file', type=click.Path(exists=True))
+@backtest.command("equal-weight")
+@click.argument("file", type=click.Path(exists=True))
 def equal_weight(file):
     """Simulate how the watchlist would have evolved with equal weights"""
     data = load_json_file(file)
