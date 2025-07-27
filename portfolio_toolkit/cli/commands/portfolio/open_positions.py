@@ -5,10 +5,8 @@ from portfolio_toolkit.plot.engine import PlotEngine
 from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
 from portfolio_toolkit.position.get_open_positions import get_open_positions
 from portfolio_toolkit.position.plot_open_positions import plot_open_positions
-from portfolio_toolkit.position.print_open_positions import (
-    print_open_positions,
-    print_open_positions_to_csv,
-)
+from portfolio_toolkit.position.print_open_positions import print_open_positions
+from portfolio_toolkit.position.valued_position import ValuedPosition
 
 from ..utils import load_json_file
 
@@ -34,7 +32,9 @@ def open_positions(file, date, output_file, plot):
     # Aquí puedes usar los parámetros opcionales
     if output_file:
         click.echo(f"Output will be saved to: {output_file}")
-        print_open_positions_to_csv(open_positions, output_file)
+        ValuedPosition.to_dataframe(open_positions).to_csv(output_file)
+        click.echo(f"✅ Open positions saved to {output_file}")
+        # print_open_positions_to_csv(open_positions, output_file)
     else:
         print_open_positions(open_positions)
 

@@ -49,6 +49,7 @@ def export():
 portfolio.add_command(open_positions)
 portfolio.add_command(closed_positions)
 
+
 # Add print commands
 print.add_command(performance_summary)
 print.add_command(income)
@@ -56,10 +57,10 @@ print.add_command(transactions)
 print.add_command(dump_data_frame)
 
 # Add plot commands
-plot.add_command(evolution)
 plot.add_command(cumulative_returns)
 plot.add_command(profit)
 plot.add_command(allocation)
+plot.add_command(evolution)
 
 # Add suggest commands
 suggest.add_command(rebalance)

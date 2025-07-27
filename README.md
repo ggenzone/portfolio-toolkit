@@ -112,7 +112,8 @@ python tests/validate_examples.py
 portfolio-tools print-positions -f tests/examples/basic_portfolio.json
 
 # Or using the module directly
-python -m cli.cli print-positions -f tests/examples/basic_portfolio.json
+python -m portfolio_toolkit.cli.cli portfolio print performance-summary tests/examples/basic_portfolio.json
+
 ```
 
 ## Documentation
