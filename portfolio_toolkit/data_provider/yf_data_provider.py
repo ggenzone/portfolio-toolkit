@@ -77,7 +77,7 @@ class YFDataProvider(DataProvider):
         """
         cache_dir = "/tmp/portfolio_tools_cache"
         os.makedirs(cache_dir, exist_ok=True)
-        archivo_existente = f"{cache_dir}/{datetime.now().strftime('%Y%m%d')}-{ticker}_historical_data.pkl"
+        archivo_existente = f"{cache_dir}/{datetime.now().strftime('%Y%m%d-%H')}-{ticker}-{periodo}_historical_data.pkl"
 
         if ticker in self.cache:
             # print(f"Using cached data for {ticker}")
@@ -274,7 +274,7 @@ class YFDataProvider(DataProvider):
         """
         return self.__load_ticker(ticker, periodo)
 
-    def get_price_series(self, ticker, columna="Close"):
+    def get_price_series(self, ticker, columna="Close", period="5y"):
         """
         Gets the price series of an asset for a specific column.
 
@@ -285,7 +285,7 @@ class YFDataProvider(DataProvider):
         Returns:
             pd.Series: Price series of the asset.
         """
-        datos = self.__load_ticker(ticker)
+        datos = self.__load_ticker(ticker, period)
 
         if columna in datos.columns:
             series = datos[columna]

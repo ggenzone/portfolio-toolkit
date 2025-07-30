@@ -7,7 +7,6 @@ from .commands.portfolio.portfolio import portfolio
 
 # New organized command groups
 from .commands.ticker.ticker import ticker
-from .commands.watchlist.watchlist import watchlist
 
 
 @click.group()
@@ -21,7 +20,6 @@ cli.add_command(clear_cache)
 
 # New organized command groups
 cli.add_command(ticker)
-cli.add_command(watchlist)
 cli.add_command(optimization)
 cli.add_command(portfolio)
 

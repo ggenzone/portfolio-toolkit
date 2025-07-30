@@ -32,7 +32,7 @@ def tax_report(file, year):
     )
 
     data_provider = YFDataProvider()
-    portfolio = load_portfolio_json(json_filepath=file, data_provider=data_provider)
+    portfolio = load_portfolio_json(data, data_provider=data_provider)
     closed_positions = get_closed_positions(
         portfolio.assets, from_date=first_day, to_date=last_day
     )

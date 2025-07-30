@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 from typing import List, Tuple
 
@@ -11,45 +10,43 @@ from portfolio_toolkit.transaction.get_ticker import get_transaction_ticker
 from portfolio_toolkit.transaction.validate import validate_transaction
 
 
-def load_portfolio_json(json_filepath: str, data_provider: DataProvider) -> Portfolio:
+def load_portfolio_json(data: dict, data_provider: DataProvider) -> Portfolio:
     """
     Loads and validates a JSON file containing portfolio information.
 
     Args:
-        json_filepath (str): Path to the JSON file to load data from.
+        data (dict): The portfolio data as a dictionary.
         data_provider (DataProvider): Data provider instance for fetching ticker information.
 
     Returns:
         Portfolio: The loaded portfolio object.
     """
-    with open(json_filepath, mode="r", encoding="utf-8") as file:
-        data = json.load(file)
 
-        # Validate portfolio structure
-        if "name" not in data or "currency" not in data or "transactions" not in data:
-            raise ValueError("The JSON does not have the expected portfolio format.")
+    # Validate portfolio structure
+    if "name" not in data or "currency" not in data or "transactions" not in data:
+        raise ValueError("The JSON does not have the expected portfolio format.")
 
-        portfolio_currency = data["currency"]
+    portfolio_currency = data["currency"]
 
-        splits = data.get("splits", [])
+    splits = data.get("splits", [])
 
-        assets, account, start_date = process_transactions(
-            data["transactions"], splits, portfolio_currency, data_provider
-        )
+    assets, account, start_date = process_transactions(
+        data["transactions"], splits, portfolio_currency, data_provider
+    )
 
-        portfolio = {
-            "name": data["name"],
-            "currency": data["currency"],
-        }
+    portfolio = {
+        "name": data["name"],
+        "currency": data["currency"],
+    }
 
-        return Portfolio(
-            name=portfolio["name"],
-            currency=portfolio["currency"],
-            assets=assets,
-            account=account,
-            start_date=start_date,
-            data_provider=data_provider,
-        )
+    return Portfolio(
+        name=portfolio["name"],
+        currency=portfolio["currency"],
+        assets=assets,
+        account=account,
+        start_date=start_date,
+        data_provider=data_provider,
+    )
 
 
 def process_transactions(

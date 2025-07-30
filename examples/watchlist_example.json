@@ -1,0 +1,9 @@
+{
+  "name": "Watchlist Name",
+  "currency": "USD",
+  "assets": [
+    { "ticker": "AAPL" },
+    { "ticker": "GOOGL" },
+    { "ticker": "MSFT" }
+  ]
+}

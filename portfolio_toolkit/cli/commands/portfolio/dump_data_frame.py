@@ -16,9 +16,7 @@ def dump_data_frame(file):
     """Show portfolio data frame"""
     data = load_json_file(file)
     data_provider = YFDataProvider()
-    basic_portfolio = load_portfolio_json(
-        json_filepath=file, data_provider=data_provider
-    )
+    basic_portfolio = load_portfolio_json(data, data_provider=data_provider)
     portfolio = create_time_series_portfolio_from_portfolio(basic_portfolio)
 
     print_data_frame(portfolio)

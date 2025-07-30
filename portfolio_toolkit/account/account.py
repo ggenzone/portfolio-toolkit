@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List
 
+import pandas as pd
+
 from .transaction import AccountTransaction
 
 
@@ -30,10 +32,17 @@ class Account:
         Args:
             transaction_dict (dict): Dictionary containing transaction details.
         """
+        amount = transaction_dict["total_base"]
+        if (
+            transaction_dict["type"] == "sell"
+            or transaction_dict["type"] == "withdrawal"
+        ):
+            amount = -amount
+
         transaction = AccountTransaction(
             transaction_date=transaction_dict["date"],
             transaction_type=transaction_dict["type"],
-            amount=transaction_dict["total_base"],
+            amount=amount,
             description=transaction_dict.get("description", None),
         )
         self.add_transaction(transaction)
@@ -47,12 +56,14 @@ class Account:
         """
         text = ""
         type = ""
+        amount = transaction_dict["total_base"]
         if transaction_dict["type"] == "buy":
             type = "sell"
-            text = f"Sell ${transaction_dict['ticker']} asset"
+            text = f"Buy ${transaction_dict['ticker']} asset"
+            amount = -amount
         elif transaction_dict["type"] == "sell":
             type = "buy"
-            text = f"Buy ${transaction_dict['ticker']} asset"
+            text = f"Sell ${transaction_dict['ticker']} asset"
         elif transaction_dict["type"] == "dividend":
             type = "income"
             text = f"Dividend received for ${transaction_dict['ticker']} asset"
@@ -62,7 +73,7 @@ class Account:
         transaction = AccountTransaction(
             transaction_date=transaction_dict["date"],
             transaction_type=type,
-            amount=transaction_dict["total_base"],
+            amount=amount,
             description=text,
         )
         self.add_transaction(transaction)
@@ -85,6 +96,32 @@ class Account:
             description=f"Stock split for {split_dict['ticker']} with factor {split_dict['split_factor']}",
         )
         self.add_transaction(transaction)
+
+    @classmethod
+    def to_dataframe(cls, account: "Account") -> pd.DataFrame:
+        """
+        Converts the account transactions to a pandas DataFrame.
+
+        Returns:
+            pd.DataFrame: DataFrame containing the account transactions.
+        """
+
+        return AccountTransaction.to_dataframe(account.transactions)
+
+    def get_amount(self) -> float:
+        """
+        Calculates the total amount of all transactions in the account.
+
+        Returns:
+            float: Total amount of all transactions.
+        """
+        return sum(tx.amount for tx in self.transactions)
+
+    def sort_transactions(self):
+        """
+        Sorts the account transactions by date.
+        """
+        self.transactions.sort(key=lambda x: x.transaction_date)
 
     def __repr__(self):
         return f"Account(name={self.name}, currency={self.currency}, transactions={self.transactions})"

@@ -2,6 +2,7 @@ from typing import List
 
 import pandas as pd
 
+from portfolio_toolkit.account.account import Account
 from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
 from portfolio_toolkit.data_provider.data_provider import DataProvider
 from portfolio_toolkit.portfolio.utils import (
@@ -32,6 +33,7 @@ Cash transactions use synthetic tickers (e.g., __EUR) with constant price of 1.0
 
 def preprocess_data(
     assets: List[PortfolioAsset],
+    account: Account,
     start_date: str,
     data_provider: DataProvider,
     currency="EUR",
@@ -41,6 +43,7 @@ def preprocess_data(
 
     Args:
         assets (list): List of assets with their transactions.
+        account (Account): Account information for the portfolio.
         start_date (datetime): Portfolio start date.
         data_provider (DataProvider): Data provider to obtain historical prices.
 
@@ -54,15 +57,10 @@ def preprocess_data(
         dates = []
         historical_prices = []
         ticker = ticker_asset.ticker
-        if ticker.startswith("__"):
-            dates = pd.date_range(start=start_date, end=pd.Timestamp.now(), freq="D")
-            historical_prices = pd.Series(1.0, index=dates)
-        else:
-            interval = get_ticker_holding_intervals(assets, ticker)
-            dates = create_date_series_from_intervals(interval)
-            historical_prices = data_provider.get_price_series_converted(
-                ticker, currency
-            )
+
+        interval = get_ticker_holding_intervals(assets, ticker)
+        dates = create_date_series_from_intervals(interval)
+        historical_prices = data_provider.get_price_series_converted(ticker, currency)
 
         latest_price = 0
         for date in dates:
@@ -102,6 +100,24 @@ def preprocess_data(
                     "Country": ticker_asset.country,
                 }
             )
+
+    dates = pd.date_range(start=start_date, end=pd.Timestamp.now(), freq="D")
+    for date in dates:
+        amount = account.get_amount(date, currency)
+        records.append(
+            {
+                "Date": date,
+                "Ticker": f"__{currency}",
+                "Quantity": amount,
+                "Price": 1,
+                "Price_Base": 1,
+                "Value": 0,
+                "Value_Base": amount,
+                "Cost": 0,
+                "Sector": "N/A",
+                "Country": "N/A",
+            }
+        )
 
     result_df = pd.DataFrame(records)
     # result_df['Date'] = result_df['Date'].astype(str)  # Convert Timestamp to string

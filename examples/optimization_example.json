@@ -1,0 +1,9 @@
+{
+  "name": "Optimization Name",
+  "currency": "USD",
+  "assets": [
+    { "ticker": "AAPL", "quantity": 0.3 },
+    { "ticker": "GOOGL", "quantity": 0.4 },
+    { "ticker": "MSFT", "quantity": 0.3 }
+  ]
+}

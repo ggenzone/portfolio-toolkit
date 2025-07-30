@@ -42,6 +42,7 @@ def export():
 ticker.add_command(compare)
 ticker.add_command(correlation)
 ticker.add_command(evolution)
+ticker.add_command(returns)
 
 # Add print commands
 print.add_command(info)
@@ -56,4 +57,3 @@ plot.add_command(volatility)
 
 # Add export commands
 export.add_command(data)
-export.add_command(returns)
