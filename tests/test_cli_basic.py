@@ -64,17 +64,14 @@ class TestCLIBasic(unittest.TestCase):
     def test_portfolio_help(self):
         self.assertTrue(self.run_command(["portfolio", "--help"], "Portfolio command help"))
 
-    def test_portfolio_print_help(self):
-        self.assertTrue(self.run_command(["portfolio", "print", "--help"], "Portfolio print command help"))
+    def test_portfolio_transactions_help(self):
+        self.assertTrue(self.run_command(["portfolio", "transactions", "--help"], "Portfolio transactions command help"))
 
-    def test_portfolio_plot_help(self):
-        self.assertTrue(self.run_command(["portfolio", "plot", "--help"], "Portfolio plot command help"))
+    def test_portfolio_positions_help(self):
+        self.assertTrue(self.run_command(["portfolio", "positions", "--help"], "Portfolio positions command help"))
 
-    def test_portfolio_export_help(self):
-        self.assertTrue(self.run_command(["portfolio", "export", "--help"], "Portfolio export command help"))
-
-    def test_watchlist_help(self):
-        self.assertTrue(self.run_command(["watchlist", "--help"], "Watchlist command help"))
+    def test_portfolio_evolution_help(self):
+        self.assertTrue(self.run_command(["portfolio", "evolution", "--help"], "Portfolio evolution command help"))
 
     def test_optimization_help(self):
         self.assertTrue(self.run_command(["optimization", "--help"], "Optimization command help"))

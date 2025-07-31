@@ -8,7 +8,7 @@ from portfolio_toolkit.utils import get_last_periods
 from ..utils import load_json_file
 
 
-@click.command("performance-summary")
+@click.command("performance")
 @click.argument("file", type=click.Path(exists=True))
 @click.option(
     "--display",
@@ -35,12 +35,12 @@ from ..utils import load_json_file
     default=None,
     help="Save results to CSV file instead of printing to console",
 )
-def performance_summary(file, display, periods, period_type, output):
+def performance(file, display, periods, period_type, output):
     """Show performance summary of the portfolio across multiple periods"""
     data = load_json_file(file)
 
     data_provider = YFDataProvider()
-    portfolio = load_portfolio_json(json_filepath=file, data_provider=data_provider)
+    portfolio = load_portfolio_json(data, data_provider=data_provider)
 
     # Obtener los períodos especificados
     period_objects = get_last_periods(

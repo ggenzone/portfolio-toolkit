@@ -2,6 +2,8 @@ import json
 
 import click
 
+from .risk import risk
+
 
 def not_implemented(command_name):
     """Standard message for not implemented commands"""
@@ -62,6 +64,10 @@ def export():
 def backtest():
     """Backtest optimization strategies"""
     pass
+
+
+# Add risk command
+optimization.add_command(risk)
 
 
 # Plot commands

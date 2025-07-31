@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List
 
+import pandas as pd
+
 from .market_asset import MarketAsset
 from .portfolio_asset_transaction import PortfolioAssetTransaction
 
@@ -8,6 +10,25 @@ from .portfolio_asset_transaction import PortfolioAssetTransaction
 @dataclass
 class PortfolioAsset(MarketAsset):
     transactions: List[PortfolioAssetTransaction] = field(default_factory=list)
+
+    @classmethod
+    def to_dataframe(cls, assets: List["PortfolioAsset"]) -> pd.DataFrame:
+        """Convert a list of PortfolioAsset objects to a pandas DataFrame."""
+
+        data = pd.DataFrame()
+        if not assets:
+            return data
+
+        for asset in assets:
+            transactions = PortfolioAssetTransaction.to_dataframe(
+                asset.transactions, asset.ticker
+            )
+
+            data = pd.concat([data, transactions], ignore_index=True)
+
+        data.sort_values(by=["date", "ticker"], inplace=True)
+        data.reset_index(drop=True, inplace=True)
+        return data
 
     def add_transaction(self, transaction: PortfolioAssetTransaction):
         """

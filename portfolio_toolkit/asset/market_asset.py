@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 import pandas as pd
 
@@ -19,6 +19,25 @@ class MarketAsset:
         self.sector = self.info.get("sector", "Unknown")
         self.country = self.info.get("country", "Unknown")
         self.currency = self.currency or self.info.get("currency", "Unknown")
+
+    @classmethod
+    def to_dataframe(cls, assets: List["MarketAsset"]) -> pd.DataFrame:
+        """Convert a list of MarketAsset objects to a pandas DataFrame."""
+        if not assets:
+            return pd.DataFrame()
+
+        data = []
+        for asset in assets:
+            data.append(
+                {
+                    "ticker": asset.ticker,
+                    "sector": asset.sector,
+                    "country": asset.country,
+                    "currency": asset.currency,
+                }
+            )
+
+        return pd.DataFrame(data)
 
     def __repr__(self):
         return (

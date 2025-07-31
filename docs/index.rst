@@ -1,7 +1,7 @@
 Portfolio Tools Documentation
 ==============================
 
-.. image:: https://img.shields.io/badge/python-3.8%2B-blue.svg
+.. image:: https://img.shields.io/badge/python-3.9%2B-blue.svg
    :target: https://www.python.org/downloads/
    :alt: Python Version
 
@@ -34,64 +34,90 @@ Installation
 
 .. code-block:: bash
 
-   git clone https://github.com/ggenzone/portfolio-toolkit.git
-   cd portfolio-toolkit
-   pip install -r requirements.txt
+   pip install portfolio-toolkit
 
-Basic Usage
-~~~~~~~~~~~
+Basic Usage (CLI)
+~~~~~~~~~~~~~~~~~
+
+The easiest way to get started is using the command-line interface:
+
+.. code-block:: bash
+
+   # View available commands
+   portfolio-toolkit --help
+
+   # Show current portfolio positions
+   portfolio-toolkit portfolio positions portfolio.json 2025-07-30
+
+   # View portfolio transactions
+   portfolio-toolkit portfolio transactions portfolio.json
+
+   # Analyze performance over time
+   portfolio-toolkit portfolio performance portfolio.json
+
+   # Generate portfolio evolution chart
+   portfolio-toolkit portfolio evolution portfolio.json
+
+Library Usage
+~~~~~~~~~~~~~
+
+For programmatic access, you can use the Python library:
 
 .. code-block:: python
 
-   from portfolio_toolkit.portfolio.portfolio import Portfolio
    from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
+   from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
+   from portfolio_toolkit.cli.commands.utils import load_json_file
 
-   # Create a data provider
+   # Load portfolio
+   data = load_json_file('portfolio.json')
    data_provider = YFDataProvider()
+   portfolio = load_portfolio_json(data, data_provider=data_provider)
 
-   # Load portfolio from JSON
-   portfolio = Portfolio('path/to/portfolio.json', data_provider)
-
-   # Print current positions
-   portfolio.print_current_positions()
-
-   # Plot portfolio composition
-   portfolio.plot_composition()
+For detailed library usage, see :doc:`examples/basic_usage`.
 
 Portfolio JSON Format
 ~~~~~~~~~~~~~~~~~~~~
 
+Create a portfolio JSON file to get started. For detailed format documentation, see :doc:`user_guide/portfolio_format`.
+
 .. code-block:: json
 
    {
-     "name": "My Portfolio",
-     "currency": "EUR",
-     "transactions": [
+     "name": "My Investment Portfolio",
+     "currency": "USD",
+     "account": [
        {
-         "ticker": null,
-         "date": "2025-06-10",
+         "date": "2023-01-15",
          "type": "deposit",
-         "quantity": 1000.00,
-         "price": 1.00,
-         "currency": "EUR",
-         "total": 1000.00,
-         "exchange_rate": 1.00,
-         "subtotal_base": 1000.00,
-         "fees_base": 0.00,
-         "total_base": 1000.00
-       },
+         "amount": 10000,
+         "currency": "USD"
+       }
+     ],
+     "assets": [
        {
          "ticker": "AAPL",
-         "date": "2025-06-12",
-         "type": "buy",
-         "quantity": 10,
-         "price": 100.00,
-         "currency": "USD",
-         "total": 1000.00,
-         "exchange_rate": 1.056,
-         "subtotal_base": 947.00,
-         "fees_base": 0.50,
-         "total_base": 947.50
+         "transactions": [
+           {
+             "date": "2023-01-20", 
+             "type": "buy",
+             "quantity": 50,
+             "price": 150.25,
+             "currency": "USD"
+           }
+         ]
+       },
+       {
+         "ticker": "MSFT",
+         "transactions": [
+           {
+             "date": "2023-02-10",
+             "type": "buy", 
+             "quantity": 30,
+             "price": 280.50,
+             "currency": "USD"
+           }
+         ]
        }
      ]
    }
@@ -99,26 +125,26 @@ Portfolio JSON Format
 Command Line Interface
 ~~~~~~~~~~~~~~~~~~~~~~
 
+The CLI provides powerful tools for portfolio analysis:
+
 .. code-block:: bash
 
-   # Print current positions
-   python -m cli.cli print-positions portfolio.json
+   # Portfolio analysis commands
+   portfolio-toolkit portfolio transactions portfolio.json              # View transactions
+   portfolio-toolkit portfolio positions portfolio.json 2025-07-30     # Current positions
+   portfolio-toolkit portfolio performance portfolio.json               # Performance analysis
+   portfolio-toolkit portfolio evolution portfolio.json                 # Evolution chart
 
-   # Export transactions to CSV
-   python -m cli.cli export-transactions portfolio.json
+   # Export options
+   portfolio-toolkit portfolio transactions portfolio.json --output transactions.csv
+   portfolio-toolkit portfolio performance portfolio.json --output performance.csv
 
-   # Plot portfolio composition
-   python -m cli.cli plot portfolio.json
+   # Performance analysis with different time periods
+   portfolio-toolkit portfolio performance portfolio.json --period-type months -n 6
+   portfolio-toolkit portfolio performance portfolio.json --period-type quarters -n 4
 
-API Reference
--------------
+For comprehensive CLI documentation, see :doc:`examples/cli_usage`.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: API Documentation
-
-   api/portfolio_toolkit
-   api/modules
 
 Examples
 --------
@@ -127,10 +153,9 @@ Examples
    :maxdepth: 2
    :caption: Examples
 
-   examples/basic_usage
    examples/cli_usage
+   examples/basic_usage
    examples/multi_currency
-   examples/advanced_analysis
 
 User Guide
 ----------
@@ -144,8 +169,17 @@ User Guide
    user_guide/watchlist_format
    user_guide/optimization_format
    user_guide/portfolio_format
-   user_guide/migration
 
+
+API Reference
+-------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Documentation
+
+   api/portfolio_toolkit
+   api/modules
 
 Testing
 -------

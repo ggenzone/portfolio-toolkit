@@ -1,4 +1,7 @@
 from dataclasses import dataclass
+from typing import List
+
+import pandas as pd
 
 
 @dataclass
@@ -13,6 +16,34 @@ class PortfolioAssetTransaction:
     subtotal_base: float
     fees_base: float
     total_base: float
+
+    @classmethod
+    def to_dataframe(
+        cls, transactions: List["PortfolioAssetTransaction"], ticker: str
+    ) -> pd.DataFrame:
+        """Convert a list of PortfolioAssetTransaction objects to a pandas DataFrame."""
+        if not transactions:
+            return pd.DataFrame()
+
+        data = []
+        for tx in transactions:
+            data.append(
+                {
+                    "date": tx.date,
+                    "ticker": ticker,
+                    "type": tx.transaction_type,
+                    "quantity": tx.quantity,
+                    "price": tx.price,
+                    "currency": tx.currency,
+                    "total": tx.total,
+                    "exchange_rate": tx.exchange_rate,
+                    "subtotal_base": tx.subtotal_base,
+                    "fees_base": tx.fees_base,
+                    "total_base": tx.total_base,
+                }
+            )
+
+        return pd.DataFrame(data)
 
     def __repr__(self):
         return (

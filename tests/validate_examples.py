@@ -3,6 +3,7 @@
 Script to validate all example portfolios work correctly with the portfolio system.
 """
 
+import json
 import os
 import sys
 from datetime import datetime
@@ -23,8 +24,9 @@ def validate_portfolio(portfolio_path, expected_name, expected_currency):
         # Create data provider
         data_provider = YFDataProvider()
         
+        data = json.load(open(portfolio_path, 'r'))
         # Load portfolio
-        basic_portfolio = load_portfolio_json(portfolio_path, data_provider)
+        basic_portfolio = load_portfolio_json(data, data_provider)
         portfolio = create_time_series_portfolio_from_portfolio(basic_portfolio)
 
         # Basic validation

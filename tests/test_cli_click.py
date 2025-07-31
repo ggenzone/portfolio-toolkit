@@ -91,7 +91,7 @@ class TestNewCLI(unittest.TestCase):
         
         # Check that all expected command groups are listed
         expected_commands = [
-            "ticker", "watchlist", "optimization", "portfolio", "clear-cache"
+            "ticker", "optimization", "portfolio", "clear-cache"
         ]
         
         for command in expected_commands:
@@ -173,66 +173,48 @@ class TestNewCLI(unittest.TestCase):
         result = self.run_cli_command(["portfolio", "--help"])
         
         self.assertIn("Portfolio analysis commands", result.stdout)
-        self.assertIn("print", result.stdout)
-        self.assertIn("plot", result.stdout)
-        self.assertIn("suggest", result.stdout)
-        self.assertIn("export", result.stdout)
-
-    def test_portfolio_print_help(self):
-        """Test portfolio print subcommand help."""
-        result = self.run_cli_command(["portfolio", "print", "--help"])
-        
-        self.assertIn("Print portfolio information", result.stdout)
-        self.assertIn("dump-data-frame", result.stdout)
-        self.assertIn("performance-summary", result.stdout)
-        self.assertIn("income", result.stdout)
         self.assertIn("transactions", result.stdout)
+        self.assertIn("positions", result.stdout)
+        self.assertIn("evolution", result.stdout)
+        self.assertIn("performance", result.stdout)
+        self.assertIn("tax-report", result.stdout)
 
-    def test_portfolio_print_open_positions_help(self):
-        """Test portfolio open-positions command help (direct command)."""
-        result = self.run_cli_command(["portfolio", "open-positions", "--help"])
+    def test_portfolio_transactions_help(self):
+        """Test portfolio transactions subcommand help."""
+        result = self.run_cli_command(["portfolio", "transactions", "--help"])
+        
+        self.assertIn("Show portfolio transactions", result.stdout)
+        self.assertIn("FILE", result.stdout)
+
+    def test_portfolio_positions_help(self):
+        """Test portfolio positions command help."""
+        result = self.run_cli_command(["portfolio", "positions", "--help"])
         
         self.assertIn("Show open positions", result.stdout)
         self.assertIn("FILE", result.stdout)
+        self.assertIn("DATE", result.stdout)
 
-    def test_portfolio_plot_help(self):
-        """Test portfolio plot subcommand help."""
-        result = self.run_cli_command(["portfolio", "plot", "--help"])
+    def test_portfolio_evolution_help(self):
+        """Test portfolio evolution subcommand help."""
+        result = self.run_cli_command(["portfolio", "evolution", "--help"])
         
-        self.assertIn("Plot portfolio data", result.stdout)
-        self.assertIn("evolution", result.stdout)
-        self.assertIn("cumulative-returns", result.stdout)
-        self.assertIn("profit", result.stdout)
-        self.assertIn("allocation", result.stdout)
+        self.assertIn("Plot portfolio value evolution", result.stdout)
+        self.assertIn("FILE", result.stdout)
 
-    def test_portfolio_suggest_help(self):
-        """Test portfolio suggest subcommand help."""
-        result = self.run_cli_command(["portfolio", "suggest", "--help"])
+    def test_portfolio_performance_help(self):
+        """Test portfolio performance subcommand help."""
+        result = self.run_cli_command(["portfolio", "performance", "--help"])
         
-        self.assertIn("Portfolio suggestions", result.stdout)
-        self.assertIn("rebalance", result.stdout)
+        self.assertIn("Show performance summary", result.stdout)
+        self.assertIn("FILE", result.stdout)
 
-    def test_portfolio_export_help(self):
-        """Test portfolio export subcommand help."""
-        result = self.run_cli_command(["portfolio", "export", "--help"])
+    def test_portfolio_tax_report_help(self):
+        """Test portfolio tax-report subcommand help."""
+        result = self.run_cli_command(["portfolio", "tax-report", "--help"])
         
-        self.assertIn("Export portfolio data", result.stdout)
-        self.assertIn("tax-report", result.stdout)
-
-    # Watchlist Command Tests
-    def test_watchlist_help(self):
-        """Test watchlist command group help."""
-        result = self.run_cli_command(["watchlist", "--help"])
-        
-        self.assertIn("Watchlist analysis commands", result.stdout)
-        self.assertIn("print", result.stdout)
-
-    def test_watchlist_print_help(self):
-        """Test watchlist print subcommand help."""
-        result = self.run_cli_command(["watchlist", "print", "--help"])
-        
-        self.assertIn("Print watchlist information", result.stdout)
-        self.assertIn("stats-summary", result.stdout)
+        self.assertIn("Generate tax report", result.stdout)
+        self.assertIn("FILE", result.stdout)
+        self.assertIn("YEAR", result.stdout)
 
     # Optimization Command Tests
     def test_optimization_help(self):
@@ -246,6 +228,7 @@ class TestNewCLI(unittest.TestCase):
         self.assertIn("optimize", result.stdout)
         self.assertIn("export", result.stdout)
         self.assertIn("backtest", result.stdout)
+        self.assertIn("risk", result.stdout)
 
     def test_optimization_plot_help(self):
         """Test optimization plot subcommand help."""
@@ -293,8 +276,8 @@ class TestNewCLI(unittest.TestCase):
         self.assertIn("Missing argument", result.stderr)
 
     def test_portfolio_missing_file_argument(self):
-        """Test portfolio open-positions with missing file argument."""
-        result = self.run_cli_command(["portfolio", "open-positions"], expect_success=False)
+        """Test portfolio positions with missing file argument."""
+        result = self.run_cli_command(["portfolio", "positions"], expect_success=False)
         
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Missing argument", result.stderr)

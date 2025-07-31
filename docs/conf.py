@@ -14,13 +14,22 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
+# Import version from package
+try:
+    from portfolio_toolkit import __version__, __author__
+    release = __version__
+    version = __version__
+    author = __author__
+except ImportError:
+    # Fallback values if import fails
+    release = '0.0.0'
+    version = '0.0.0'
+    author = 'Guido Genzone'
+
 # -- Project information -----------------------------------------------------
 
 project = 'Portfolio Toolkit'
 copyright = '2025, Guido Genzone'
-author = 'Guido Genzone'
-release = '2.0'
-version = '2.0'
 
 # -- General configuration ---------------------------------------------------
 

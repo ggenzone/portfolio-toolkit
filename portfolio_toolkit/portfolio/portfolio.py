@@ -15,6 +15,9 @@ class Portfolio:
     account: Account
     start_date: str  # = field(init=False)
 
+    def __post_init__(self):
+        self.account.sort_transactions()
+
     # def __post_init__(self):
     #    # Determina la fecha más antigua de las transacciones de todos los activos
     #    all_dates = []

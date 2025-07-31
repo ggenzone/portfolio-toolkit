@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from datetime import date
-from typing import Optional
+from typing import List, Optional
+
+import pandas as pd
 
 
 @dataclass
@@ -18,6 +20,25 @@ class AccountTransaction:
         allowed_types = {"buy", "sell", "deposit", "withdrawal", "income"}
         if self.transaction_type not in allowed_types:
             raise ValueError(f"Invalid transaction type: {self.transaction_type}")
+
+    @classmethod
+    def to_dataframe(cls, transactions: List["AccountTransaction"]) -> pd.DataFrame:
+        """Convert a list of AccountTransaction objects to a pandas DataFrame."""
+        if not transactions:
+            return pd.DataFrame()
+
+        data = []
+        for tx in transactions:
+            data.append(
+                {
+                    "date": tx.transaction_date,
+                    "type": tx.transaction_type,
+                    "amount": tx.amount,
+                    "description": tx.description,
+                }
+            )
+
+        return pd.DataFrame(data)
 
     def __repr__(self):
         return (
