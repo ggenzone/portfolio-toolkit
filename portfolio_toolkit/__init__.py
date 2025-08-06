@@ -1,6 +1,6 @@
 """Portfolio Toolkit - A comprehensive toolkit for portfolio analysis and management."""
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __author__ = "Guido Genzone"
 
 # Main imports for easy access

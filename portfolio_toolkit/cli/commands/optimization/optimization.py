@@ -2,6 +2,7 @@ import json
 
 import click
 
+from .frontier import frontier
 from .risk import risk
 
 
@@ -68,6 +69,7 @@ def backtest():
 
 # Add risk command
 optimization.add_command(risk)
+optimization.add_command(frontier)
 
 
 # Plot commands

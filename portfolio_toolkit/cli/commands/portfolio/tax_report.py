@@ -1,5 +1,6 @@
 import click
 
+from portfolio_toolkit.account.account import Account
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
 from portfolio_toolkit.portfolio.print_cash_incomes import print_cash_incomes
@@ -56,3 +57,14 @@ def tax_report(file, year):
     print("-" * 50)
 
     print_cash_incomes(portfolio, from_date=first_day, to_date=last_day)
+
+    transactions_df = Account.to_dataframe(portfolio.account)
+
+    click.echo("\n📊 Withdrawal transactions")
+    print(
+        transactions_df[
+            (transactions_df["date"] >= first_day)
+            & (transactions_df["date"] <= last_day)
+            & (transactions_df["type"] == "withdrawal")
+        ].to_string(index=False)
+    )

@@ -5,7 +5,6 @@ from portfolio_toolkit.plot.engine import PlotEngine
 from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
 from portfolio_toolkit.position.get_open_positions import get_open_positions
 from portfolio_toolkit.position.plot_open_positions import plot_open_positions
-from portfolio_toolkit.position.print_open_positions import print_open_positions
 from portfolio_toolkit.position.valued_position import ValuedPosition
 
 from ..utils import load_json_file
@@ -36,11 +35,12 @@ def positions(file, date, output_file, plot, country, sector):
     # Aquí puedes usar los parámetros opcionales
     if output_file:
         click.echo(f"Output will be saved to: {output_file}")
-        ValuedPosition.to_dataframe(open_positions).to_csv(output_file)
+        ValuedPosition.to_dataframe(open_positions).to_csv(output_file, index=False)
         click.echo(f"✅ Open positions saved to {output_file}")
         # print_open_positions_to_csv(open_positions, output_file)
     else:
-        print_open_positions(open_positions)
+        print(f"Open positions for {portfolio.name} on {date}:")
+        print(ValuedPosition.to_dataframe(open_positions).to_string(index=False))
 
     if plot:
         group_by = "Ticker"
