@@ -1,9 +1,9 @@
 {
   "name": "Watchlist Name",
-  "currency": "USD",
+  "currency": "EUR",
   "assets": [
-    { "ticker": "AAPL" },
-    { "ticker": "GOOGL" },
-    { "ticker": "MSFT" }
+    { "ticker": "KOS" },
+    { "ticker": "YPF" },
+    { "ticker": "NFE" }
   ]
 }

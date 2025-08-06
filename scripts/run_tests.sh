@@ -73,8 +73,8 @@ test_cli_commands() {
     print_section "Testing CLI Commands"
     echo "===================="
 
-    print_status "Testing portfolio open-positions command..."
-    python -m cli.cli portfolio open-positions tests/examples/basic_portfolio.json 2025-01-01
+    print_status "Testing portfolio positions command..."
+    python -m portfolio_toolkit.cli.cli portfolio positions tests/examples/basic_portfolio.json 2025-01-01
     
     print_status "CLI commands tested successfully!"
 }

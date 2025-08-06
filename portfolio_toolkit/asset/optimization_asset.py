@@ -11,6 +11,8 @@ from .market_asset import MarketAsset
 class OptimizationAsset(MarketAsset):
     quantity: float = 0.0  # evitar el error
 
+    expected_return: float = 0.0
+
     # Campos derivados que no se pasan al constructor
     returns: pd.Series = field(init=False)
     log_returns: pd.Series = field(init=False)
@@ -23,6 +25,10 @@ class OptimizationAsset(MarketAsset):
         self.returns = self.prices.pct_change().dropna()
         self.log_returns = self.prices.pct_change().apply(lambda x: np.log(1 + x))
         self.mean_return = self.log_returns.mean()
+
+        if self.expected_return < 0.001:
+            self.expected_return = self.mean_return
+
         self.volatility = self.log_returns.std()
 
     @classmethod
@@ -39,6 +45,7 @@ class OptimizationAsset(MarketAsset):
                     "currency": asset.currency,
                     "quantity": asset.quantity,
                     "mean_return": asset.mean_return,
+                    "expected_return": asset.expected_return,
                     "volatility": asset.volatility,
                     "returns_length": len(asset.returns),
                 }
