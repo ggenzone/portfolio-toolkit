@@ -22,10 +22,10 @@ class AccountTransaction:
             raise ValueError(f"Invalid transaction type: {self.transaction_type}")
 
     @classmethod
-    def to_dataframe(cls, transactions: List["AccountTransaction"]) -> pd.DataFrame:
-        """Convert a list of AccountTransaction objects to a pandas DataFrame."""
+    def to_list(cls, transactions: List["AccountTransaction"]) -> List[dict]:
+        """Convert a list of AccountTransaction objects to a list of dictionaries."""
         if not transactions:
-            return pd.DataFrame()
+            return []
 
         data = []
         for tx in transactions:
@@ -38,6 +38,13 @@ class AccountTransaction:
                 }
             )
 
+        return data
+
+    @classmethod
+    def to_dataframe(cls, transactions: List["AccountTransaction"]) -> pd.DataFrame:
+        """Convert a list of AccountTransaction objects to a pandas DataFrame."""
+
+        data = cls.to_list(transactions)
         return pd.DataFrame(data)
 
     def __repr__(self):

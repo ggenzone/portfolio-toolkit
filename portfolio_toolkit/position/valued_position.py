@@ -18,10 +18,10 @@ class ValuedPosition(Position):
         self.value = self.current_price * self.quantity
 
     @classmethod
-    def to_dataframe(cls, positions: List["ValuedPosition"]) -> pd.DataFrame:
-        """Convert a list of Position objects to a pandas DataFrame."""
+    def to_list(cls, positions: List["ValuedPosition"]) -> List[dict]:
+        """Convert a list of Position objects to a list of dictionaries."""
         if not positions:
-            return pd.DataFrame()
+            return []
 
         data = []
         for position in positions:
@@ -37,6 +37,13 @@ class ValuedPosition(Position):
                     "country": position.country,
                 }
             )
+
+        return data
+
+    @classmethod
+    def to_dataframe(cls, positions: List["ValuedPosition"]) -> pd.DataFrame:
+        """Convert a list of Position objects to a pandas DataFrame."""
+        data = cls.to_list(positions)
 
         return pd.DataFrame(data)
 
