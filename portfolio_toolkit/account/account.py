@@ -98,6 +98,16 @@ class Account:
         self.add_transaction(transaction)
 
     @classmethod
+    def to_list(cls, account: "Account") -> List[dict]:
+        """
+        Converts the account transactions to a list of dictionaries.
+
+        Returns:
+            List[dict]: List containing the account transactions.
+        """
+        return AccountTransaction.to_list(account.transactions)
+
+    @classmethod
     def to_dataframe(cls, account: "Account") -> pd.DataFrame:
         """
         Converts the account transactions to a pandas DataFrame.
@@ -108,6 +118,21 @@ class Account:
 
         return AccountTransaction.to_dataframe(account.transactions)
 
+    @classmethod
+    def export_to_dataframe(
+        cls, account: "Account", from_date: str, to_date: str
+    ) -> pd.DataFrame:
+        """
+        Converts the account transactions to a pandas DataFrame.
+
+        Returns:
+            pd.DataFrame: DataFrame containing the account transactions.
+        """
+        df = AccountTransaction.to_dataframe(account.transactions)
+        # Filter the DataFrame by the specified date range
+        df = df[(df["date"] >= from_date) & (df["date"] <= to_date)]
+        return df
+
     def get_amount(self) -> float:
         """
         Calculates the total amount of all transactions in the account.
@@ -116,6 +141,38 @@ class Account:
             float: Total amount of all transactions.
         """
         return sum(tx.amount for tx in self.transactions)
+
+    def get_amount_at(self, date) -> float:
+        """
+        Calculates the total amount of all transactions in the account up to a given date.
+
+        Args:
+            date: The cutoff date (can be string or date object)
+
+        Returns:
+            float: Total amount of all transactions up to the specified date.
+        """
+        from datetime import datetime
+
+        # Convert date to date object if it's a string
+        if isinstance(date, str):
+            cutoff_date = datetime.strptime(date, "%Y-%m-%d").date()
+        else:  # assume it's already a date object
+            cutoff_date = date
+
+        total = 0
+        for tx in self.transactions:
+            # Convert transaction date to date object for comparison
+            if isinstance(tx.transaction_date, str):
+                tx_date = datetime.strptime(tx.transaction_date, "%Y-%m-%d").date()
+            else:  # assume it's already a date object
+                tx_date = tx.transaction_date
+
+            # Include transaction if it's on or before the cutoff date
+            if tx_date <= cutoff_date:
+                total += tx.amount
+
+        return total
 
     def sort_transactions(self):
         """

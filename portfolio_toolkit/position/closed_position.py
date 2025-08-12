@@ -24,10 +24,10 @@ class ClosedPosition(Position):
         )
 
     @classmethod
-    def to_dataframe(cls, positions: List["ClosedPosition"]) -> pd.DataFrame:
+    def to_list(cls, positions: List["ClosedPosition"]) -> List:
         """Convert a list of Position objects to a pandas DataFrame."""
         if not positions:
-            return pd.DataFrame()
+            return []
 
         data = []
         for position in positions:
@@ -45,6 +45,14 @@ class ClosedPosition(Position):
                     "return_percentage": position.return_percentage,
                 }
             )
+
+        return pd.DataFrame(data)
+
+    @classmethod
+    def to_dataframe(cls, positions: List["ClosedPosition"]) -> pd.DataFrame:
+        """Convert a list of Position objects to a pandas DataFrame."""
+
+        data = cls.to_list(positions)
 
         return pd.DataFrame(data)
 

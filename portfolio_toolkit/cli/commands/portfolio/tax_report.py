@@ -1,17 +1,9 @@
 import click
+from tabulate import tabulate
 
-from portfolio_toolkit.account.account import Account
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
+from portfolio_toolkit.portfolio.get_stats import get_portfolio_stats
 from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
-from portfolio_toolkit.portfolio.print_cash_incomes import print_cash_incomes
-from portfolio_toolkit.position.get_closed_positions import get_closed_positions
-from portfolio_toolkit.position.get_open_positions import get_open_positions
-from portfolio_toolkit.position.get_valuation import get_valuation
-from portfolio_toolkit.position.print_closed_positions import (
-    print_closed_positions,
-    print_closed_positions_summary,
-)
-from portfolio_toolkit.position.print_open_positions import print_open_positions
 
 from ..utils import load_json_file
 
@@ -34,37 +26,93 @@ def tax_report(file, year):
 
     data_provider = YFDataProvider()
     portfolio = load_portfolio_json(data, data_provider=data_provider)
-    closed_positions = get_closed_positions(
-        portfolio.assets, from_date=first_day, to_date=last_day
-    )
 
-    print_closed_positions(closed_positions, last_day)
-    print_closed_positions_summary(closed_positions, last_day)
+    stats = get_portfolio_stats(portfolio, year)
 
-    last_open_positions = get_open_positions(portfolio.assets, previous_last_day)
-    open_positions = get_open_positions(portfolio.assets, last_day)
+    closed_positions_df = stats.closed_positions
+    open_positions_df = stats.open_positions
+    transactions_df = stats.transactions
 
-    # Print initial and final valuation
+    output = f"{year}-tax_report.md"
+    with open(output, "w", encoding="utf-8") as f:
+        f.write(f"# Tax Report for {portfolio.name} ({year})\n")
+        f.write("\n\n")
+
+        f.write(f"## 📊 Portfolio overview for {year}\n\n")
+
+        f.write("### Portfolio Valuation\n\n")
+        valuation_data = [
+            [
+                "Valuation",
+                f"{stats.initial_valuation:.2f}",
+                f"{stats.final_valuation:.2f}",
+            ],
+            [
+                "Return",
+                "",
+                f"{(stats.final_valuation - stats.initial_valuation) / stats.initial_valuation:.2%}",
+            ],
+        ]
+
+        headers = ["", previous_last_day, last_day]
+
+        f.write(
+            tabulate(valuation_data, headers=headers, tablefmt="github", floatfmt=".2f")
+        )
+        f.write("\n\n")
+
+        f.write("### Financial Summary\n\n")
+
+        summary_data = [
+            ["Valuation", f"{stats.final_valuation:.2f}"],
+            ["Profit", f"{stats.realized_profit:.2f}"],
+            ["Unrealized Profit", f"{stats.unrealized_profit:.2f}"],
+            ["Deposits", f"{stats.deposits:.2f}"],
+            ["Withdrawals", f"{stats.withdrawals:.2f}"],
+            ["Incomes", f"{stats.incomes:.2f}"],
+        ]
+
+        headers = ["", last_day]
+
+        f.write(
+            tabulate(summary_data, headers=headers, tablefmt="github", floatfmt=".2f")
+        )
+        f.write("\n\n")
+
+        f.write(f"## 📊 Open positions at {last_day}\n\n")
+
+        f.write(
+            tabulate(
+                open_positions_df, headers="keys", tablefmt="github", floatfmt=".2f"
+            )
+        )
+        f.write("\n\n")
+
+        f.write(f"## 📊 Cash transactions at {last_day}\n\n")
+
+        f.write("### Cash Incomes\n\n")
+
+        incomes = transactions_df[(transactions_df["type"] == "income")]
+
+        f.write(tabulate(incomes, headers="keys", tablefmt="github", floatfmt=".2f"))
+        f.write("\n\n")
+
+        f.write("### Cash Withdrawals\n\n")
+
+        withdrawals = transactions_df[(transactions_df["type"] == "withdrawal")]
+
+        f.write(
+            tabulate(withdrawals, headers="keys", tablefmt="github", floatfmt=".2f")
+        )
+        f.write("\n\n")
+
+        f.write(f"## 📊 Closed positions at {last_day}\n\n")
+
+        f.write(
+            tabulate(
+                closed_positions_df, headers="keys", tablefmt="github", floatfmt=".2f"
+            )
+        )
+        f.write("\n\n")
+
     print("-" * 50)
-    initial_valuation = get_valuation(last_open_positions)
-    click.echo(f"Initial Valuation: {initial_valuation:.2f}")
-    final_valuation = get_valuation(open_positions)
-    click.echo(f"Final Valuation: {final_valuation:.2f}")
-
-    # Print open positions at the end of the report
-    print("-" * 50)
-    print_open_positions(open_positions)
-    print("-" * 50)
-
-    print_cash_incomes(portfolio, from_date=first_day, to_date=last_day)
-
-    transactions_df = Account.to_dataframe(portfolio.account)
-
-    click.echo("\n📊 Withdrawal transactions")
-    print(
-        transactions_df[
-            (transactions_df["date"] >= first_day)
-            & (transactions_df["date"] <= last_day)
-            & (transactions_df["type"] == "withdrawal")
-        ].to_string(index=False)
-    )
