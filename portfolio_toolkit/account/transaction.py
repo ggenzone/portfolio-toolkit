@@ -17,18 +17,15 @@ class AccountTransaction:
     description: Optional[str] = None
 
     def __post_init__(self):
-        allowed_types = {"buy", "sell", "deposit", "withdrawal", "income"}
+        allowed_types = {"buy", "sell", "deposit", "withdrawal", "income", "adjustment"}
         if self.transaction_type not in allowed_types:
             raise ValueError(f"Invalid transaction type: {self.transaction_type}")
 
-    @classmethod
-    def to_list(cls, transactions: List["AccountTransaction"]) -> List[dict]:
+    def to_list(self) -> List[dict]:
         """Convert a list of AccountTransaction objects to a list of dictionaries."""
-        if not transactions:
-            return []
 
         data = []
-        for tx in transactions:
+        for tx in self.transactions:
             data.append(
                 {
                     "date": tx.transaction_date,
@@ -40,11 +37,10 @@ class AccountTransaction:
 
         return data
 
-    @classmethod
-    def to_dataframe(cls, transactions: List["AccountTransaction"]) -> pd.DataFrame:
-        """Convert a list of AccountTransaction objects to a pandas DataFrame."""
+    def to_dataframe(self) -> pd.DataFrame:
+        """Convert the account transactions to a pandas DataFrame."""
 
-        data = cls.to_list(transactions)
+        data = self.to_list()
         return pd.DataFrame(data)
 
     def __repr__(self):

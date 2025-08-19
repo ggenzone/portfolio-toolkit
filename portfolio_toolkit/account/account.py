@@ -97,38 +97,32 @@ class Account:
         )
         self.add_transaction(transaction)
 
-    @classmethod
-    def to_list(cls, account: "Account") -> List[dict]:
+    def to_list(self) -> List[dict]:
         """
         Converts the account transactions to a list of dictionaries.
 
         Returns:
             List[dict]: List containing the account transactions.
         """
-        return AccountTransaction.to_list(account.transactions)
+        return self.transactions.to_list()
 
-    @classmethod
-    def to_dataframe(cls, account: "Account") -> pd.DataFrame:
+    def to_dataframe(self) -> pd.DataFrame:
         """
         Converts the account transactions to a pandas DataFrame.
 
         Returns:
             pd.DataFrame: DataFrame containing the account transactions.
         """
+        return self.transactions.to_dataframe()
 
-        return AccountTransaction.to_dataframe(account.transactions)
-
-    @classmethod
-    def export_to_dataframe(
-        cls, account: "Account", from_date: str, to_date: str
-    ) -> pd.DataFrame:
+    def export_to_dataframe(self, from_date: str, to_date: str) -> pd.DataFrame:
         """
         Converts the account transactions to a pandas DataFrame.
 
         Returns:
             pd.DataFrame: DataFrame containing the account transactions.
         """
-        df = AccountTransaction.to_dataframe(account.transactions)
+        df = self.transactions.to_dataframe()
         # Filter the DataFrame by the specified date range
         df = df[(df["date"] >= from_date) & (df["date"] <= to_date)]
         return df

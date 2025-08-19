@@ -12,7 +12,7 @@ import pandas as pd
 from scipy.optimize import minimize
 
 
-def get_efficient_frontier(
+def compute_efficient_frontier(
     expected_returns: pd.Series,
     covariance_matrix: pd.DataFrame,
     num_points: int = 100,

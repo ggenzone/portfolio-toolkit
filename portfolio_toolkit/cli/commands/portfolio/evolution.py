@@ -2,11 +2,7 @@ import click
 
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 from portfolio_toolkit.plot.engine import PlotEngine
-from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
-from portfolio_toolkit.portfolio.plot_evolution import plot_portfolio_evolution
-from portfolio_toolkit.portfolio.time_series_portfolio import (
-    create_time_series_portfolio_from_portfolio,
-)
+from portfolio_toolkit.portfolio import Portfolio
 
 from ..utils import load_json_file
 
@@ -17,8 +13,8 @@ def evolution(file):
     """Plot portfolio value evolution"""
     data = load_json_file(file)
     data_provider = YFDataProvider()
-    basic_portfolio = load_portfolio_json(data, data_provider=data_provider)
-    portfolio = create_time_series_portfolio_from_portfolio(basic_portfolio)
+    basic_portfolio = Portfolio.from_dict(data, data_provider=data_provider)
+    time_series = basic_portfolio.get_time_series()
 
-    line_data = plot_portfolio_evolution(portfolio)
+    line_data = time_series.plot_evolution()
     PlotEngine.plot(line_data)

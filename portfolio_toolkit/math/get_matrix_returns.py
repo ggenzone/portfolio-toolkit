@@ -2,7 +2,7 @@ from typing import List
 
 import pandas as pd
 
-from portfolio_toolkit.asset.market_asset import MarketAsset
+from portfolio_toolkit.asset import MarketAsset
 from portfolio_toolkit.math.get_log_returns import get_log_returns
 
 

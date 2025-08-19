@@ -1,7 +1,7 @@
 import click
 
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
-from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
+from portfolio_toolkit.portfolio import Portfolio
 from portfolio_toolkit.position.compare_open_positions import compare_open_positions
 from portfolio_toolkit.utils import get_last_periods
 
@@ -40,7 +40,7 @@ def performance(file, display, periods, period_type, output):
     data = load_json_file(file)
 
     data_provider = YFDataProvider()
-    portfolio = load_portfolio_json(data, data_provider=data_provider)
+    portfolio = Portfolio.from_dict(data, data_provider=data_provider)
 
     # Obtener los períodos especificados
     period_objects = get_last_periods(

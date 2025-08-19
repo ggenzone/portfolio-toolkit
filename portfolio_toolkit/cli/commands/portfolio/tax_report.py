@@ -2,8 +2,7 @@ import click
 from tabulate import tabulate
 
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
-from portfolio_toolkit.portfolio.get_stats import get_portfolio_stats
-from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
+from portfolio_toolkit.portfolio import Portfolio
 
 from ..utils import load_json_file
 
@@ -25,9 +24,9 @@ def tax_report(file, year):
     )
 
     data_provider = YFDataProvider()
-    portfolio = load_portfolio_json(data, data_provider=data_provider)
+    portfolio = Portfolio.from_dict(data, data_provider=data_provider)
 
-    stats = get_portfolio_stats(portfolio, year)
+    stats = portfolio.get_stats(year)
 
     closed_positions_df = stats.closed_positions
     open_positions_df = stats.open_positions
@@ -48,9 +47,18 @@ def tax_report(file, year):
                 f"{stats.final_valuation:.2f}",
             ],
             [
+                "Cash",
+                f"{stats.initial_cash:.2f}",
+                f"{stats.final_cash:.2f}",
+            ],
+            [
                 "Return",
                 "",
-                f"{(stats.final_valuation - stats.initial_valuation) / stats.initial_valuation:.2%}",
+                (
+                    f"{(stats.final_valuation - stats.initial_valuation) / stats.initial_valuation:.2%}"
+                    if stats.initial_valuation > 0
+                    else "N/A"
+                ),
             ],
         ]
 
@@ -95,6 +103,13 @@ def tax_report(file, year):
         incomes = transactions_df[(transactions_df["type"] == "income")]
 
         f.write(tabulate(incomes, headers="keys", tablefmt="github", floatfmt=".2f"))
+        f.write("\n\n")
+
+        f.write("### Cash Deposits\n\n")
+
+        deposits = transactions_df[(transactions_df["type"] == "deposit")]
+
+        f.write(tabulate(deposits, headers="keys", tablefmt="github", floatfmt=".2f"))
         f.write("\n\n")
 
         f.write("### Cash Withdrawals\n\n")

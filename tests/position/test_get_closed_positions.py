@@ -1,4 +1,4 @@
-from portfolio_toolkit.position.get_closed_positions import get_closed_positions
+from portfolio_toolkit.position.closed.list_from_portfolio import get_closed_positions
 from portfolio_toolkit.asset import PortfolioAsset, PortfolioAssetTransaction
 from portfolio_toolkit.position import ClosedPosition
 
