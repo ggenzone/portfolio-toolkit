@@ -1,7 +1,11 @@
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/ggenzone/portfolio-toolkit/blob/master/README.md)
+[![es](https://img.shields.io/badge/lang-es-green.svg)](https://github.com/ggenzone/portfolio-toolkit/blob/master/README.es.md)
+
+
 # Portfolio-tools Library Documentation
 
 ![Documentation](https://img.shields.io/badge/docs-sphinx-brightgreen.svg)
-![Tests](https://github.com/ggenzone/portfolio-tools/workflows/Tests%20and%20Quality%20Checks/badge.svg)
+![Tests](https://github.com/ggenzone/portfolio-toolkit/workflows/Tests%20and%20Quality%20Checks/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)
 
 This library provides tools for financial analysis, portfolio management, and market data visualization with comprehensive multi-currency support and FIFO cost calculation.

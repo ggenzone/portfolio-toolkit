@@ -1,7 +1,10 @@
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/ggenzone/portfolio-toolkit/blob/master/README.md)
+[![es](https://img.shields.io/badge/lang-es-green.svg)](https://github.com/ggenzone/portfolio-toolkit/blob/master/README.es.md)
+
 # Documentación de la Biblioteca Portfolio-tools
 
 ![Documentation](https://img.shields.io/badge/docs-sphinx-brightgreen.svg)
-![Tests](https://github.com/ggenzone/portfolio-tools/workflows/Tests%20and%20Quality%20Checks/badge.svg)
+![Tests](https://github.com/ggenzone/portfolio-toolkit/workflows/Tests%20and%20Quality%20Checks/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)
 
 Esta biblioteca proporciona herramientas para análisis financiero, gestión de carteras y visualización de datos de mercado con soporte integral para múltiples monedas y cálculo de costos FIFO.
