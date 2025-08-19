@@ -40,8 +40,12 @@ jobs:
         
     - name: Validate example portfolios
       run: |
-        python tests/validate_examples.py
-        
+        python tests/examples/validate_portfolio.py
+
+    - name: Validate example watchlist
+      run: |
+        python tests/examples/validate_watchlist.py
+
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
       uses: codecov/codecov-action@v4
