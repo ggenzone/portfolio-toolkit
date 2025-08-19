@@ -40,11 +40,11 @@ jobs:
         
     - name: Validate example portfolios
       run: |
-        python tests/examples/validate_portfolio.py
+        python tests/examples/validate_portfolios.py
 
     - name: Validate example watchlist
       run: |
-        python tests/examples/validate_watchlist.py
+        python tests/examples/validate_watchlists.py
 
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
