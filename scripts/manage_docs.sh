@@ -42,38 +42,49 @@ check_requirements() {
 
 # Function to clean build directory
 clean_docs() {
-    print_status "Cleaning documentation build directory..."
-    cd docs
-    make clean
-    cd ..
+    local lang=${1:-"all"}
+    
+    if [ "$lang" = "all" ]; then
+        print_status "Cleaning all documentation build directories..."
+        rm -rf docs/en/_build docs/es/_build
+    else
+        print_status "Cleaning documentation build directory for $lang..."
+        rm -rf docs/$lang/_build
+    fi
     print_status "Documentation cleaned."
 }
 
 # Function to build documentation
 build_docs() {
-    print_status "Building documentation..."
-    cd docs
+    local lang=${1:-"en"}
     
-    # Generate API documentation
-    print_status "Generating API documentation..."
-    sphinx-apidoc -o api ../portfolio_toolkit --separate --force
+    print_status "Building documentation for language: $lang..."
+    cd docs/$lang
+    
+    # Generate API documentation (only for English to avoid duplication)
+    if [ "$lang" = "en" ]; then
+        print_status "Generating API documentation..."
+        sphinx-apidoc -o api ../../portfolio_toolkit --separate --force
+    fi
     
     # Build HTML documentation
     print_status "Building HTML documentation..."
-    make html
+    sphinx-build -b html . _build/html
     
-    cd ..
-    print_status "Documentation built successfully!"
-    print_status "Output directory: docs/_build/html"
+    cd ../..
+    print_status "Documentation built successfully for $lang!"
+    print_status "Output directory: docs/$lang/_build/html"
 }
 
 # Function to serve documentation locally
 serve_docs() {
-    print_status "Starting local documentation server..."
+    local lang=${1:-"en"}
+    
+    print_status "Starting local documentation server for $lang..."
     print_status "Documentation will be available at: http://localhost:8000"
     print_warning "Press Ctrl+C to stop the server"
     
-    cd docs/_build/html
+    cd docs/$lang/_build/html
     python -m http.server 8000
 }
 
@@ -142,22 +153,28 @@ watch_docs() {
 show_help() {
     echo "Portfolio Tools Documentation Manager"
     echo
-    echo "Usage: $0 [COMMAND]"
+    echo "Usage: $0 [COMMAND] [LANGUAGE]"
     echo
     echo "Commands:"
-    echo "  check      Check if required tools are installed"
-    echo "  clean      Clean the documentation build directory"
-    echo "  build      Build the documentation"
-    echo "  serve      Build and serve documentation locally"
-    echo "  watch      Auto-rebuild documentation on file changes"
-    echo "  deploy     Build and deploy documentation to GitHub Pages"
-    echo "  help       Show this help message"
+    echo "  check              Check if required tools are installed"
+    echo "  clean [LANG]       Clean the documentation build directory"
+    echo "  build [LANG]       Build the documentation"
+    echo "  serve [LANG]       Build and serve documentation locally"
+    echo "  watch [LANG]       Auto-rebuild documentation on file changes"
+    echo "  deploy             Build and deploy documentation to GitHub Pages"
+    echo "  help               Show this help message"
+    echo
+    echo "Languages:"
+    echo "  en                 English (default)"
+    echo "  es                 Spanish"
+    echo "  all                All languages (for clean command)"
     echo
     echo "Examples:"
-    echo "  $0 build                 # Build documentation"
-    echo "  $0 serve                 # Build and serve locally"
-    echo "  $0 watch                 # Auto-rebuild on changes"
-    echo "  $0 deploy                # Deploy to GitHub Pages"
+    echo "  $0 build en              # Build English documentation"
+    echo "  $0 build es              # Build Spanish documentation"
+    echo "  $0 serve en              # Build and serve English locally"
+    echo "  $0 serve es              # Build and serve Spanish locally"
+    echo "  $0 clean all             # Clean all build directories"
 }
 
 # Main script logic
@@ -166,20 +183,20 @@ case "${1:-}" in
         check_requirements
         ;;
     clean)
-        clean_docs
+        clean_docs "${2:-all}"
         ;;
     build)
         check_requirements
-        build_docs
+        build_docs "${2:-en}"
         ;;
     serve)
         check_requirements
-        build_docs
-        serve_docs
+        build_docs "${2:-en}"
+        serve_docs "${2:-en}"
         ;;
     watch)
         check_requirements
-        watch_docs
+        watch_docs "${2:-en}"
         ;;
     deploy)
         check_requirements
@@ -189,7 +206,7 @@ case "${1:-}" in
         show_help
         ;;
     "")
-        print_status "Building and serving documentation..."
+        print_status "Building and serving English documentation..."
         check_requirements
         build_docs
         serve_docs

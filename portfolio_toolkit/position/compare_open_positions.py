@@ -5,8 +5,6 @@ import pandas as pd
 from portfolio_toolkit.portfolio.portfolio import Portfolio
 from portfolio_toolkit.utils.period import Period
 
-from .get_open_positions import get_open_positions
-
 
 def _calculate_asset_values_for_display(
     asset: str, periods: List[Period], period_positions: dict
@@ -147,7 +145,7 @@ def compare_open_positions(
 
     for period in periods:
         end_date_str = period.end_date.strftime("%Y-%m-%d")
-        positions = get_open_positions(portfolio.assets, end_date_str)
+        positions = portfolio.get_open_positions(end_date_str)
         period_positions[period.label] = {pos.ticker: pos for pos in positions}
         all_assets.update(pos.ticker for pos in positions)
 

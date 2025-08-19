@@ -65,7 +65,12 @@ validate_examples() {
     print_section "Validating Example Portfolios"
     echo "=============================="
     
-    python tests/validate_examples.py
+    python tests/examples/validate_portfolios.py
+
+    print_section "Validating Example Watchlists"
+    echo "=============================="
+
+    python tests/examples/validate_watchlists.py
 }
 
 # Function to test CLI commands
@@ -74,8 +79,8 @@ test_cli_commands() {
     echo "===================="
 
     print_status "Testing portfolio positions command..."
-    python -m portfolio_toolkit.cli.cli portfolio positions tests/examples/basic_portfolio.json 2025-01-01
-    
+    python -m portfolio_toolkit.cli.cli portfolio positions tests/examples/portfolio/basic_portfolio.json 2025-01-01
+
     print_status "CLI commands tested successfully!"
 }
 

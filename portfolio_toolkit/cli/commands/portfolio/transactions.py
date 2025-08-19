@@ -1,9 +1,9 @@
 import click
 
 from portfolio_toolkit.account.account import Account
-from portfolio_toolkit.asset.portfolio_asset import PortfolioAsset
+from portfolio_toolkit.asset import PortfolioAsset
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
-from portfolio_toolkit.portfolio.load_portfolio_json import load_portfolio_json
+from portfolio_toolkit.portfolio import Portfolio
 
 from ..utils import load_json_file
 
@@ -22,7 +22,7 @@ def transactions(file, output, cash, income):
     """Show portfolio transactions"""
     data = load_json_file(file)
     data_provider = YFDataProvider()
-    portfolio = load_portfolio_json(data, data_provider=data_provider)
+    portfolio = Portfolio.from_dict(data, data_provider=data_provider)
 
     if cash:
         cash_transactions(portfolio, output, income)

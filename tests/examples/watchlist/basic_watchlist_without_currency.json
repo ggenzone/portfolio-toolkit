@@ -1,0 +1,9 @@
+{
+    "name": "Technology Sector ETFs",
+    "assets": [
+        { "ticker": "QQQ" },
+        { "ticker": "VGT" },
+        { "ticker": "XLK" },
+        { "ticker": "FTEC" }
+    ]
+}

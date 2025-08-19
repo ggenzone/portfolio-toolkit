@@ -1,0 +1,10 @@
+{
+    "name": "Technology Sector ETFs (EUR)",
+    "currency": "EUR",
+    "assets": [
+        { "ticker": "QQQ" },
+        { "ticker": "VGT" },
+        { "ticker": "XLK" },
+        { "ticker": "FTEC" }
+    ]
+}

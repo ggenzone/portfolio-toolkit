@@ -2,7 +2,7 @@ import click
 
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
 from portfolio_toolkit.utils import get_last_periods
-from portfolio_toolkit.watchlist import create_watchlist
+from portfolio_toolkit.watchlist import Watchlist
 from portfolio_toolkit.watchlist.performance import performance as performance_w
 
 from ..utils import load_json_file
@@ -34,7 +34,7 @@ def performance(file, periods, period_type, output):
     data = load_json_file(file)
 
     data_provider = YFDataProvider()
-    watchlist = create_watchlist(data, data_provider=data_provider)
+    watchlist = Watchlist.from_dict(data, data_provider=data_provider)
 
     # Obtener los períodos especificados
     period_objects = get_last_periods(

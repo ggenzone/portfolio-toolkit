@@ -59,6 +59,12 @@ temp/
 docs/_build/
 docs/api/
 docs/.doctrees/
+docs/en/_build/
+docs/es/_build/
+docs/en/.doctrees/
+docs/es/.doctrees/
+docs/en/api/
+docs/es/api/
 
 # Sphinx generated files
 .buildinfo

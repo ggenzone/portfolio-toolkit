@@ -1,8 +1,7 @@
 import click
 
 from portfolio_toolkit.data_provider.yf_data_provider import YFDataProvider
-from portfolio_toolkit.optimization import get_efficient_frontier
-from portfolio_toolkit.optimization.parser import create_optimization_from_json
+from portfolio_toolkit.optimization import Optimization
 
 from ..utils import load_json_file
 
@@ -13,14 +12,10 @@ def frontier(file):
     """Show portfolio risk metrics"""
     data = load_json_file(file)
     data_provider = YFDataProvider()
-    portfolio = create_optimization_from_json(data, data_provider=data_provider)
+    portfolio = Optimization.from_dict(data, data_provider=data_provider)
 
     # Calcular frontera eficiente
-    frontier = get_efficient_frontier(
-        expected_returns=portfolio.expected_returns,
-        covariance_matrix=portfolio.covariance_matrix,
-        num_points=50,
-    )
+    frontier = portfolio.get_efficient_frontier(num_points=50)
 
     # Para graficar
     import matplotlib.pyplot as plt

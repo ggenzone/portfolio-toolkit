@@ -3,7 +3,7 @@ from typing import List, Optional
 
 import pandas as pd
 
-from portfolio_toolkit.asset.optimization_asset import OptimizationAsset
+from portfolio_toolkit.asset import OptimizationAsset
 from portfolio_toolkit.data_provider.data_provider import DataProvider
 from portfolio_toolkit.math.get_matrix_returns import get_matrix_returns
 from portfolio_toolkit.math.get_var import get_covariance_matrix
@@ -44,6 +44,29 @@ class Optimization:
         )
         self.returns = get_matrix_returns(self.assets)
         self.covariance_matrix = get_covariance_matrix(self.returns)
+
+    @classmethod
+    def from_dict(cls, data: dict, data_provider: DataProvider) -> "Optimization":
+        from .optimization_from_dict import create_optimization_from_json
+
+        """
+        Alternate constructor that builds Optimization from a dictionary.
+        """
+        return create_optimization_from_json(data, data_provider)
+
+    def get_var(self) -> float:
+        from .compute_var import compute_var
+
+        return compute_var(self)
+
+    def get_efficient_frontier(self, num_points: int):
+        from .efficient_frontier import compute_efficient_frontier
+
+        return compute_efficient_frontier(
+            expected_returns=self.expected_returns,
+            covariance_matrix=self.covariance_matrix,
+            num_points=num_points,
+        )
 
     def __repr__(self):
         return f"Optimization(name={self.name}, currency={self.currency}, assets_count={len(self.assets)})"
