@@ -1,6 +1,15 @@
 Portfolio Tools Documentation
 ==============================
 
+.. raw:: html
+
+   <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 16px; margin-bottom: 24px; text-align: center;">
+      <span style="margin-right: 12px;">🌐</span>
+      <strong>Language / Idioma:</strong>
+      <span style="margin: 0 8px;">English (current)</span>
+      <a href="./es/" style="color: #0366d6; text-decoration: none; font-weight: 500;">Español</a>
+   </div>
+
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue.svg
    :target: https://www.python.org/downloads/
    :alt: Python Version

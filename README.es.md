@@ -1,6 +1,40 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/ggenzone/portfolio-toolkit/blob/master/README.md)
 [![es](https://img.shields.io/badge/lang-es-green.svg)](https://github.com/ggenzone/portfolio-toolkit/blob/master/README.es.md)
 
+## 📚 Documentación
+
+**[📖 Documentación Completa](https://ggenzone.github.io/portfolio-toolkit/)** - Referencia completa de la API, guías de usuario y ejemplos
+
+### Enlaces Rápidos de Documentación
+
+- **[Primeros Pasos](https://ggenzone.github.io/portfolio-toolkit/examples/basic_usage.html)** - Ejemplos de uso básico
+- **[Guía de Uso de CLI](https://ggenzone.github.io/portfolio-toolkit/examples/cli_usage.html)** - Referencia completa de la interfaz de línea de comandos
+- **[Soporte Multi-Moneda](https://ggenzone.github.io/portfolio-toolkit/examples/multi_currency.html)** - Trabajando con múltiples monedas
+- **[Formato JSON de Cartera](https://ggenzone.github.io/portfolio-toolkit/user_guide/portfolio_format.html)** - Especificación completa del formato
+- **[Referencia API](https://ggenzone.github.io/portfolio-toolkit/api/modules.html)** - Documentación completa de la API
+
+### Compilar Documentación Localmente
+
+```bash
+# Instalar dependencias de documentación
+pip install -r docs-requirements.txt
+
+# Compilar documentación en inglés
+./scripts/manage_docs.sh build en
+
+# Compilar documentación en español
+./scripts/manage_docs.sh build es
+
+# Servir documentación localmente (inglés)
+./scripts/manage_docs.sh serve en
+
+# Servir documentación localmente (español)
+./scripts/manage_docs.sh serve es
+
+# Auto-recompilar con cambios (inglés)
+./scripts/manage_docs.sh watch en
+```
+
 # Documentación de la Biblioteca Portfolio-tools
 
 ![Documentation](https://img.shields.io/badge/docs-sphinx-brightgreen.svg)
